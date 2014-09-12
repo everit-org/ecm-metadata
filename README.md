@@ -1,4 +1,4 @@
-everit-component-api
-====================
+everit-component-meta
+=====================
 
-API of Everit Component Model
+Classes and builder for Everit Component Model Metadata classes.
