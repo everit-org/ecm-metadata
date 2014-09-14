@@ -16,25 +16,26 @@
  */
 package org.everit.osgi.component.meta;
 
-public class DefaultConstructorInstanceSupplier<C> implements InstanceSupplier<C> {
+public class IntegerAttributeMeta extends SelectablePropertyAttributeMeta<Integer> {
 
-    private final Class<C> clazz;
+    public static class IntegerAttributeMetaBuilder
+            extends SelectablePropertyAttributeMetaBuilder<Integer, IntegerAttributeMetaBuilder> {
 
-    public DefaultConstructorInstanceSupplier(final Class<C> clazz) {
-        this.clazz = clazz;
+        @Override
+        public IntegerAttributeMeta build() {
+            return new IntegerAttributeMeta(this);
+        }
+
+        @Override
+        protected IntegerAttributeMetaBuilder self() {
+            return this;
+        }
+
     }
 
-    @Override
-    public C get() {
-        try {
-            return clazz.newInstance();
-        } catch (SecurityException e) {
-            throw new ComponentInstantiationException(e);
-        } catch (InstantiationException e) {
-            throw new ComponentInstantiationException(e);
-        } catch (IllegalAccessException e) {
-            throw new ComponentInstantiationException(e);
-        }
+    protected IntegerAttributeMeta(
+            final IntegerAttributeMetaBuilder builder) {
+        super(builder);
     }
 
 }

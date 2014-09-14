@@ -16,25 +16,29 @@
  */
 package org.everit.osgi.component.meta;
 
-public class DefaultConstructorInstanceSupplier<C> implements InstanceSupplier<C> {
+import java.util.Arrays;
 
-    private final Class<C> clazz;
+public class ServiceMeta {
 
-    public DefaultConstructorInstanceSupplier(final Class<C> clazz) {
-        this.clazz = clazz;
+    private final Class<?>[] clazzes;
+
+    public ServiceMeta() {
+        this(null);
     }
 
-    @Override
-    public C get() {
-        try {
-            return clazz.newInstance();
-        } catch (SecurityException e) {
-            throw new ComponentInstantiationException(e);
-        } catch (InstantiationException e) {
-            throw new ComponentInstantiationException(e);
-        } catch (IllegalAccessException e) {
-            throw new ComponentInstantiationException(e);
+    public ServiceMeta(final Class<?>[] clazzes) {
+        if (clazzes != null) {
+            this.clazzes = Arrays.copyOf(clazzes, clazzes.length);
+        } else {
+            this.clazzes = null;
         }
     }
 
+    public Class<?>[] getClazzes() {
+        if (clazzes != null) {
+            return Arrays.copyOf(clazzes, clazzes.length);
+        } else {
+            return null;
+        }
+    }
 }

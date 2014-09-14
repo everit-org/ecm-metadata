@@ -16,25 +16,25 @@
  */
 package org.everit.osgi.component.meta;
 
-public class DefaultConstructorInstanceSupplier<C> implements InstanceSupplier<C> {
+public class PasswordAttributeMeta extends PropertyAttributeMeta<String> {
 
-    private final Class<C> clazz;
+    public static class PasswordAttributeMetaBuilder
+            extends PropertyAttributeMetaBuilder<String, PasswordAttributeMetaBuilder> {
 
-    public DefaultConstructorInstanceSupplier(final Class<C> clazz) {
-        this.clazz = clazz;
+        @Override
+        public PasswordAttributeMeta build() {
+            return new PasswordAttributeMeta(this);
+        }
+
+        @Override
+        protected PasswordAttributeMetaBuilder self() {
+            return this;
+        }
+
     }
 
-    @Override
-    public C get() {
-        try {
-            return clazz.newInstance();
-        } catch (SecurityException e) {
-            throw new ComponentInstantiationException(e);
-        } catch (InstantiationException e) {
-            throw new ComponentInstantiationException(e);
-        } catch (IllegalAccessException e) {
-            throw new ComponentInstantiationException(e);
-        }
+    protected PasswordAttributeMeta(final PasswordAttributeMetaBuilder builder) {
+        super(builder);
     }
 
 }

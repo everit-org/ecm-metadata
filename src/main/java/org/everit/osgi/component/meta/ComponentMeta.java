@@ -1,3 +1,19 @@
+/**
+ * This file is part of Everit - Component Metadata.
+ *
+ * Everit - Component Metadata is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Everit - Component Metadata is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
+ */
 package org.everit.osgi.component.meta;
 
 import java.util.Arrays;
@@ -9,7 +25,7 @@ public final class ComponentMeta<C> {
 
     public static class ComponentMetaBuilder<C> {
 
-        private AttributeMeta[] attributes = new AttributeMeta[0];
+        private AttributeMeta<?>[] attributes = new AttributeMeta[0];
 
         private BundleContext bundleContext = null;
 
@@ -36,63 +52,63 @@ public final class ComponentMeta<C> {
             return componentMeta;
         }
 
-        public ComponentMetaBuilder<C> withAttributes(AttributeMeta[] attributes) {
+        public ComponentMetaBuilder<C> withAttributes(final AttributeMeta<?>[] attributes) {
             this.attributes = Arrays.copyOf(attributes, attributes.length);
             return this;
         }
 
-        public ComponentMetaBuilder<C> withBundleContext(BundleContext bundleContext) {
+        public ComponentMetaBuilder<C> withBundleContext(final BundleContext bundleContext) {
             this.bundleContext = bundleContext;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withConfigurationFactory(boolean configurationFactory) {
+        public ComponentMetaBuilder<C> withConfigurationFactory(final boolean configurationFactory) {
             this.configurationFactory = configurationFactory;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withConfigurationPid(String configurationPid) {
+        public ComponentMetaBuilder<C> withConfigurationPid(final String configurationPid) {
             this.configurationPid = configurationPid;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withConfigurationRequired(boolean configurationRequired) {
+        public ComponentMetaBuilder<C> withConfigurationRequired(final boolean configurationRequired) {
             this.configurationRequired = configurationRequired;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withDescription(String description) {
+        public ComponentMetaBuilder<C> withDescription(final String description) {
             this.description = description;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withIcon(String icon) {
+        public ComponentMetaBuilder<C> withIcon(final String icon) {
             this.icon = icon;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withInstanceSupplier(InstanceSupplier<C> instanceSupplier) {
+        public ComponentMetaBuilder<C> withInstanceSupplier(final InstanceSupplier<C> instanceSupplier) {
             this.instanceSupplier = instanceSupplier;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withLabel(String label) {
+        public ComponentMetaBuilder<C> withLabel(final String label) {
             this.label = label;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withName(String name) {
+        public ComponentMetaBuilder<C> withName(final String name) {
             this.name = name;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withType(Class<C> clazz) {
+        public ComponentMetaBuilder<C> withType(final Class<C> clazz) {
             this.clazz = clazz;
             return this;
         }
     }
 
-    private final AttributeMeta[] attributes;
+    private final AttributeMeta<?>[] attributes;
 
     private final BundleContext bundleContext;
 
@@ -114,7 +130,7 @@ public final class ComponentMeta<C> {
 
     private final String name;
 
-    private ComponentMeta(ComponentMetaBuilder<C> builder) {
+    private ComponentMeta(final ComponentMetaBuilder<C> builder) {
 
         Objects.requireNonNull(builder.bundleContext, "bundleContext must not be null");
         this.bundleContext = builder.bundleContext;
@@ -162,7 +178,7 @@ public final class ComponentMeta<C> {
         }
     }
 
-    public AttributeMeta[] getAttributes() {
+    public AttributeMeta<?>[] getAttributes() {
         return Arrays.copyOf(attributes, attributes.length);
     }
 

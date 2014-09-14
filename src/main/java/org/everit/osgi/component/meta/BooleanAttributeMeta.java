@@ -16,25 +16,26 @@
  */
 package org.everit.osgi.component.meta;
 
-public class DefaultConstructorInstanceSupplier<C> implements InstanceSupplier<C> {
+public class BooleanAttributeMeta extends PropertyAttributeMeta<Boolean> {
 
-    private final Class<C> clazz;
+    public static class BooleanAttributeMetaBuilder
+            extends PropertyAttributeMetaBuilder<Boolean, BooleanAttributeMetaBuilder> {
 
-    public DefaultConstructorInstanceSupplier(final Class<C> clazz) {
-        this.clazz = clazz;
+        @Override
+        public BooleanAttributeMeta build() {
+            return new BooleanAttributeMeta(self());
+        }
+
+        @Override
+        protected BooleanAttributeMetaBuilder self() {
+            return this;
+        }
+
     }
 
-    @Override
-    public C get() {
-        try {
-            return clazz.newInstance();
-        } catch (SecurityException e) {
-            throw new ComponentInstantiationException(e);
-        } catch (InstantiationException e) {
-            throw new ComponentInstantiationException(e);
-        } catch (IllegalAccessException e) {
-            throw new ComponentInstantiationException(e);
-        }
+    protected BooleanAttributeMeta(
+            final BooleanAttributeMetaBuilder builder) {
+        super(builder);
     }
 
 }

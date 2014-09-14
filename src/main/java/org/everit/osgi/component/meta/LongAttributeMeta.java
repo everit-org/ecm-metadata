@@ -16,25 +16,26 @@
  */
 package org.everit.osgi.component.meta;
 
-public class DefaultConstructorInstanceSupplier<C> implements InstanceSupplier<C> {
+public class LongAttributeMeta extends SelectablePropertyAttributeMeta<Long> {
 
-    private final Class<C> clazz;
+    public static class LongAttributeMetaBuilder
+            extends SelectablePropertyAttributeMetaBuilder<Long, LongAttributeMetaBuilder> {
 
-    public DefaultConstructorInstanceSupplier(final Class<C> clazz) {
-        this.clazz = clazz;
+        @Override
+        public LongAttributeMeta build() {
+            return new LongAttributeMeta(this);
+        }
+
+        @Override
+        protected LongAttributeMetaBuilder self() {
+            return this;
+        }
+
     }
 
-    @Override
-    public C get() {
-        try {
-            return clazz.newInstance();
-        } catch (SecurityException e) {
-            throw new ComponentInstantiationException(e);
-        } catch (InstantiationException e) {
-            throw new ComponentInstantiationException(e);
-        } catch (IllegalAccessException e) {
-            throw new ComponentInstantiationException(e);
-        }
+    protected LongAttributeMeta(
+            final LongAttributeMetaBuilder builder) {
+        super(builder);
     }
 
 }
