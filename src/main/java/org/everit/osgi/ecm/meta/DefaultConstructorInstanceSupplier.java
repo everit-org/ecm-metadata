@@ -14,28 +14,27 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.component.meta;
+package org.everit.osgi.ecm.meta;
 
-public class FloatAttributeMeta extends SelectablePropertyAttributeMeta<Float> {
+public class DefaultConstructorInstanceSupplier<C> implements InstanceSupplier<C> {
 
-    public static class FloatAttributeMetaBuilder
-            extends SelectablePropertyAttributeMetaBuilder<Float, FloatAttributeMetaBuilder> {
+    private final Class<C> clazz;
 
-        @Override
-        public FloatAttributeMeta build() {
-            return new FloatAttributeMeta(this);
-        }
-
-        @Override
-        protected FloatAttributeMetaBuilder self() {
-            return this;
-        }
-
+    public DefaultConstructorInstanceSupplier(final Class<C> clazz) {
+        this.clazz = clazz;
     }
 
-    protected FloatAttributeMeta(
-            final FloatAttributeMetaBuilder builder) {
-        super(builder);
+    @Override
+    public C get() {
+        try {
+            return clazz.newInstance();
+        } catch (SecurityException e) {
+            throw new ComponentInstantiationException(e);
+        } catch (InstantiationException e) {
+            throw new ComponentInstantiationException(e);
+        } catch (IllegalAccessException e) {
+            throw new ComponentInstantiationException(e);
+        }
     }
 
 }

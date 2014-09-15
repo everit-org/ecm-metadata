@@ -14,9 +14,28 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.component.meta;
+package org.everit.osgi.ecm.meta;
 
-public interface InstanceSupplier<T> {
+public class LongAttributeMeta extends SelectablePropertyAttributeMeta<Long> {
 
-    T get();
+    public static class LongAttributeMetaBuilder
+            extends SelectablePropertyAttributeMetaBuilder<Long, LongAttributeMetaBuilder> {
+
+        @Override
+        public LongAttributeMeta build() {
+            return new LongAttributeMeta(this);
+        }
+
+        @Override
+        protected LongAttributeMetaBuilder self() {
+            return this;
+        }
+
+    }
+
+    protected LongAttributeMeta(
+            final LongAttributeMetaBuilder builder) {
+        super(builder);
+    }
+
 }

@@ -14,27 +14,27 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.component.meta;
+package org.everit.osgi.ecm.meta;
 
-public class BooleanAttributeMeta extends PropertyAttributeMeta<Boolean> {
+public class ByteAttributeMeta extends SelectablePropertyAttributeMeta<Byte> {
 
-    public static class BooleanAttributeMetaBuilder
-            extends PropertyAttributeMetaBuilder<Boolean, BooleanAttributeMetaBuilder> {
+    public static class ByteAttributeMetaBuilder
+            extends SelectablePropertyAttributeMetaBuilder<Byte, ByteAttributeMetaBuilder> {
 
         @Override
-        public BooleanAttributeMeta build() {
-            return new BooleanAttributeMeta(self());
+        public ByteAttributeMeta build() {
+            return new ByteAttributeMeta(this);
         }
 
         @Override
-        protected BooleanAttributeMetaBuilder self() {
+        protected ByteAttributeMetaBuilder self() {
             return this;
         }
 
     }
 
-    protected BooleanAttributeMeta(
-            final BooleanAttributeMetaBuilder builder) {
+    protected ByteAttributeMeta(
+            final ByteAttributeMetaBuilder builder) {
         super(builder);
     }
 

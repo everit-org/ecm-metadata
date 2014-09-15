@@ -14,42 +14,28 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.component.meta;
+package org.everit.osgi.ecm.meta;
 
-public class StringAttributeMeta extends SelectablePropertyAttributeMeta<String> {
+public class FloatAttributeMeta extends SelectablePropertyAttributeMeta<Float> {
 
-    public static class StringAttributeMetaBuilder
-            extends SelectablePropertyAttributeMetaBuilder<String, StringAttributeMetaBuilder> {
-
-        private boolean multiline = false;
+    public static class FloatAttributeMetaBuilder
+            extends SelectablePropertyAttributeMetaBuilder<Float, FloatAttributeMetaBuilder> {
 
         @Override
-        public StringAttributeMeta build() {
-            return new StringAttributeMeta(this);
+        public FloatAttributeMeta build() {
+            return new FloatAttributeMeta(this);
         }
 
         @Override
-        protected StringAttributeMetaBuilder self() {
+        protected FloatAttributeMetaBuilder self() {
             return this;
         }
 
-        public StringAttributeMetaBuilder withMultiline(final boolean multiline) {
-            this.multiline = multiline;
-            return self();
-        }
-
     }
 
-    private final boolean multiline;
-
-    protected StringAttributeMeta(
-            final StringAttributeMetaBuilder builder) {
+    protected FloatAttributeMeta(
+            final FloatAttributeMetaBuilder builder) {
         super(builder);
-        multiline = builder.multiline;
-    }
-
-    public boolean isMultiline() {
-        return multiline;
     }
 
 }

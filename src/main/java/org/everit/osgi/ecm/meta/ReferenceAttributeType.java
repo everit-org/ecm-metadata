@@ -14,17 +14,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.component.meta;
+package org.everit.osgi.ecm.meta;
 
-public class ComponentInstantiationException extends RuntimeException {
+public enum ReferenceAttributeType {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 860892476284927739L;
+    CLAUSE,
 
-    public ComponentInstantiationException(final Throwable cause) {
-        super(cause);
-    }
+    FILTER
 
 }

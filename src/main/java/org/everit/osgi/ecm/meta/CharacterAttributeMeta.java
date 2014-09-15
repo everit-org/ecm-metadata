@@ -14,27 +14,27 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.component.meta;
+package org.everit.osgi.ecm.meta;
 
-public class ShortAttributeMeta extends SelectablePropertyAttributeMeta<Short> {
+public class CharacterAttributeMeta extends SelectablePropertyAttributeMeta<Character> {
 
-    public static class ShortAttributeMetaBuilder
-            extends SelectablePropertyAttributeMetaBuilder<Short, ShortAttributeMetaBuilder> {
+    public static class CharacterAttributeMetaBuilder
+            extends SelectablePropertyAttributeMetaBuilder<Character, CharacterAttributeMetaBuilder> {
 
         @Override
-        public ShortAttributeMeta build() {
-            return new ShortAttributeMeta(this);
+        public CharacterAttributeMeta build() {
+            return new CharacterAttributeMeta(this);
         }
 
         @Override
-        protected ShortAttributeMetaBuilder self() {
+        protected CharacterAttributeMetaBuilder self() {
             return this;
         }
 
     }
 
-    protected ShortAttributeMeta(
-            final ShortAttributeMetaBuilder builder) {
+    protected CharacterAttributeMeta(
+            final CharacterAttributeMetaBuilder builder) {
         super(builder);
     }
 
