@@ -16,19 +16,23 @@
  */
 package org.everit.osgi.ecm.meta;
 
-public class ReferenceMeta {
+public class ReferenceMeta implements AttributeMetaHolder<String> {
 
     public static class ReferenceMetaBuilder {
 
-        private ReferenceAttributeMeta attribute;
+        private ReferenceAttributeMeta attribute = null;
 
-        private String bind;
+        private String bind = null;
 
-        private ReferenceCardinality cardinality;
+        private ReferenceCardinality cardinality = ReferenceCardinality.MANDATORY;
 
-        private boolean dynamic;
+        private boolean dynamic = false;
 
-        private String unbind;
+        private String name = null;
+
+        private Class<?> referenceInterface = null;
+
+        private String unbind = null;
 
         public ReferenceMeta build() {
             return new ReferenceMeta(this);
@@ -51,6 +55,16 @@ public class ReferenceMeta {
 
         public ReferenceMetaBuilder withDynamic(final boolean dynamic) {
             this.dynamic = dynamic;
+            return this;
+        }
+
+        public ReferenceMetaBuilder withName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public ReferenceMetaBuilder withReferenceInterface(Class<?> referenceInterface) {
+            this.referenceInterface = referenceInterface;
             return this;
         }
 
@@ -82,6 +96,10 @@ public class ReferenceMeta {
      */
     private final boolean dynamic;
 
+    private final String name;
+
+    private final Class<?> referenceInterface;
+
     /**
      * The bind method that should be used to bind the reference. In case the unbind method is not specified but there
      * is a method starting with "un" and ending with the name of the bind method, that method will be used to unbind
@@ -95,8 +113,11 @@ public class ReferenceMeta {
         dynamic = builder.dynamic;
         unbind = builder.unbind;
         attribute = builder.attribute;
+        referenceInterface = builder.referenceInterface;
+        name = builder.name;
     }
 
+    @Override
     public ReferenceAttributeMeta getAttribute() {
         return attribute;
     }
@@ -109,6 +130,14 @@ public class ReferenceMeta {
         return cardinality;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public Class<?> getReferenceInterface() {
+        return referenceInterface;
+    }
+
     public String getUnbind() {
         return unbind;
     }
@@ -116,4 +145,5 @@ public class ReferenceMeta {
     public boolean isDynamic() {
         return dynamic;
     }
+
 }

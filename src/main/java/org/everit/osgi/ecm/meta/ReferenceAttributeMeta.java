@@ -24,7 +24,7 @@ public class ReferenceAttributeMeta extends AttributeMeta<String> {
         private ReferenceAttributeType referenceAttributeType = ReferenceAttributeType.FILTER;
 
         @Override
-        public AttributeMeta<String> build() {
+        public ReferenceAttributeMeta build() {
             return new ReferenceAttributeMeta(this);
         }
 
@@ -38,7 +38,6 @@ public class ReferenceAttributeMeta extends AttributeMeta<String> {
             this.referenceAttributeType = referenceAttributeType;
             return this;
         }
-
     }
 
     private final ReferenceAttributeType referenceAttributeType;

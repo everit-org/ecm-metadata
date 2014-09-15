@@ -43,7 +43,7 @@ public abstract class PropertyAttributeMeta<V> extends AttributeMeta<V> {
 
         private boolean dynamic = false;
 
-        private String setter;
+        private String setter = null;
 
         public B withCardinality(final int cardinality) {
             this.cardinality = cardinality;

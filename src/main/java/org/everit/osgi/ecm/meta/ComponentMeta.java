@@ -25,7 +25,7 @@ public final class ComponentMeta<C> {
 
     public static class ComponentMetaBuilder<C> {
 
-        private AttributeMeta<?>[] attributes = new AttributeMeta[0];
+        private AttributeMetaHolder<?>[] attributeHolders = new AttributeMetaHolder[0];
 
         private BundleContext bundleContext = null;
 
@@ -52,8 +52,8 @@ public final class ComponentMeta<C> {
             return componentMeta;
         }
 
-        public ComponentMetaBuilder<C> withAttributes(final AttributeMeta<?>[] attributes) {
-            this.attributes = Arrays.copyOf(attributes, attributes.length);
+        public ComponentMetaBuilder<C> withAttributeHolders(final AttributeMetaHolder<?>[] attributeHolders) {
+            this.attributeHolders = Arrays.copyOf(attributeHolders, attributeHolders.length);
             return this;
         }
 
@@ -108,7 +108,7 @@ public final class ComponentMeta<C> {
         }
     }
 
-    private final AttributeMeta<?>[] attributes;
+    private final AttributeMetaHolder<?>[] attributeHolders;
 
     private final BundleContext bundleContext;
 
@@ -138,8 +138,8 @@ public final class ComponentMeta<C> {
         Objects.requireNonNull(builder.clazz, "Class type for ComponentMeta must be provided");
         this.clazz = builder.clazz;
 
-        Objects.requireNonNull(builder.attributes, "attributes must not be null");
-        this.attributes = builder.attributes;
+        Objects.requireNonNull(builder.attributeHolders, "attributes must not be null");
+        this.attributeHolders = builder.attributeHolders;
 
         if (builder.name != null) {
             this.name = builder.name;
@@ -178,8 +178,8 @@ public final class ComponentMeta<C> {
         }
     }
 
-    public AttributeMeta<?>[] getAttributes() {
-        return Arrays.copyOf(attributes, attributes.length);
+    public AttributeMetaHolder<?>[] getAttributeHolders() {
+        return Arrays.copyOf(attributeHolders, attributeHolders.length);
     }
 
     public BundleContext getBundleContext() {

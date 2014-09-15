@@ -19,7 +19,7 @@ package org.everit.osgi.ecm.meta;
 import java.util.Arrays;
 import java.util.Objects;
 
-public abstract class AttributeMeta<V> {
+public abstract class AttributeMeta<V> implements AttributeMetaHolder<V> {
 
     public static abstract class AttributeMetaBuilder<V, B extends AttributeMetaBuilder<V, B>> {
 
@@ -93,6 +93,11 @@ public abstract class AttributeMeta<V> {
         this.defaultValue = builder.defaultValue;
 
         this.metatype = builder.metatype;
+    }
+
+    @Override
+    public AttributeMeta<V> getAttribute() {
+        return this;
     }
 
     public V[] getDefaultValue() {
