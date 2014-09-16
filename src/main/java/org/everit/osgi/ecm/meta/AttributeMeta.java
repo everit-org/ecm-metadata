@@ -17,6 +17,7 @@
 package org.everit.osgi.ecm.meta;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public abstract class AttributeMeta<V> implements AttributeMetaHolder<V> {
 
@@ -74,6 +75,7 @@ public abstract class AttributeMeta<V> implements AttributeMetaHolder<V> {
     private final String name;
 
     protected <B extends AttributeMetaBuilder<V, B>> AttributeMeta(final AttributeMetaBuilder<V, B> builder) {
+        Objects.requireNonNull(builder.name, "Name must be provided for attribute");
         this.name = builder.name;
 
         if (builder.label != null) {

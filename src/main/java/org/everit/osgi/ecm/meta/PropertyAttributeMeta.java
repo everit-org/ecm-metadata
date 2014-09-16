@@ -41,7 +41,7 @@ public abstract class PropertyAttributeMeta<V> extends AttributeMeta<V> {
          *
          * @return The cardinality of this attribute.
          */
-        int cardinality;
+        private int cardinality;
 
         private boolean dynamic = false;
 
