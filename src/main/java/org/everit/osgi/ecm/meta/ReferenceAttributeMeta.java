@@ -21,7 +21,7 @@ public class ReferenceAttributeMeta extends AttributeMeta<String> {
     public static class ReferenceAttributeMetaBuilder
             extends AttributeMetaBuilder<String, ReferenceAttributeMetaBuilder> {
 
-        private ReferenceAttributeType referenceAttributeType = ReferenceAttributeType.FILTER;
+        private ReferenceConfigurationType referenceConfigurationType = ReferenceConfigurationType.FILTER;
 
         @Override
         public ReferenceAttributeMeta build() {
@@ -33,22 +33,23 @@ public class ReferenceAttributeMeta extends AttributeMeta<String> {
             return this;
         }
 
-        public ReferenceAttributeMetaBuilder withReferenceAttributeType(
-                final ReferenceAttributeType referenceAttributeType) {
-            this.referenceAttributeType = referenceAttributeType;
+        public ReferenceAttributeMetaBuilder withReferenceConfigurationType(
+                final ReferenceConfigurationType referenceAttributeType) {
+            this.referenceConfigurationType = referenceAttributeType;
             return this;
         }
     }
 
-    private final ReferenceAttributeType referenceAttributeType;
+    private final ReferenceConfigurationType referenceAttributeType;
 
     protected ReferenceAttributeMeta(
             final ReferenceAttributeMetaBuilder builder) {
         super(builder);
-        referenceAttributeType = builder.referenceAttributeType;
+        referenceAttributeType = builder.referenceConfigurationType;
+
     }
 
-    public ReferenceAttributeType getReferenceAttributeType() {
+    public ReferenceConfigurationType getReferenceAttributeType() {
         return referenceAttributeType;
     }
 }

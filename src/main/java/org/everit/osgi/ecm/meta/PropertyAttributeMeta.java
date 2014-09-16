@@ -16,6 +16,8 @@
  */
 package org.everit.osgi.ecm.meta;
 
+import java.util.Objects;
+
 public abstract class PropertyAttributeMeta<V> extends AttributeMeta<V> {
 
     public static abstract class PropertyAttributeMetaBuilder<V, B extends PropertyAttributeMetaBuilder<V, B>>
@@ -72,6 +74,8 @@ public abstract class PropertyAttributeMeta<V> extends AttributeMeta<V> {
             final PropertyAttributeMetaBuilder<V, B> builder) {
 
         super(builder);
+        Objects.requireNonNull(getName(), "Name must be provided for the attribute");
+
         this.setter = builder.setter;
         this.dynamic = builder.dynamic;
         this.cardinality = builder.cardinality;

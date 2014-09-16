@@ -112,9 +112,32 @@ public class ReferenceMeta implements AttributeMetaHolder<String> {
         cardinality = builder.cardinality;
         dynamic = builder.dynamic;
         unbind = builder.unbind;
-        attribute = builder.attribute;
         referenceInterface = builder.referenceInterface;
         name = builder.name;
+
+        attribute = evaluateAttribute(builder);
+    }
+
+    private ReferenceAttributeMeta evaluateAttribute(final ReferenceMetaBuilder builder) {
+        if (builder.attribute.getName() != null) {
+            return builder.attribute;
+        }
+
+        ReferenceAttributeMeta builderAttribute = builder.attribute;
+
+        String attributeNameExtension = ".target";
+        if (ReferenceConfigurationType.CLAUSE.equals(builderAttribute.getReferenceAttributeType())) {
+            attributeNameExtension = ".clause";
+        }
+        return new ReferenceAttributeMeta.ReferenceAttributeMetaBuilder()
+                .withDefaultValue(builderAttribute.getDefaultValue())
+                .withDescription(builderAttribute.getDescription())
+                .withLabel(builderAttribute.getLabel())
+                .withMetatype(builderAttribute.isMetatype())
+                .withName(name + attributeNameExtension)
+                .withReferenceConfigurationType(builderAttribute.getReferenceAttributeType())
+                .build();
+
     }
 
     @Override

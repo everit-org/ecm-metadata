@@ -41,8 +41,6 @@ public final class ComponentMeta<C> {
 
         private String icon = null;
 
-        private InstanceSupplier<C> instanceSupplier = null;
-
         private String label = null;
 
         private String name = null;
@@ -87,11 +85,6 @@ public final class ComponentMeta<C> {
             return this;
         }
 
-        public ComponentMetaBuilder<C> withInstanceSupplier(final InstanceSupplier<C> instanceSupplier) {
-            this.instanceSupplier = instanceSupplier;
-            return this;
-        }
-
         public ComponentMetaBuilder<C> withLabel(final String label) {
             this.label = label;
             return this;
@@ -123,8 +116,6 @@ public final class ComponentMeta<C> {
     private final String description;
 
     private final String icon;
-
-    private final InstanceSupplier<C> instanceSupplier;
 
     private final String label;
 
@@ -171,11 +162,6 @@ public final class ComponentMeta<C> {
 
         this.icon = builder.icon;
 
-        if (builder.instanceSupplier != null) {
-            this.instanceSupplier = builder.instanceSupplier;
-        } else {
-            this.instanceSupplier = new DefaultConstructorInstanceSupplier<C>(clazz);
-        }
     }
 
     public AttributeMetaHolder<?>[] getAttributeHolders() {
@@ -196,10 +182,6 @@ public final class ComponentMeta<C> {
 
     public String getIcon() {
         return icon;
-    }
-
-    public InstanceSupplier<C> getInstanceSupplier() {
-        return instanceSupplier;
     }
 
     public String getLabel() {

@@ -17,7 +17,6 @@
 package org.everit.osgi.ecm.meta;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public abstract class AttributeMeta<V> implements AttributeMetaHolder<V> {
 
@@ -75,19 +74,22 @@ public abstract class AttributeMeta<V> implements AttributeMetaHolder<V> {
     private final String name;
 
     protected <B extends AttributeMetaBuilder<V, B>> AttributeMeta(final AttributeMetaBuilder<V, B> builder) {
-        Objects.requireNonNull(builder.name, "Name must be provided for the attribute");
         this.name = builder.name;
 
         if (builder.label != null) {
             this.label = builder.label;
-        } else {
+        } else if (name != null) {
             this.label = "%" + this.name + ".name";
+        } else {
+            this.label = null;
         }
 
         if (builder.description != null) {
             this.description = builder.description;
-        } else {
+        } else if (name != null) {
             this.description = "%" + this.name + ".description";
+        } else {
+            this.description = null;
         }
 
         this.defaultValue = builder.defaultValue;
