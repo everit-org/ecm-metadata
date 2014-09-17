@@ -43,6 +43,8 @@ public final class ComponentMeta<C> {
 
         private String label = null;
 
+        private String localization = null;
+
         private String name = null;
 
         public ComponentMeta<C> build() {
@@ -90,6 +92,11 @@ public final class ComponentMeta<C> {
             return this;
         }
 
+        public ComponentMetaBuilder<C> withLocalization(final String localization) {
+            this.localization = localization;
+            return this;
+        }
+
         public ComponentMetaBuilder<C> withName(final String name) {
             this.name = name;
             return this;
@@ -118,6 +125,8 @@ public final class ComponentMeta<C> {
     private final String icon;
 
     private final String label;
+
+    private final String localization;
 
     private final String name;
 
@@ -162,6 +171,8 @@ public final class ComponentMeta<C> {
 
         this.icon = builder.icon;
 
+        this.localization = builder.localization;
+
     }
 
     public AttributeMetaHolder<?>[] getAttributeHolders() {
@@ -186,6 +197,10 @@ public final class ComponentMeta<C> {
 
     public String getLabel() {
         return label;
+    }
+
+    public String getLocalization() {
+        return localization;
     }
 
     public String getName() {
