@@ -22,14 +22,14 @@ import java.util.Map;
 
 public abstract class SelectablePropertyAttributeMeta<P> extends PropertyAttributeMeta<P> {
 
-    public static abstract class SelectablePropertyAttributeMetaBuilder<P, B extends PropertyAttributeMetaBuilder<P, B>>
-            extends PropertyAttributeMetaBuilder<P, B> {
+    public static abstract class SelectablePropertyAttributeMetaBuilder<V, B extends PropertyAttributeMetaBuilder<V, B>>
+            extends PropertyAttributeMetaBuilder<V, B> {
 
-        private Map<P, String> options = null;
+        private Map<V, String> options = null;
 
-        public void setOptions(final Map<P, String> options) {
+        public void setOptions(final Map<V, String> options) {
             if (options != null) {
-                this.options = Collections.unmodifiableMap(new LinkedHashMap<P, String>(options));
+                this.options = Collections.unmodifiableMap(new LinkedHashMap<V, String>(options));
             } else {
                 this.options = null;
             }

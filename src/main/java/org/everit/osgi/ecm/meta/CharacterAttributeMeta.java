@@ -27,6 +27,11 @@ public class CharacterAttributeMeta extends SelectablePropertyAttributeMeta<Char
         }
 
         @Override
+        public Class<Character> getValueType() {
+            return Character.class;
+        }
+
+        @Override
         protected CharacterAttributeMetaBuilder self() {
             return this;
         }

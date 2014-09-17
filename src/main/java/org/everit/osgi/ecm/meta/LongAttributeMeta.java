@@ -27,10 +27,14 @@ public class LongAttributeMeta extends SelectablePropertyAttributeMeta<Long> {
         }
 
         @Override
+        public Class<Long> getValueType() {
+            return Long.class;
+        }
+
+        @Override
         protected LongAttributeMetaBuilder self() {
             return this;
         }
-
     }
 
     protected LongAttributeMeta(

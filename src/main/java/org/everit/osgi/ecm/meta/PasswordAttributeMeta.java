@@ -27,10 +27,14 @@ public class PasswordAttributeMeta extends PropertyAttributeMeta<String> {
         }
 
         @Override
+        public Class<String> getValueType() {
+            return String.class;
+        }
+
+        @Override
         protected PasswordAttributeMetaBuilder self() {
             return this;
         }
-
     }
 
     protected PasswordAttributeMeta(final PasswordAttributeMetaBuilder builder) {

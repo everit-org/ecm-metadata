@@ -61,7 +61,6 @@ public abstract class PropertyAttributeMeta<V> extends AttributeMeta<V> {
             this.setter = setter;
             return self();
         }
-
     }
 
     private final int cardinality;

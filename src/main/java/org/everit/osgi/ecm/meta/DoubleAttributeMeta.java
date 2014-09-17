@@ -27,6 +27,11 @@ public class DoubleAttributeMeta extends SelectablePropertyAttributeMeta<Double>
         }
 
         @Override
+        public Class<Double> getValueType() {
+            return Double.class;
+        }
+
+        @Override
         protected DoubleAttributeMetaBuilder self() {
             return this;
         }

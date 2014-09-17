@@ -27,10 +27,14 @@ public class IntegerAttributeMeta extends SelectablePropertyAttributeMeta<Intege
         }
 
         @Override
+        public Class<Integer> getValueType() {
+            return Integer.class;
+        }
+
+        @Override
         protected IntegerAttributeMetaBuilder self() {
             return this;
         }
-
     }
 
     protected IntegerAttributeMeta(

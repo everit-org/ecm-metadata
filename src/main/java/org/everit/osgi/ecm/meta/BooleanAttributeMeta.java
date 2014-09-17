@@ -27,6 +27,11 @@ public class BooleanAttributeMeta extends PropertyAttributeMeta<Boolean> {
         }
 
         @Override
+        public Class<Boolean> getValueType() {
+            return Boolean.class;
+        }
+
+        @Override
         protected BooleanAttributeMetaBuilder self() {
             return this;
         }

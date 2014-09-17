@@ -27,10 +27,14 @@ public class ShortAttributeMeta extends SelectablePropertyAttributeMeta<Short> {
         }
 
         @Override
+        public Class<Short> getValueType() {
+            return Short.class;
+        }
+
+        @Override
         protected ShortAttributeMetaBuilder self() {
             return this;
         }
-
     }
 
     protected ShortAttributeMeta(

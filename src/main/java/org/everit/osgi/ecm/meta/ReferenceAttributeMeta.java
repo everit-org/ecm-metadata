@@ -29,6 +29,11 @@ public class ReferenceAttributeMeta extends AttributeMeta<String> {
         }
 
         @Override
+        public Class<String> getValueType() {
+            return String.class;
+        }
+
+        @Override
         protected ReferenceAttributeMetaBuilder self() {
             return this;
         }

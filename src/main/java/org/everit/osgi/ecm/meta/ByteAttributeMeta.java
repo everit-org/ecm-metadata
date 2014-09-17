@@ -27,6 +27,11 @@ public class ByteAttributeMeta extends SelectablePropertyAttributeMeta<Byte> {
         }
 
         @Override
+        public Class<Byte> getValueType() {
+            return Byte.class;
+        }
+
+        @Override
         protected ByteAttributeMetaBuilder self() {
             return this;
         }

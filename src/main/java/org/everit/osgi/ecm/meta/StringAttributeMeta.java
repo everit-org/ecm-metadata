@@ -29,6 +29,11 @@ public class StringAttributeMeta extends SelectablePropertyAttributeMeta<String>
         }
 
         @Override
+        public Class<String> getValueType() {
+            return String.class;
+        }
+
+        @Override
         protected StringAttributeMetaBuilder self() {
             return this;
         }

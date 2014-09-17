@@ -27,10 +27,14 @@ public class FloatAttributeMeta extends SelectablePropertyAttributeMeta<Float> {
         }
 
         @Override
+        public Class<Float> getValueType() {
+            return Float.class;
+        }
+
+        @Override
         protected FloatAttributeMetaBuilder self() {
             return this;
         }
-
     }
 
     protected FloatAttributeMeta(
