@@ -27,12 +27,13 @@ public abstract class SelectablePropertyAttributeMeta<P> extends PropertyAttribu
 
         private Map<V, String> options = null;
 
-        public void setOptions(final Map<V, String> options) {
+        public B withOptions(final Map<V, String> options) {
             if (options != null) {
                 this.options = Collections.unmodifiableMap(new LinkedHashMap<V, String>(options));
             } else {
                 this.options = null;
             }
+            return self();
         }
     }
 

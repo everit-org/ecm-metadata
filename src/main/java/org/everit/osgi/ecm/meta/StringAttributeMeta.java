@@ -21,7 +21,7 @@ public class StringAttributeMeta extends SelectablePropertyAttributeMeta<String>
     public static class StringAttributeMetaBuilder
             extends SelectablePropertyAttributeMetaBuilder<String, StringAttributeMetaBuilder> {
 
-        private boolean multiline = false;
+        private boolean multiLine = false;
 
         @Override
         public StringAttributeMeta build() {
@@ -38,23 +38,23 @@ public class StringAttributeMeta extends SelectablePropertyAttributeMeta<String>
             return this;
         }
 
-        public StringAttributeMetaBuilder withMultiline(final boolean multiline) {
-            this.multiline = multiline;
+        public StringAttributeMetaBuilder withMultiLine(final boolean multiline) {
+            this.multiLine = multiline;
             return self();
         }
 
     }
 
-    private final boolean multiline;
+    private final boolean multiLine;
 
     protected StringAttributeMeta(
             final StringAttributeMetaBuilder builder) {
         super(builder);
-        multiline = builder.multiline;
+        multiLine = builder.multiLine;
     }
 
-    public boolean isMultiline() {
-        return multiline;
+    public boolean isMultiLine() {
+        return multiLine;
     }
 
 }
