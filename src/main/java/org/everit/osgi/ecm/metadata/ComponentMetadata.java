@@ -35,11 +35,13 @@ public final class ComponentMetadata<C> {
 
         private String description = null;
 
-        private String icon = null;
+        private Icon[] icons = new Icon[0];
 
         private String label = null;
 
-        private String localization = null;
+        private String localizationBase = null;
+
+        private boolean metatype = true;
 
         private String name = null;
 
@@ -73,8 +75,12 @@ public final class ComponentMetadata<C> {
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withIcon(final String icon) {
-            this.icon = icon;
+        public ComponentMetadataBuilder<C> withIcons(Icon[] icons) {
+            if (icons != null) {
+                this.icons = Arrays.copyOf(icons, icons.length);
+            } else {
+                this.icons = null;
+            }
             return this;
         }
 
@@ -83,8 +89,13 @@ public final class ComponentMetadata<C> {
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withLocalization(final String localization) {
-            this.localization = localization;
+        public ComponentMetadataBuilder<C> withLocalizationBase(final String localizationBase) {
+            this.localizationBase = localizationBase;
+            return this;
+        }
+
+        public ComponentMetadataBuilder<C> withMetatype(boolean metatype) {
+            this.metatype = metatype;
             return this;
         }
 
@@ -111,11 +122,13 @@ public final class ComponentMetadata<C> {
 
     private final String description;
 
-    private final String icon;
+    private final Icon[] icons;
 
     private final String label;
 
-    private final String localization;
+    private final String localizationBase;
+
+    private final boolean metatype;
 
     private final String name;
 
@@ -154,10 +167,9 @@ public final class ComponentMetadata<C> {
         }
 
         this.configurationRequired = builder.configurationRequired;
-
-        this.icon = builder.icon;
-
-        this.localization = builder.localization;
+        this.icons = builder.icons;
+        this.localizationBase = builder.localizationBase;
+        this.metatype = builder.metatype;
 
     }
 
@@ -173,16 +185,20 @@ public final class ComponentMetadata<C> {
         return description;
     }
 
-    public String getIcon() {
-        return icon;
+    public Icon[] getIcons() {
+        if (icons != null) {
+            return Arrays.copyOf(icons, icons.length);
+        } else {
+            return null;
+        }
     }
 
     public String getLabel() {
         return label;
     }
 
-    public String getLocalization() {
-        return localization;
+    public String getLocalizationBase() {
+        return localizationBase;
     }
 
     public String getName() {
@@ -201,4 +217,7 @@ public final class ComponentMetadata<C> {
         return configurationRequired;
     }
 
+    public boolean isMetatype() {
+        return metatype;
+    }
 }
