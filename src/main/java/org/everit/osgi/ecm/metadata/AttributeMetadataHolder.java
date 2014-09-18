@@ -14,31 +14,10 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
-import java.util.Arrays;
+public interface AttributeMetadataHolder<V> {
 
-public class ServiceMeta {
+    AttributeMetadata<V> getAttribute();
 
-    private final Class<?>[] clazzes;
-
-    public ServiceMeta() {
-        this(null);
-    }
-
-    public ServiceMeta(final Class<?>[] clazzes) {
-        if (clazzes != null) {
-            this.clazzes = Arrays.copyOf(clazzes, clazzes.length);
-        } else {
-            this.clazzes = null;
-        }
-    }
-
-    public Class<?>[] getClazzes() {
-        if (clazzes != null) {
-            return Arrays.copyOf(clazzes, clazzes.length);
-        } else {
-            return null;
-        }
-    }
 }

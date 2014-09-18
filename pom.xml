@@ -28,7 +28,7 @@
   </parent>
 
   <groupId>org.everit.osgi</groupId>
-  <artifactId>org.everit.osgi.ecm.meta</artifactId>
+  <artifactId>org.everit.osgi.ecm.metadata</artifactId>
   <version>0.1.0-SNAPSHOT</version>
   <packaging>bundle</packaging>
 
@@ -96,11 +96,5 @@
   </build>
 
   <dependencies>
-    <dependency>
-      <groupId>org.osgi</groupId>
-      <artifactId>org.osgi.core</artifactId>
-      <version>4.3.1</version>
-      <scope>provided</scope>
-    </dependency>
   </dependencies>
 </project>

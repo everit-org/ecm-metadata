@@ -14,18 +14,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
-public class ReferenceAttributeMeta extends AttributeMeta<String> {
+public class ReferenceAttributeMetadata extends AttributeMetadata<String> {
 
-    public static class ReferenceAttributeMetaBuilder
-            extends AttributeMetaBuilder<String, ReferenceAttributeMetaBuilder> {
+    public static class ReferenceAttributeMetadataBuilder
+            extends AttributeMetadataBuilder<String, ReferenceAttributeMetadataBuilder> {
 
         private ReferenceConfigurationType referenceConfigurationType = ReferenceConfigurationType.FILTER;
 
         @Override
-        public ReferenceAttributeMeta build() {
-            return new ReferenceAttributeMeta(this);
+        public ReferenceAttributeMetadata build() {
+            return new ReferenceAttributeMetadata(this);
         }
 
         @Override
@@ -34,21 +34,21 @@ public class ReferenceAttributeMeta extends AttributeMeta<String> {
         }
 
         @Override
-        protected ReferenceAttributeMetaBuilder self() {
+        protected ReferenceAttributeMetadataBuilder self() {
             return this;
         }
 
-        public ReferenceAttributeMetaBuilder withReferenceConfigurationType(
+        public ReferenceAttributeMetadataBuilder withReferenceConfigurationType(
                 final ReferenceConfigurationType referenceAttributeType) {
-            this.referenceConfigurationType = referenceAttributeType;
+            referenceConfigurationType = referenceAttributeType;
             return this;
         }
     }
 
     private final ReferenceConfigurationType referenceAttributeType;
 
-    protected ReferenceAttributeMeta(
-            final ReferenceAttributeMetaBuilder builder) {
+    protected ReferenceAttributeMetadata(
+            final ReferenceAttributeMetadataBuilder builder) {
         super(builder);
         referenceAttributeType = builder.referenceConfigurationType;
 

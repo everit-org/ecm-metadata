@@ -14,16 +14,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class SelectablePropertyAttributeMeta<P> extends PropertyAttributeMeta<P> {
+public abstract class SelectablePropertyAttributeMetadata<P> extends PropertyAttributeMetadata<P> {
 
-    public static abstract class SelectablePropertyAttributeMetaBuilder<V, B extends PropertyAttributeMetaBuilder<V, B>>
-            extends PropertyAttributeMetaBuilder<V, B> {
+    public static abstract class SelectablePropertyAttributeMetadataBuilder<V, B extends PropertyAttributeMetadataBuilder<V, B>>
+            extends PropertyAttributeMetadataBuilder<V, B> {
 
         private Map<V, String> options = null;
 
@@ -39,8 +39,8 @@ public abstract class SelectablePropertyAttributeMeta<P> extends PropertyAttribu
 
     private final Map<P, String> options;
 
-    protected <B extends SelectablePropertyAttributeMetaBuilder<P, B>> SelectablePropertyAttributeMeta(
-            final SelectablePropertyAttributeMetaBuilder<P, B> builder) {
+    protected <B extends SelectablePropertyAttributeMetadataBuilder<P, B>> SelectablePropertyAttributeMetadata(
+            final SelectablePropertyAttributeMetadataBuilder<P, B> builder) {
         super(builder);
         this.options = builder.options;
     }

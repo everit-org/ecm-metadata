@@ -14,20 +14,16 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
 import java.util.Arrays;
 import java.util.Objects;
 
-import org.osgi.framework.BundleContext;
+public final class ComponentMetadata<C> {
 
-public final class ComponentMeta<C> {
+    public static class ComponentMetadataBuilder<C> {
 
-    public static class ComponentMetaBuilder<C> {
-
-        private AttributeMetaHolder<?>[] attributeHolders = new AttributeMetaHolder[0];
-
-        private BundleContext bundleContext = null;
+        private AttributeMetadataHolder<?>[] attributeHolders = new AttributeMetadataHolder[0];
 
         private Class<C> clazz = null;
 
@@ -47,70 +43,63 @@ public final class ComponentMeta<C> {
 
         private String name = null;
 
-        public ComponentMeta<C> build() {
-            ComponentMeta<C> componentMeta = new ComponentMeta<C>(this);
+        public ComponentMetadata<C> build() {
+            ComponentMetadata<C> componentMeta = new ComponentMetadata<C>(this);
             return componentMeta;
         }
 
-        public ComponentMetaBuilder<C> withAttributeHolders(final AttributeMetaHolder<?>[] attributeHolders) {
+        public ComponentMetadataBuilder<C> withAttributeHolders(final AttributeMetadataHolder<?>[] attributeHolders) {
             this.attributeHolders = Arrays.copyOf(attributeHolders, attributeHolders.length);
             return this;
         }
 
-        public ComponentMetaBuilder<C> withBundleContext(final BundleContext bundleContext) {
-            this.bundleContext = bundleContext;
-            return this;
-        }
-
-        public ComponentMetaBuilder<C> withConfigurationFactory(final boolean configurationFactory) {
+        public ComponentMetadataBuilder<C> withConfigurationFactory(final boolean configurationFactory) {
             this.configurationFactory = configurationFactory;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withConfigurationPid(final String configurationPid) {
+        public ComponentMetadataBuilder<C> withConfigurationPid(final String configurationPid) {
             this.configurationPid = configurationPid;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withConfigurationRequired(final boolean configurationRequired) {
+        public ComponentMetadataBuilder<C> withConfigurationRequired(final boolean configurationRequired) {
             this.configurationRequired = configurationRequired;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withDescription(final String description) {
+        public ComponentMetadataBuilder<C> withDescription(final String description) {
             this.description = description;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withIcon(final String icon) {
+        public ComponentMetadataBuilder<C> withIcon(final String icon) {
             this.icon = icon;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withLabel(final String label) {
+        public ComponentMetadataBuilder<C> withLabel(final String label) {
             this.label = label;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withLocalization(final String localization) {
+        public ComponentMetadataBuilder<C> withLocalization(final String localization) {
             this.localization = localization;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withName(final String name) {
+        public ComponentMetadataBuilder<C> withName(final String name) {
             this.name = name;
             return this;
         }
 
-        public ComponentMetaBuilder<C> withType(final Class<C> clazz) {
+        public ComponentMetadataBuilder<C> withType(final Class<C> clazz) {
             this.clazz = clazz;
             return this;
         }
     }
 
-    private final AttributeMetaHolder<?>[] attributeHolders;
-
-    private final BundleContext bundleContext;
+    private final AttributeMetadataHolder<?>[] attributeHolders;
 
     private final Class<C> clazz;
 
@@ -130,10 +119,7 @@ public final class ComponentMeta<C> {
 
     private final String name;
 
-    private ComponentMeta(final ComponentMetaBuilder<C> builder) {
-
-        Objects.requireNonNull(builder.bundleContext, "bundleContext must not be null");
-        this.bundleContext = builder.bundleContext;
+    private ComponentMetadata(final ComponentMetadataBuilder<C> builder) {
 
         Objects.requireNonNull(builder.clazz, "Class type for ComponentMeta must be provided");
         this.clazz = builder.clazz;
@@ -175,12 +161,8 @@ public final class ComponentMeta<C> {
 
     }
 
-    public AttributeMetaHolder<?>[] getAttributeHolders() {
+    public AttributeMetadataHolder<?>[] getAttributeHolders() {
         return Arrays.copyOf(attributeHolders, attributeHolders.length);
-    }
-
-    public BundleContext getBundleContext() {
-        return bundleContext;
     }
 
     public String getConfigurationPid() {

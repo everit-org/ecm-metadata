@@ -14,16 +14,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
-public class PasswordAttributeMeta extends PropertyAttributeMeta<String> {
+public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata<String> {
 
-    public static class PasswordAttributeMetaBuilder
-            extends PropertyAttributeMetaBuilder<String, PasswordAttributeMetaBuilder> {
+    public static class StringAttributeMetadataBuilder
+            extends SelectablePropertyAttributeMetadataBuilder<String, StringAttributeMetadataBuilder> {
+
+        private boolean multiLine = false;
 
         @Override
-        public PasswordAttributeMeta build() {
-            return new PasswordAttributeMeta(this);
+        public StringAttributeMetadata build() {
+            return new StringAttributeMetadata(this);
         }
 
         @Override
@@ -32,13 +34,27 @@ public class PasswordAttributeMeta extends PropertyAttributeMeta<String> {
         }
 
         @Override
-        protected PasswordAttributeMetaBuilder self() {
+        protected StringAttributeMetadataBuilder self() {
             return this;
         }
+
+        public StringAttributeMetadataBuilder withMultiLine(final boolean multiline) {
+            multiLine = multiline;
+            return self();
+        }
+
     }
 
-    protected PasswordAttributeMeta(final PasswordAttributeMetaBuilder builder) {
+    private final boolean multiLine;
+
+    protected StringAttributeMetadata(
+            final StringAttributeMetadataBuilder builder) {
         super(builder);
+        multiLine = builder.multiLine;
+    }
+
+    public boolean isMultiLine() {
+        return multiLine;
     }
 
 }

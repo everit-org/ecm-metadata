@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
 import java.util.Arrays;
 
-public abstract class AttributeMeta<V> implements AttributeMetaHolder<V> {
+public abstract class AttributeMetadata<V> implements AttributeMetadataHolder<V> {
 
-    public static abstract class AttributeMetaBuilder<V, B extends AttributeMetaBuilder<V, B>> {
+    public static abstract class AttributeMetadataBuilder<V, B extends AttributeMetadataBuilder<V, B>> {
 
         @SuppressWarnings("unchecked")
         private V[] defaultValue = (V[]) new Object[0];
@@ -33,7 +33,7 @@ public abstract class AttributeMeta<V> implements AttributeMetaHolder<V> {
 
         private String name;
 
-        public abstract AttributeMeta<V> build();
+        public abstract AttributeMetadata<V> build();
 
         public abstract Class<V> getValueType();
 
@@ -75,7 +75,7 @@ public abstract class AttributeMeta<V> implements AttributeMetaHolder<V> {
 
     private final String name;
 
-    protected <B extends AttributeMetaBuilder<V, B>> AttributeMeta(final AttributeMetaBuilder<V, B> builder) {
+    protected <B extends AttributeMetadataBuilder<V, B>> AttributeMetadata(final AttributeMetadataBuilder<V, B> builder) {
         this.name = builder.name;
 
         if (builder.label != null) {
@@ -100,7 +100,7 @@ public abstract class AttributeMeta<V> implements AttributeMetaHolder<V> {
     }
 
     @Override
-    public AttributeMeta<V> getAttribute() {
+    public AttributeMetadata<V> getAttribute() {
         return this;
     }
 

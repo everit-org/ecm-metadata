@@ -14,13 +14,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
-public class ReferenceMeta implements AttributeMetaHolder<String> {
+public class ReferenceMetadata implements AttributeMetadataHolder<String> {
 
-    public static class ReferenceMetaBuilder {
+    public static class ReferenceMetadataBuilder {
 
-        private ReferenceAttributeMeta attribute = null;
+        private ReferenceAttributeMetadata attribute = null;
 
         private String bind = null;
 
@@ -34,48 +34,48 @@ public class ReferenceMeta implements AttributeMetaHolder<String> {
 
         private String unbind = null;
 
-        public ReferenceMeta build() {
-            return new ReferenceMeta(this);
+        public ReferenceMetadata build() {
+            return new ReferenceMetadata(this);
         }
 
-        public ReferenceMetaBuilder withAttribute(final ReferenceAttributeMeta attribute) {
+        public ReferenceMetadataBuilder withAttribute(final ReferenceAttributeMetadata attribute) {
             this.attribute = attribute;
             return this;
         }
 
-        public ReferenceMetaBuilder withBind(final String bind) {
+        public ReferenceMetadataBuilder withBind(final String bind) {
             this.bind = bind;
             return this;
         }
 
-        public ReferenceMetaBuilder withCardinality(final ReferenceCardinality cardinality) {
+        public ReferenceMetadataBuilder withCardinality(final ReferenceCardinality cardinality) {
             this.cardinality = cardinality;
             return this;
         }
 
-        public ReferenceMetaBuilder withDynamic(final boolean dynamic) {
+        public ReferenceMetadataBuilder withDynamic(final boolean dynamic) {
             this.dynamic = dynamic;
             return this;
         }
 
-        public ReferenceMetaBuilder withName(String name) {
+        public ReferenceMetadataBuilder withName(final String name) {
             this.name = name;
             return this;
         }
 
-        public ReferenceMetaBuilder withReferenceInterface(Class<?> referenceInterface) {
+        public ReferenceMetadataBuilder withReferenceInterface(final Class<?> referenceInterface) {
             this.referenceInterface = referenceInterface;
             return this;
         }
 
-        public ReferenceMetaBuilder withUnbind(final String unbind) {
+        public ReferenceMetadataBuilder withUnbind(final String unbind) {
             this.unbind = unbind;
             return this;
         }
 
     }
 
-    private final ReferenceAttributeMeta attribute;
+    private final ReferenceAttributeMetadata attribute;
 
     /**
      * The bind method that should be used to bind the reference. If the annotation is defined on a method, that method
@@ -107,7 +107,7 @@ public class ReferenceMeta implements AttributeMetaHolder<String> {
      */
     private final String unbind;
 
-    private ReferenceMeta(final ReferenceMetaBuilder builder) {
+    private ReferenceMetadata(final ReferenceMetadataBuilder builder) {
         bind = builder.bind;
         cardinality = builder.cardinality;
         dynamic = builder.dynamic;
@@ -118,18 +118,18 @@ public class ReferenceMeta implements AttributeMetaHolder<String> {
         attribute = evaluateAttribute(builder);
     }
 
-    private ReferenceAttributeMeta evaluateAttribute(final ReferenceMetaBuilder builder) {
+    private ReferenceAttributeMetadata evaluateAttribute(final ReferenceMetadataBuilder builder) {
         if (builder.attribute.getName() != null) {
             return builder.attribute;
         }
 
-        ReferenceAttributeMeta builderAttribute = builder.attribute;
+        ReferenceAttributeMetadata builderAttribute = builder.attribute;
 
         String attributeNameExtension = ".target";
         if (ReferenceConfigurationType.CLAUSE.equals(builderAttribute.getReferenceAttributeType())) {
             attributeNameExtension = ".clause";
         }
-        return new ReferenceAttributeMeta.ReferenceAttributeMetaBuilder()
+        return new ReferenceAttributeMetadata.ReferenceAttributeMetadataBuilder()
                 .withDefaultValue(builderAttribute.getDefaultValue())
                 .withDescription(builderAttribute.getDescription())
                 .withLabel(builderAttribute.getLabel())
@@ -141,7 +141,7 @@ public class ReferenceMeta implements AttributeMetaHolder<String> {
     }
 
     @Override
-    public ReferenceAttributeMeta getAttribute() {
+    public ReferenceAttributeMetadata getAttribute() {
         return attribute;
     }
 

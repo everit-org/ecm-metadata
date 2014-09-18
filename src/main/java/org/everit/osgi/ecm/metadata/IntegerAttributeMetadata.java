@@ -14,31 +14,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
-public class LongAttributeMeta extends SelectablePropertyAttributeMeta<Long> {
+public class IntegerAttributeMetadata extends SelectablePropertyAttributeMetadata<Integer> {
 
-    public static class LongAttributeMetaBuilder
-            extends SelectablePropertyAttributeMetaBuilder<Long, LongAttributeMetaBuilder> {
+    public static class IntegerAttributeMetadataBuilder
+            extends SelectablePropertyAttributeMetadataBuilder<Integer, IntegerAttributeMetadataBuilder> {
 
         @Override
-        public LongAttributeMeta build() {
-            return new LongAttributeMeta(this);
+        public IntegerAttributeMetadata build() {
+            return new IntegerAttributeMetadata(this);
         }
 
         @Override
-        public Class<Long> getValueType() {
-            return Long.class;
+        public Class<Integer> getValueType() {
+            return Integer.class;
         }
 
         @Override
-        protected LongAttributeMetaBuilder self() {
+        protected IntegerAttributeMetadataBuilder self() {
             return this;
         }
     }
 
-    protected LongAttributeMeta(
-            final LongAttributeMetaBuilder builder) {
+    protected IntegerAttributeMetadata(
+            final IntegerAttributeMetadataBuilder builder) {
         super(builder);
     }
 

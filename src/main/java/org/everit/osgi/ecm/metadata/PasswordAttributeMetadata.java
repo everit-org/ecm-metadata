@@ -14,12 +14,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
-public enum ReferenceConfigurationType {
+public class PasswordAttributeMetadata extends PropertyAttributeMetadata<String> {
 
-    CLAUSE,
+    public static class PasswordAttributeMetadataBuilder
+            extends PropertyAttributeMetadataBuilder<String, PasswordAttributeMetadataBuilder> {
 
-    FILTER
+        @Override
+        public PasswordAttributeMetadata build() {
+            return new PasswordAttributeMetadata(this);
+        }
+
+        @Override
+        public Class<String> getValueType() {
+            return String.class;
+        }
+
+        @Override
+        protected PasswordAttributeMetadataBuilder self() {
+            return this;
+        }
+    }
+
+    protected PasswordAttributeMetadata(final PasswordAttributeMetadataBuilder builder) {
+        super(builder);
+    }
 
 }

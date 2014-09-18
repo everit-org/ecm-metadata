@@ -14,10 +14,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
-public interface AttributeMetaHolder<V> {
+public enum ReferenceConfigurationType {
 
-    AttributeMeta<V> getAttribute();
+    CLAUSE,
+
+    FILTER
 
 }

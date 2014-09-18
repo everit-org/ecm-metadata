@@ -14,32 +14,31 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
-public class ShortAttributeMeta extends SelectablePropertyAttributeMeta<Short> {
+import java.util.Arrays;
 
-    public static class ShortAttributeMetaBuilder
-            extends SelectablePropertyAttributeMetaBuilder<Short, ShortAttributeMetaBuilder> {
+public class ServiceMetadata {
 
-        @Override
-        public ShortAttributeMeta build() {
-            return new ShortAttributeMeta(this);
-        }
+    private final Class<?>[] clazzes;
 
-        @Override
-        public Class<Short> getValueType() {
-            return Short.class;
-        }
+    public ServiceMetadata() {
+        this(null);
+    }
 
-        @Override
-        protected ShortAttributeMetaBuilder self() {
-            return this;
+    public ServiceMetadata(final Class<?>[] clazzes) {
+        if (clazzes != null) {
+            this.clazzes = Arrays.copyOf(clazzes, clazzes.length);
+        } else {
+            this.clazzes = null;
         }
     }
 
-    protected ShortAttributeMeta(
-            final ShortAttributeMetaBuilder builder) {
-        super(builder);
+    public Class<?>[] getClazzes() {
+        if (clazzes != null) {
+            return Arrays.copyOf(clazzes, clazzes.length);
+        } else {
+            return null;
+        }
     }
-
 }

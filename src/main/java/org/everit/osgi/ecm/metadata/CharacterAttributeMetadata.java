@@ -14,32 +14,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
-public class ByteAttributeMeta extends SelectablePropertyAttributeMeta<Byte> {
+public class CharacterAttributeMetadata extends SelectablePropertyAttributeMetadata<Character> {
 
-    public static class ByteAttributeMetaBuilder
-            extends SelectablePropertyAttributeMetaBuilder<Byte, ByteAttributeMetaBuilder> {
+    public static class CharacterAttributeMetadataBuilder
+            extends SelectablePropertyAttributeMetadataBuilder<Character, CharacterAttributeMetadataBuilder> {
 
         @Override
-        public ByteAttributeMeta build() {
-            return new ByteAttributeMeta(this);
+        public CharacterAttributeMetadata build() {
+            return new CharacterAttributeMetadata(this);
         }
 
         @Override
-        public Class<Byte> getValueType() {
-            return Byte.class;
+        public Class<Character> getValueType() {
+            return Character.class;
         }
 
         @Override
-        protected ByteAttributeMetaBuilder self() {
+        protected CharacterAttributeMetadataBuilder self() {
             return this;
         }
 
     }
 
-    protected ByteAttributeMeta(
-            final ByteAttributeMetaBuilder builder) {
+    protected CharacterAttributeMetadata(
+            final CharacterAttributeMetadataBuilder builder) {
         super(builder);
     }
 

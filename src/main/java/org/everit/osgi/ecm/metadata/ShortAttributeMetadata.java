@@ -14,17 +14,32 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
-public class ComponentInstantiationException extends RuntimeException {
+public class ShortAttributeMetadata extends SelectablePropertyAttributeMetadata<Short> {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 860892476284927739L;
+    public static class ShortAttributeMetadataBuilder
+            extends SelectablePropertyAttributeMetadataBuilder<Short, ShortAttributeMetadataBuilder> {
 
-    public ComponentInstantiationException(final Throwable cause) {
-        super(cause);
+        @Override
+        public ShortAttributeMetadata build() {
+            return new ShortAttributeMetadata(this);
+        }
+
+        @Override
+        public Class<Short> getValueType() {
+            return Short.class;
+        }
+
+        @Override
+        protected ShortAttributeMetadataBuilder self() {
+            return this;
+        }
+    }
+
+    protected ShortAttributeMetadata(
+            final ShortAttributeMetadataBuilder builder) {
+        super(builder);
     }
 
 }

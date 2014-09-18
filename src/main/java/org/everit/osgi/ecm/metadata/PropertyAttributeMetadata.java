@@ -14,14 +14,14 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with Everit - Component Metadata.  If not, see <http://www.gnu.org/licenses/>.
  */
-package org.everit.osgi.ecm.meta;
+package org.everit.osgi.ecm.metadata;
 
 import java.util.Objects;
 
-public abstract class PropertyAttributeMeta<V> extends AttributeMeta<V> {
+public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> {
 
-    public static abstract class PropertyAttributeMetaBuilder<V, B extends PropertyAttributeMetaBuilder<V, B>>
-            extends AttributeMetaBuilder<V, B> {
+    public static abstract class PropertyAttributeMetadataBuilder<V, B extends PropertyAttributeMetadataBuilder<V, B>>
+            extends AttributeMetadataBuilder<V, B> {
 
         /**
          * Return the cardinality of this attribute.
@@ -69,8 +69,8 @@ public abstract class PropertyAttributeMeta<V> extends AttributeMeta<V> {
 
     private final String setter;
 
-    protected <B extends PropertyAttributeMetaBuilder<V, B>> PropertyAttributeMeta(
-            final PropertyAttributeMetaBuilder<V, B> builder) {
+    protected <B extends PropertyAttributeMetadataBuilder<V, B>> PropertyAttributeMetadata(
+            final PropertyAttributeMetadataBuilder<V, B> builder) {
 
         super(builder);
         Objects.requireNonNull(getName(), "Name must be provided for the attribute");
