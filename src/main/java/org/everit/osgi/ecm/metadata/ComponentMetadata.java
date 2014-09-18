@@ -189,7 +189,7 @@ public final class ComponentMetadata<C> {
         return name;
     }
 
-    public Class<?> getType() {
+    public Class<C> getType() {
         return clazz;
     }
 
