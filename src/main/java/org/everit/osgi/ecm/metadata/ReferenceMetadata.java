@@ -16,30 +16,43 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class ReferenceMetadata implements AttributeMetadataHolder<String> {
+import java.util.Objects;
 
-    public static class ReferenceMetadataBuilder {
+public class ReferenceMetadata extends AttributeMetadata<String> {
 
-        private ReferenceAttributeMetadata attribute = null;
+    public static class ReferenceMetadataBuilder extends AttributeMetadataBuilder<String, ReferenceMetadataBuilder> {
 
         private String bind = null;
 
-        private ReferenceCardinality cardinality = ReferenceCardinality.MANDATORY;
+        private ReferenceConfigurationType referenceConfigurationType = ReferenceConfigurationType.FILTER;
 
-        private boolean dynamic = false;
-
-        private String name = null;
+        private String referenceId = null;
 
         private Class<?> referenceInterface = null;
 
         private String unbind = null;
 
+        @Override
         public ReferenceMetadata build() {
+            Objects.requireNonNull(referenceId, "Reference id must be specified");
+            String attributeId = getAttributeId();
+            if (attributeId == null) {
+                if (ReferenceConfigurationType.CLAUSE.equals(referenceConfigurationType)) {
+                    withAttributeId(referenceId + ".clause");
+                } else {
+                    withAttributeId(referenceId + ".target");
+                }
+            }
             return new ReferenceMetadata(this);
         }
 
-        public ReferenceMetadataBuilder withAttribute(final ReferenceAttributeMetadata attribute) {
-            this.attribute = attribute;
+        @Override
+        public Class<String> getValueType() {
+            return String.class;
+        }
+
+        @Override
+        protected ReferenceMetadataBuilder self() {
             return this;
         }
 
@@ -48,18 +61,15 @@ public class ReferenceMetadata implements AttributeMetadataHolder<String> {
             return this;
         }
 
-        public ReferenceMetadataBuilder withCardinality(final ReferenceCardinality cardinality) {
-            this.cardinality = cardinality;
+        public ReferenceMetadataBuilder withReferenceConfigurationType(
+                final ReferenceConfigurationType referenceConfigurationType) {
+
+            this.referenceConfigurationType = referenceConfigurationType;
             return this;
         }
 
-        public ReferenceMetadataBuilder withDynamic(final boolean dynamic) {
-            this.dynamic = dynamic;
-            return this;
-        }
-
-        public ReferenceMetadataBuilder withName(final String name) {
-            this.name = name;
+        public ReferenceMetadataBuilder withReferenceId(final String referenceId) {
+            this.referenceId = referenceId;
             return this;
         }
 
@@ -75,8 +85,6 @@ public class ReferenceMetadata implements AttributeMetadataHolder<String> {
 
     }
 
-    private final ReferenceAttributeMetadata attribute;
-
     /**
      * The bind method that should be used to bind the reference. If the annotation is defined on a method, that method
      * and it is not specified otherwise in the annotation, the method will be used as a bind method. If the annotation
@@ -86,17 +94,9 @@ public class ReferenceMetadata implements AttributeMetadataHolder<String> {
      */
     private final String bind;
 
-    private final ReferenceCardinality cardinality;
+    private final ReferenceConfigurationType referenceConfigurationType;
 
-    /**
-     * If true, the reference is re-binded without restarting the component in case of a service switch. The component
-     * also does not stop if the configuration is updated behind in the way that the reference can remain satisfied
-     * after the actualization of the clause(s) or filter(s). In case of false, the component is stopped and
-     * re-instantiated every time there is a change for any item of the reference.
-     */
-    private final boolean dynamic;
-
-    private final String name;
+    private final String referenceId;
 
     private final Class<?> referenceInterface;
 
@@ -108,53 +108,24 @@ public class ReferenceMetadata implements AttributeMetadataHolder<String> {
     private final String unbind;
 
     private ReferenceMetadata(final ReferenceMetadataBuilder builder) {
+        super(builder);
         bind = builder.bind;
-        cardinality = builder.cardinality;
-        dynamic = builder.dynamic;
         unbind = builder.unbind;
         referenceInterface = builder.referenceInterface;
-        name = builder.name;
-
-        attribute = evaluateAttribute(builder);
-    }
-
-    private ReferenceAttributeMetadata evaluateAttribute(final ReferenceMetadataBuilder builder) {
-        if (builder.attribute.getName() != null) {
-            return builder.attribute;
-        }
-
-        ReferenceAttributeMetadata builderAttribute = builder.attribute;
-
-        String attributeNameExtension = ".target";
-        if (ReferenceConfigurationType.CLAUSE.equals(builderAttribute.getReferenceAttributeType())) {
-            attributeNameExtension = ".clause";
-        }
-        return new ReferenceAttributeMetadata.ReferenceAttributeMetadataBuilder()
-                .withDefaultValue(builderAttribute.getDefaultValue())
-                .withDescription(builderAttribute.getDescription())
-                .withLabel(builderAttribute.getLabel())
-                .withMetatype(builderAttribute.isMetatype())
-                .withName(name + attributeNameExtension)
-                .withReferenceConfigurationType(builderAttribute.getReferenceAttributeType())
-                .build();
-
-    }
-
-    @Override
-    public ReferenceAttributeMetadata getAttribute() {
-        return attribute;
+        referenceId = builder.referenceId;
+        referenceConfigurationType = builder.referenceConfigurationType;
     }
 
     public String getBind() {
         return bind;
     }
 
-    public ReferenceCardinality getCardinality() {
-        return cardinality;
+    public ReferenceConfigurationType getReferenceConfigurationType() {
+        return referenceConfigurationType;
     }
 
-    public String getName() {
-        return name;
+    public String getReferenceId() {
+        return referenceId;
     }
 
     public Class<?> getReferenceInterface() {
@@ -164,9 +135,4 @@ public class ReferenceMetadata implements AttributeMetadataHolder<String> {
     public String getUnbind() {
         return unbind;
     }
-
-    public boolean isDynamic() {
-        return dynamic;
-    }
-
 }

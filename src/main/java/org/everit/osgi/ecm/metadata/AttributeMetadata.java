@@ -18,26 +18,41 @@ package org.everit.osgi.ecm.metadata;
 
 import java.util.Arrays;
 
-public abstract class AttributeMetadata<V> implements AttributeMetadataHolder<V> {
+public abstract class AttributeMetadata<V> {
 
     public static abstract class AttributeMetadataBuilder<V, B extends AttributeMetadataBuilder<V, B>> {
+
+        private String attributeId;
 
         @SuppressWarnings("unchecked")
         private V[] defaultValue = (V[]) new Object[0];
 
         private String description;
 
+        private boolean dynamic = false;
+
         private String label;
 
-        private boolean metatype;
+        private boolean metatype = true;
 
-        private String name;
+        private boolean multiple = false;
+
+        private boolean optional = false;
 
         public abstract AttributeMetadata<V> build();
+
+        protected String getAttributeId() {
+            return attributeId;
+        }
 
         public abstract Class<V> getValueType();
 
         protected abstract B self();
+
+        public B withAttributeId(final String attributeId) {
+            this.attributeId = attributeId;
+            return self();
+        }
 
         public B withDefaultValue(final V[] defaultValue) {
             this.defaultValue = Arrays.copyOf(defaultValue, defaultValue.length);
@@ -46,6 +61,11 @@ public abstract class AttributeMetadata<V> implements AttributeMetadataHolder<V>
 
         public B withDescription(final String description) {
             this.description = description;
+            return self();
+        }
+
+        public B withDynamic(final boolean dynamic) {
+            this.dynamic = dynamic;
             return self();
         }
 
@@ -59,49 +79,62 @@ public abstract class AttributeMetadata<V> implements AttributeMetadataHolder<V>
             return self();
         }
 
-        public B withName(final String name) {
-            this.name = name;
+        public B withMultiple(boolean multiple) {
+            this.multiple = multiple;
             return self();
         }
+
+        public B withOptional(boolean optional) {
+            this.optional = optional;
+            return self();
+        }
+
     }
+
+    private final String attributeId;
 
     private final V[] defaultValue;
 
     private final String description;
 
+    private final boolean dynamic;
+
     private final String label;
 
     private final boolean metatype;
 
-    private final String name;
+    private final boolean multiple;
+
+    private final boolean optional;
 
     protected <B extends AttributeMetadataBuilder<V, B>> AttributeMetadata(final AttributeMetadataBuilder<V, B> builder) {
-        this.name = builder.name;
+        this.attributeId = builder.attributeId;
 
         if (builder.label != null) {
             this.label = builder.label;
-        } else if (name != null) {
-            this.label = "%" + this.name + ".name";
+        } else if (attributeId != null) {
+            this.label = "%" + this.attributeId + ".name";
         } else {
             this.label = null;
         }
 
         if (builder.description != null) {
             this.description = builder.description;
-        } else if (name != null) {
-            this.description = "%" + this.name + ".description";
+        } else if (attributeId != null) {
+            this.description = "%" + this.attributeId + ".description";
         } else {
             this.description = null;
         }
 
         this.defaultValue = builder.defaultValue;
-
         this.metatype = builder.metatype;
+        this.multiple = builder.multiple;
+        this.optional = builder.optional;
+        this.dynamic = builder.dynamic;
     }
 
-    @Override
-    public AttributeMetadata<V> getAttribute() {
-        return this;
+    public String getAttributeId() {
+        return attributeId;
     }
 
     public V[] getDefaultValue() {
@@ -116,12 +149,20 @@ public abstract class AttributeMetadata<V> implements AttributeMetadataHolder<V>
         return label;
     }
 
-    public String getName() {
-        return name;
+    public boolean isDynamic() {
+        return dynamic;
     }
 
     public boolean isMetatype() {
         return metatype;
+    }
+
+    public boolean isMultiple() {
+        return multiple;
+    }
+
+    public boolean isOptional() {
+        return optional;
     }
 
 }

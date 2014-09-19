@@ -23,39 +23,7 @@ public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> 
     public static abstract class PropertyAttributeMetadataBuilder<V, B extends PropertyAttributeMetadataBuilder<V, B>>
             extends AttributeMetadataBuilder<V, B> {
 
-        /**
-         * Return the cardinality of this attribute.
-         *
-         * The OSGi environment handles multi valued attributes in arrays ([]) or in {@code Vector} objects. The return
-         * value is defined as follows:
-         *
-         * <pre>
-         *
-         *    x = Integer.MIN_VALUE    no limit, but use Vector
-         *    x &lt; 0                    -x = max occurrences, store in Vector
-         *    x &gt; 0                     x = max occurrences, store in array []
-         *    x = Integer.MAX_VALUE    no limit, but use array []
-         *    x = 0                     1 occurrence required
-         *
-         * </pre>
-         *
-         * @return The cardinality of this attribute.
-         */
-        private int cardinality;
-
-        private boolean dynamic = false;
-
         private String setter = null;
-
-        public B withCardinality(final int cardinality) {
-            this.cardinality = cardinality;
-            return self();
-        }
-
-        public B withDynamic(final boolean dynamic) {
-            this.dynamic = dynamic;
-            return self();
-        }
 
         public B withSetter(final String setter) {
             this.setter = setter;
@@ -63,32 +31,18 @@ public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> 
         }
     }
 
-    private final int cardinality;
-
-    private final boolean dynamic;
-
     private final String setter;
 
     protected <B extends PropertyAttributeMetadataBuilder<V, B>> PropertyAttributeMetadata(
             final PropertyAttributeMetadataBuilder<V, B> builder) {
 
         super(builder);
-        Objects.requireNonNull(getName(), "Name must be provided for the attribute");
+        Objects.requireNonNull(getAttributeId(), "Name must be provided for the attribute");
 
         this.setter = builder.setter;
-        this.dynamic = builder.dynamic;
-        this.cardinality = builder.cardinality;
-    }
-
-    public int getCardinality() {
-        return cardinality;
     }
 
     public String getSetter() {
         return setter;
-    }
-
-    public boolean isDynamic() {
-        return dynamic;
     }
 }

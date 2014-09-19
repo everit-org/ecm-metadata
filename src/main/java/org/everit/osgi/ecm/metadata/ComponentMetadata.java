@@ -23,9 +23,11 @@ public final class ComponentMetadata<C> {
 
     public static class ComponentMetadataBuilder<C> {
 
-        private AttributeMetadataHolder<?>[] attributeHolders = new AttributeMetadataHolder[0];
+        private AttributeMetadata<?>[] attributes = new AttributeMetadata[0];
 
         private Class<C> clazz = null;
+
+        private String componentId = null;
 
         private boolean configurationFactory = false;
 
@@ -43,15 +45,18 @@ public final class ComponentMetadata<C> {
 
         private boolean metatype = true;
 
-        private String name = null;
-
         public ComponentMetadata<C> build() {
             ComponentMetadata<C> componentMeta = new ComponentMetadata<C>(this);
             return componentMeta;
         }
 
-        public ComponentMetadataBuilder<C> withAttributeHolders(final AttributeMetadataHolder<?>[] attributeHolders) {
-            this.attributeHolders = Arrays.copyOf(attributeHolders, attributeHolders.length);
+        public ComponentMetadataBuilder<C> withAttributes(final AttributeMetadata<?>[] attributes) {
+            this.attributes = Arrays.copyOf(attributes, attributes.length);
+            return this;
+        }
+
+        public ComponentMetadataBuilder<C> withComponentId(final String componentId) {
+            this.componentId = componentId;
             return this;
         }
 
@@ -99,18 +104,13 @@ public final class ComponentMetadata<C> {
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withName(final String name) {
-            this.name = name;
-            return this;
-        }
-
         public ComponentMetadataBuilder<C> withType(final Class<C> clazz) {
             this.clazz = clazz;
             return this;
         }
     }
 
-    private final AttributeMetadataHolder<?>[] attributeHolders;
+    private final AttributeMetadata<?>[] attributes;
 
     private final Class<C> clazz;
 
@@ -130,20 +130,20 @@ public final class ComponentMetadata<C> {
 
     private final boolean metatype;
 
-    private final String name;
+    private final String componentId;
 
     private ComponentMetadata(final ComponentMetadataBuilder<C> builder) {
 
         Objects.requireNonNull(builder.clazz, "Class type for ComponentMeta must be provided");
         this.clazz = builder.clazz;
 
-        Objects.requireNonNull(builder.attributeHolders, "attributes must not be null");
-        this.attributeHolders = builder.attributeHolders;
+        Objects.requireNonNull(builder.attributes, "attributes must not be null");
+        this.attributes = builder.attributes;
 
-        if (builder.name != null) {
-            this.name = builder.name;
+        if (builder.componentId != null) {
+            this.componentId = builder.componentId;
         } else {
-            this.name = clazz.getName();
+            this.componentId = clazz.getName();
         }
 
         this.configurationFactory = builder.configurationFactory;
@@ -151,19 +151,19 @@ public final class ComponentMetadata<C> {
         if (builder.configurationPid != null) {
             this.configurationPid = builder.configurationPid;
         } else {
-            this.configurationPid = this.name;
+            this.configurationPid = this.componentId;
         }
 
         if (builder.label != null) {
             this.label = builder.label;
         } else {
-            this.label = "%" + this.name + ".name";
+            this.label = "%" + this.componentId + ".name";
         }
 
         if (builder.description != null) {
             this.description = builder.description;
         } else {
-            this.description = "%" + this.name + ".description";
+            this.description = "%" + this.componentId + ".description";
         }
 
         this.configurationRequired = builder.configurationRequired;
@@ -173,8 +173,8 @@ public final class ComponentMetadata<C> {
 
     }
 
-    public AttributeMetadataHolder<?>[] getAttributeHolders() {
-        return Arrays.copyOf(attributeHolders, attributeHolders.length);
+    public AttributeMetadata<?>[] getAttributes() {
+        return Arrays.copyOf(attributes, attributes.length);
     }
 
     public String getConfigurationPid() {
@@ -201,8 +201,8 @@ public final class ComponentMetadata<C> {
         return localizationBase;
     }
 
-    public String getName() {
-        return name;
+    public String getComponentId() {
+        return componentId;
     }
 
     public Class<C> getType() {
