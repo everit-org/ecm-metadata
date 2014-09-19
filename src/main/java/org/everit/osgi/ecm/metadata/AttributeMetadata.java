@@ -107,7 +107,10 @@ public abstract class AttributeMetadata<V> {
 
     private final boolean optional;
 
+    private final Class<V> valueType;
+
     protected <B extends AttributeMetadataBuilder<V, B>> AttributeMetadata(final AttributeMetadataBuilder<V, B> builder) {
+        this.valueType = builder.getValueType();
         this.attributeId = builder.attributeId;
 
         if (builder.label != null) {
@@ -149,6 +152,10 @@ public abstract class AttributeMetadata<V> {
         return label;
     }
 
+    public Class<V> getValueType() {
+        return valueType;
+    }
+
     public boolean isDynamic() {
         return dynamic;
     }
@@ -164,5 +171,4 @@ public abstract class AttributeMetadata<V> {
     public boolean isOptional() {
         return optional;
     }
-
 }
