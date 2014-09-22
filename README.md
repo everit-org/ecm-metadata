@@ -3,4 +3,4 @@ ecm-metadata
 
 Classes and builder for Everit Component Model Metadata classes.
 
-[![Analytics](https://ga-beacon.appspot.com/UA-15041869-4/everit-org/ecm-metadata)](https://github.com/igrigorik/ga-beacon)
+<img src="http://www.google-analytics.com/__utm.gif?utmac=UA-15041869-4&utmhn=github.com&utmdt=ECM%20Metadata&utmp=/everit-org/ecm-metadata" />
