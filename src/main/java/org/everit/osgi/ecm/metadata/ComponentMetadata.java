@@ -23,6 +23,8 @@ public final class ComponentMetadata<C> {
 
     public static class ComponentMetadataBuilder<C> {
 
+        private String activateMethod = null;
+
         private AttributeMetadata<?>[] attributes = new AttributeMetadata[0];
 
         private Class<C> clazz = null;
@@ -33,7 +35,9 @@ public final class ComponentMetadata<C> {
 
         private String configurationPid = null;
 
-        private boolean configurationRequired = false;
+        private ConfigurationPolicy configurationPolicy = ConfigurationPolicy.OPTIONAL;
+
+        private String deactivateMethod = null;
 
         private String description = null;
 
@@ -45,9 +49,16 @@ public final class ComponentMetadata<C> {
 
         private boolean metatype = true;
 
+        private String updateMethod = null;
+
         public ComponentMetadata<C> build() {
             ComponentMetadata<C> componentMeta = new ComponentMetadata<C>(this);
             return componentMeta;
+        }
+
+        public ComponentMetadataBuilder<C> withActivateMethod(final String activateMethod) {
+            this.activateMethod = activateMethod;
+            return this;
         }
 
         public ComponentMetadataBuilder<C> withAttributes(final AttributeMetadata<?>[] attributes) {
@@ -70,8 +81,13 @@ public final class ComponentMetadata<C> {
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withConfigurationRequired(final boolean configurationRequired) {
-            this.configurationRequired = configurationRequired;
+        public ComponentMetadataBuilder<C> withConfigurationPolicy(final ConfigurationPolicy configurationPolicy) {
+            this.configurationPolicy = configurationPolicy;
+            return this;
+        }
+
+        public ComponentMetadataBuilder<C> withDeactivateMethod(final String deactivateMethod) {
+            this.deactivateMethod = deactivateMethod;
             return this;
         }
 
@@ -108,17 +124,28 @@ public final class ComponentMetadata<C> {
             this.clazz = clazz;
             return this;
         }
+
+        public ComponentMetadataBuilder<C> withUpdateMethod(final String updateMethod) {
+            this.updateMethod = updateMethod;
+            return this;
+        }
     }
+
+    private final String activateMethod;
 
     private final AttributeMetadata<?>[] attributes;
 
     private final Class<C> clazz;
 
+    private final String componentId;
+
     private final boolean configurationFactory;
 
     private final String configurationPid;
 
-    private final boolean configurationRequired;
+    private final ConfigurationPolicy configurationPolicy;
+
+    private final String deactivateMethod;
 
     private final String description;
 
@@ -130,7 +157,7 @@ public final class ComponentMetadata<C> {
 
     private final boolean metatype;
 
-    private final String componentId;
+    private final String updateMethod;
 
     private ComponentMetadata(final ComponentMetadataBuilder<C> builder) {
 
@@ -166,19 +193,38 @@ public final class ComponentMetadata<C> {
             this.description = "%" + this.componentId + ".description";
         }
 
-        this.configurationRequired = builder.configurationRequired;
+        this.configurationPolicy = builder.configurationPolicy;
         this.icons = builder.icons;
         this.localizationBase = builder.localizationBase;
         this.metatype = builder.metatype;
+        this.activateMethod = builder.activateMethod;
+        this.updateMethod = builder.updateMethod;
+        this.deactivateMethod = builder.deactivateMethod;
 
+    }
+
+    public String getActivateMethod() {
+        return activateMethod;
     }
 
     public AttributeMetadata<?>[] getAttributes() {
         return Arrays.copyOf(attributes, attributes.length);
     }
 
+    public String getComponentId() {
+        return componentId;
+    }
+
     public String getConfigurationPid() {
         return configurationPid;
+    }
+
+    public ConfigurationPolicy getConfigurationPolicy() {
+        return configurationPolicy;
+    }
+
+    public String getDeactivateMethod() {
+        return deactivateMethod;
     }
 
     public String getDescription() {
@@ -201,20 +247,12 @@ public final class ComponentMetadata<C> {
         return localizationBase;
     }
 
-    public String getComponentId() {
-        return componentId;
-    }
-
     public Class<C> getType() {
         return clazz;
     }
 
     public boolean isConfigurationFactory() {
         return configurationFactory;
-    }
-
-    public boolean isConfigurationRequired() {
-        return configurationRequired;
     }
 
     public boolean isMetatype() {
