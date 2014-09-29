@@ -22,7 +22,7 @@ public class DoubleAttributeMetadata extends SelectablePropertyAttributeMetadata
             extends SelectablePropertyAttributeMetadataBuilder<Double, DoubleAttributeMetadataBuilder> {
 
         @Override
-        public DoubleAttributeMetadata build() {
+        public DoubleAttributeMetadata buildInternal() {
             return new DoubleAttributeMetadata(this);
         }
 

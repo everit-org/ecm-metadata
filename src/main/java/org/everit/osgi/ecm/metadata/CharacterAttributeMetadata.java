@@ -22,7 +22,7 @@ public class CharacterAttributeMetadata extends SelectablePropertyAttributeMetad
             extends SelectablePropertyAttributeMetadataBuilder<Character, CharacterAttributeMetadataBuilder> {
 
         @Override
-        public CharacterAttributeMetadata build() {
+        public CharacterAttributeMetadata buildInternal() {
             return new CharacterAttributeMetadata(this);
         }
 

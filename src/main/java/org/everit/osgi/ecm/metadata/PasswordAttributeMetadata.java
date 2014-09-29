@@ -22,7 +22,7 @@ public class PasswordAttributeMetadata extends PropertyAttributeMetadata<String>
             extends PropertyAttributeMetadataBuilder<String, PasswordAttributeMetadataBuilder> {
 
         @Override
-        public PasswordAttributeMetadata build() {
+        public PasswordAttributeMetadata buildInternal() {
             return new PasswordAttributeMetadata(this);
         }
 

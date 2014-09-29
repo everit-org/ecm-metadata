@@ -22,7 +22,7 @@ public class BooleanAttributeMetadata extends PropertyAttributeMetadata<Boolean>
             extends PropertyAttributeMetadataBuilder<Boolean, BooleanAttributeMetadataBuilder> {
 
         @Override
-        public BooleanAttributeMetadata build() {
+        public BooleanAttributeMetadata buildInternal() {
             return new BooleanAttributeMetadata(self());
         }
 

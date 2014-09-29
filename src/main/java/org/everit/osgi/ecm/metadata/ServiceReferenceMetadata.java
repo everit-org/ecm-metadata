@@ -16,30 +16,39 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class ShortAttributeMetadata extends SelectablePropertyAttributeMetadata<Short> {
+public class ServiceReferenceMetadata extends ReferenceMetadata {
 
-    public static class ShortAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<Short, ShortAttributeMetadataBuilder> {
+    public static class ServiceReferenceMetadataBuilder extends
+            ReferenceMetadataBuilder<ServiceReferenceMetadataBuilder> {
+
+        private Class<?> serviceInterface = null;
 
         @Override
-        public ShortAttributeMetadata buildInternal() {
-            return new ShortAttributeMetadata(this);
+        protected ReferenceMetadata buildInternal() {
+            return new ServiceReferenceMetadata(this);
         }
 
         @Override
-        public Class<Short> getValueType() {
-            return Short.class;
-        }
-
-        @Override
-        protected ShortAttributeMetadataBuilder self() {
+        protected ServiceReferenceMetadataBuilder self() {
             return this;
         }
+
+        public ServiceReferenceMetadataBuilder withServiceInterface(final Class<?> referenceInterface) {
+            this.serviceInterface = referenceInterface;
+            return self();
+        }
+
     }
 
-    protected ShortAttributeMetadata(
-            final ShortAttributeMetadataBuilder builder) {
+    private final Class<?> serviceInterface;
+
+    private ServiceReferenceMetadata(final ServiceReferenceMetadataBuilder builder) {
         super(builder);
+        serviceInterface = builder.serviceInterface;
+    }
+
+    public Class<?> getServiceInterface() {
+        return serviceInterface;
     }
 
 }

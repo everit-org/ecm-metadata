@@ -18,9 +18,9 @@ package org.everit.osgi.ecm.metadata;
 
 import java.util.Objects;
 
-public class ReferenceMetadata extends AttributeMetadata<String> {
-
-    public static class ReferenceMetadataBuilder extends AttributeMetadataBuilder<String, ReferenceMetadataBuilder> {
+public abstract class ReferenceMetadata extends AttributeMetadata<String> {
+    public abstract static class ReferenceMetadataBuilder<B extends ReferenceMetadataBuilder<B>> extends
+            AttributeMetadataBuilder<String, B> {
 
         private String bind = null;
 
@@ -28,12 +28,10 @@ public class ReferenceMetadata extends AttributeMetadata<String> {
 
         private String referenceId = null;
 
-        private Class<?> referenceInterface = null;
-
         private String unbind = null;
 
         @Override
-        public ReferenceMetadata build() {
+        protected void beforeBuild() {
             Objects.requireNonNull(referenceId, "Reference id must be specified");
             String attributeId = getAttributeId();
             if (attributeId == null) {
@@ -43,7 +41,6 @@ public class ReferenceMetadata extends AttributeMetadata<String> {
                     withAttributeId(referenceId + ".target");
                 }
             }
-            return new ReferenceMetadata(this);
         }
 
         @Override
@@ -51,36 +48,26 @@ public class ReferenceMetadata extends AttributeMetadata<String> {
             return String.class;
         }
 
-        @Override
-        protected ReferenceMetadataBuilder self() {
-            return this;
-        }
-
-        public ReferenceMetadataBuilder withBind(final String bind) {
+        public B withBind(final String bind) {
             this.bind = bind;
-            return this;
+            return self();
         }
 
-        public ReferenceMetadataBuilder withReferenceConfigurationType(
+        public B withReferenceConfigurationType(
                 final ReferenceConfigurationType referenceConfigurationType) {
 
             this.referenceConfigurationType = referenceConfigurationType;
-            return this;
+            return self();
         }
 
-        public ReferenceMetadataBuilder withReferenceId(final String referenceId) {
+        public B withReferenceId(final String referenceId) {
             this.referenceId = referenceId;
-            return this;
+            return self();
         }
 
-        public ReferenceMetadataBuilder withReferenceInterface(final Class<?> referenceInterface) {
-            this.referenceInterface = referenceInterface;
-            return this;
-        }
-
-        public ReferenceMetadataBuilder withUnbind(final String unbind) {
+        public B withUnbind(final String unbind) {
             this.unbind = unbind;
-            return this;
+            return self();
         }
 
     }
@@ -98,8 +85,6 @@ public class ReferenceMetadata extends AttributeMetadata<String> {
 
     private final String referenceId;
 
-    private final Class<?> referenceInterface;
-
     /**
      * The bind method that should be used to bind the reference. In case the unbind method is not specified but there
      * is a method starting with "un" and ending with the name of the bind method, that method will be used to unbind
@@ -107,11 +92,10 @@ public class ReferenceMetadata extends AttributeMetadata<String> {
      */
     private final String unbind;
 
-    private ReferenceMetadata(final ReferenceMetadataBuilder builder) {
+    protected <B extends ReferenceMetadataBuilder<B>> ReferenceMetadata(final ReferenceMetadataBuilder<B> builder) {
         super(builder);
         bind = builder.bind;
         unbind = builder.unbind;
-        referenceInterface = builder.referenceInterface;
         referenceId = builder.referenceId;
         referenceConfigurationType = builder.referenceConfigurationType;
     }
@@ -126,10 +110,6 @@ public class ReferenceMetadata extends AttributeMetadata<String> {
 
     public String getReferenceId() {
         return referenceId;
-    }
-
-    public Class<?> getReferenceInterface() {
-        return referenceInterface;
     }
 
     public String getUnbind() {

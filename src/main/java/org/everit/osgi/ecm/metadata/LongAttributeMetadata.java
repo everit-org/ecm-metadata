@@ -22,7 +22,7 @@ public class LongAttributeMetadata extends SelectablePropertyAttributeMetadata<L
             extends SelectablePropertyAttributeMetadataBuilder<Long, LongAttributeMetadataBuilder> {
 
         @Override
-        public LongAttributeMetadata build() {
+        public LongAttributeMetadata buildInternal() {
             return new LongAttributeMetadata(this);
         }
 

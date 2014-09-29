@@ -22,7 +22,7 @@ public class ByteAttributeMetadata extends SelectablePropertyAttributeMetadata<B
             extends SelectablePropertyAttributeMetadataBuilder<Byte, ByteAttributeMetadataBuilder> {
 
         @Override
-        public ByteAttributeMetadata build() {
+        public ByteAttributeMetadata buildInternal() {
             return new ByteAttributeMetadata(this);
         }
 

@@ -22,7 +22,7 @@ public class IntegerAttributeMetadata extends SelectablePropertyAttributeMetadat
             extends SelectablePropertyAttributeMetadataBuilder<Integer, IntegerAttributeMetadataBuilder> {
 
         @Override
-        public IntegerAttributeMetadata build() {
+        public IntegerAttributeMetadata buildInternal() {
             return new IntegerAttributeMetadata(this);
         }
 

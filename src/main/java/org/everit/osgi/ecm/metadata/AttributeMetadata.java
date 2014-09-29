@@ -39,7 +39,15 @@ public abstract class AttributeMetadata<V> {
 
         private boolean optional = false;
 
-        public abstract AttributeMetadata<V> build();
+        protected void beforeBuild() {
+        }
+
+        public final AttributeMetadata<V> build() {
+            beforeBuild();
+            return buildInternal();
+        }
+
+        protected abstract AttributeMetadata<V> buildInternal();
 
         protected String getAttributeId() {
             return attributeId;

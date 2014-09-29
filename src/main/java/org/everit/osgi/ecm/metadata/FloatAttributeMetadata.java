@@ -22,7 +22,7 @@ public class FloatAttributeMetadata extends SelectablePropertyAttributeMetadata<
             extends SelectablePropertyAttributeMetadataBuilder<Float, FloatAttributeMetadataBuilder> {
 
         @Override
-        public FloatAttributeMetadata build() {
+        public FloatAttributeMetadata buildInternal() {
             return new FloatAttributeMetadata(this);
         }
 

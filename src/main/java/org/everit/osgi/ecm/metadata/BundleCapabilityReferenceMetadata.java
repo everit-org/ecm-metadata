@@ -16,44 +16,44 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata<String> {
+import java.util.Objects;
 
-    public static class StringAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<String, StringAttributeMetadataBuilder> {
+public class BundleCapabilityReferenceMetadata extends ReferenceMetadata {
 
-        private boolean multiLine = false;
+    public static class BundleCapabilityReferenceMetadataBuilder extends
+            ReferenceMetadataBuilder<BundleCapabilityReferenceMetadataBuilder> {
+
+        private String namespace = null;
 
         @Override
-        public StringAttributeMetadata buildInternal() {
-            return new StringAttributeMetadata(this);
+        protected ReferenceMetadata buildInternal() {
+            return new BundleCapabilityReferenceMetadata(this);
         }
 
         @Override
-        public Class<String> getValueType() {
-            return String.class;
-        }
-
-        @Override
-        protected StringAttributeMetadataBuilder self() {
+        protected BundleCapabilityReferenceMetadataBuilder self() {
             return this;
         }
 
-        public StringAttributeMetadataBuilder withMultiLine(final boolean multiline) {
-            multiLine = multiline;
+        public BundleCapabilityReferenceMetadataBuilder withNamespace(final String namespace) {
+            this.namespace = namespace;
             return self();
         }
+
     }
 
-    private final boolean multiLine;
+    private final String namespace;
 
-    protected StringAttributeMetadata(
-            final StringAttributeMetadataBuilder builder) {
+    private BundleCapabilityReferenceMetadata(final BundleCapabilityReferenceMetadataBuilder builder) {
         super(builder);
-        multiLine = builder.multiLine;
+
+        Objects.requireNonNull(builder.namespace, "Namespace must be defined for BundleCapabilityReference");
+
+        namespace = builder.namespace;
     }
 
-    public boolean isMultiLine() {
-        return multiLine;
+    public String getNamespace() {
+        return namespace;
     }
 
 }
