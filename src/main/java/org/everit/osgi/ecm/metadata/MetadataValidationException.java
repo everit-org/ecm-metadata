@@ -16,28 +16,15 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-import java.awt.Component;
-
-/**
- * Options for {@link Component#configurationPolicy()} property.
- */
-public enum ConfigurationPolicy {
-
-    FACTORY,
+public class MetadataValidationException extends RuntimeException {
 
     /**
-     * The configuration admin is not consulted for a configuration for this component.
+     *
      */
-    IGNORE,
+    private static final long serialVersionUID = -637304200458683320L;
 
-    /**
-     * If a configuration is available it will be used, if not the component will be activated anyway (this is the
-     * default).
-     */
-    OPTIONAL,
+    public MetadataValidationException(String message) {
+        super(message);
+    }
 
-    /**
-     * In order to activate this component a configuration is required.
-     */
-    REQUIRE;
 }

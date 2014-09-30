@@ -31,8 +31,6 @@ public final class ComponentMetadata<C> {
 
         private String componentId = null;
 
-        private boolean configurationFactory = false;
-
         private String configurationPid = null;
 
         private ConfigurationPolicy configurationPolicy = ConfigurationPolicy.OPTIONAL;
@@ -62,6 +60,7 @@ public final class ComponentMetadata<C> {
         }
 
         public ComponentMetadataBuilder<C> withAttributes(final AttributeMetadata<?>[] attributes) {
+            Objects.requireNonNull(attributes);
             this.attributes = Arrays.copyOf(attributes, attributes.length);
             return this;
         }
@@ -71,17 +70,13 @@ public final class ComponentMetadata<C> {
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withConfigurationFactory(final boolean configurationFactory) {
-            this.configurationFactory = configurationFactory;
-            return this;
-        }
-
         public ComponentMetadataBuilder<C> withConfigurationPid(final String configurationPid) {
             this.configurationPid = configurationPid;
             return this;
         }
 
         public ComponentMetadataBuilder<C> withConfigurationPolicy(final ConfigurationPolicy configurationPolicy) {
+            Objects.requireNonNull(configurationPolicy);
             this.configurationPolicy = configurationPolicy;
             return this;
         }
@@ -121,6 +116,7 @@ public final class ComponentMetadata<C> {
         }
 
         public ComponentMetadataBuilder<C> withType(final Class<C> clazz) {
+            Objects.requireNonNull(clazz);
             this.clazz = clazz;
             return this;
         }
@@ -138,8 +134,6 @@ public final class ComponentMetadata<C> {
     private final Class<C> clazz;
 
     private final String componentId;
-
-    private final boolean configurationFactory;
 
     private final String configurationPid;
 
@@ -161,11 +155,11 @@ public final class ComponentMetadata<C> {
 
     private ComponentMetadata(final ComponentMetadataBuilder<C> builder) {
 
-        Objects.requireNonNull(builder.clazz, "Class type for ComponentMeta must be provided");
+        if (builder.clazz == null) {
+            throw new MetadataValidationException("Class type for ComponentMeta must be provided: "
+                    + builder.componentId);
+        }
         this.clazz = builder.clazz;
-
-        Objects.requireNonNull(builder.attributes, "attributes must not be null");
-        this.attributes = builder.attributes;
 
         if (builder.componentId != null) {
             this.componentId = builder.componentId;
@@ -173,7 +167,7 @@ public final class ComponentMetadata<C> {
             this.componentId = clazz.getName();
         }
 
-        this.configurationFactory = builder.configurationFactory;
+        this.attributes = builder.attributes;
 
         if (builder.configurationPid != null) {
             this.configurationPid = builder.configurationPid;
@@ -251,15 +245,11 @@ public final class ComponentMetadata<C> {
         return clazz;
     }
 
-    public boolean isConfigurationFactory() {
-        return configurationFactory;
+    public String getUpdateMethod() {
+        return updateMethod;
     }
 
     public boolean isMetatype() {
         return metatype;
-    }
-
-    public String getUpdateMethod() {
-        return updateMethod;
     }
 }
