@@ -258,4 +258,8 @@ public final class ComponentMetadata<C> {
     public boolean isMetatype() {
         return metatype;
     }
+
+    public String getUpdateMethod() {
+        return updateMethod;
+    }
 }
