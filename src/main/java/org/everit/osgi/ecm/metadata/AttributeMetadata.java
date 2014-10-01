@@ -65,6 +65,11 @@ public abstract class AttributeMetadata<V> {
             if (defaultValue == null) {
                 this.defaultValue = null;
             } else {
+                for (int i = 0; i < defaultValue.length; i++) {
+                    if (defaultValue[i] == null) {
+                        throw new IllegalArgumentException("Null is not allowed as the element of default value array");
+                    }
+                }
                 this.defaultValue = Arrays.copyOf(defaultValue, defaultValue.length);
             }
             return self();
