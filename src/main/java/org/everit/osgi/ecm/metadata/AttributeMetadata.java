@@ -17,7 +17,6 @@
 package org.everit.osgi.ecm.metadata;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public abstract class AttributeMetadata<V> {
 
@@ -64,8 +63,11 @@ public abstract class AttributeMetadata<V> {
         }
 
         public B withDefaultValue(final V[] defaultValue) {
-            Objects.requireNonNull(defaultValue, "Default value must be specified, at least with an empty array");
-            this.defaultValue = Arrays.copyOf(defaultValue, defaultValue.length);
+            if (defaultValue == null) {
+                this.defaultValue = null;
+            } else {
+                this.defaultValue = Arrays.copyOf(defaultValue, defaultValue.length);
+            }
             return self();
         }
 
