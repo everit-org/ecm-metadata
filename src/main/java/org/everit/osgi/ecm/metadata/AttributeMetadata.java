@@ -129,12 +129,9 @@ public abstract class AttributeMetadata<V> {
             final AttributeMetadataBuilder<V, B> builder) {
 
         this.defaultValue = builder.defaultValue;
-        if (defaultValue != null) {
-            for (int i = 0; i < defaultValue.length; i++) {
-                if (defaultValue[i] == null) {
-                    throw new IllegalArgumentException("Default value array cannot contain null element");
-                }
-            }
+        if (defaultValue != null && defaultValue.length != 1 && !builder.multiple) {
+            throw new IllegalArgumentException(
+                    "Only one element array or null can be specidied as default value for non-multiple attribute");
         }
 
         this.valueType = builder.getValueType();
