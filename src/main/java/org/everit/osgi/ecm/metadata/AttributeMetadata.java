@@ -16,7 +16,6 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public abstract class AttributeMetadata<V> {
@@ -138,14 +137,7 @@ public abstract class AttributeMetadata<V> {
             this.description = null;
         }
 
-        if (builder.defaultValue == null) {
-
-            @SuppressWarnings("unchecked")
-            V[] tmpDefualtValue = (V[]) Array.newInstance(valueType, 0);
-            this.defaultValue = tmpDefualtValue;
-        } else {
-            this.defaultValue = builder.defaultValue;
-        }
+        this.defaultValue = builder.defaultValue;
         this.metatype = builder.metatype;
         this.multiple = builder.multiple;
         this.optional = builder.optional;
@@ -157,7 +149,11 @@ public abstract class AttributeMetadata<V> {
     }
 
     public V[] getDefaultValue() {
-        return Arrays.copyOf(defaultValue, defaultValue.length);
+        if (defaultValue == null) {
+            return null;
+        } else {
+            return Arrays.copyOf(defaultValue, defaultValue.length);
+        }
     }
 
     public String getDescription() {
