@@ -125,7 +125,18 @@ public abstract class AttributeMetadata<V> {
 
     private final Class<V> valueType;
 
-    protected <B extends AttributeMetadataBuilder<V, B>> AttributeMetadata(final AttributeMetadataBuilder<V, B> builder) {
+    protected <B extends AttributeMetadataBuilder<V, B>> AttributeMetadata(
+            final AttributeMetadataBuilder<V, B> builder) {
+
+        this.defaultValue = builder.defaultValue;
+        if (defaultValue != null) {
+            for (int i = 0; i < defaultValue.length; i++) {
+                if (defaultValue[i] == null) {
+                    throw new IllegalArgumentException("Default value array cannot contain null element");
+                }
+            }
+        }
+
         this.valueType = builder.getValueType();
         this.attributeId = builder.attributeId;
 
@@ -145,7 +156,6 @@ public abstract class AttributeMetadata<V> {
             this.description = null;
         }
 
-        this.defaultValue = builder.defaultValue;
         this.metatype = builder.metatype;
         this.multiple = builder.multiple;
         this.optional = builder.optional;

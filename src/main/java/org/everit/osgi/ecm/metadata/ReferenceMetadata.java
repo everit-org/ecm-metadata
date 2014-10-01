@@ -34,6 +34,7 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
         protected void beforeBuild() {
             Objects.requireNonNull(referenceId, "Reference id must be specified");
             String attributeId = getAttributeId();
+
             if (attributeId == null) {
                 if (ReferenceConfigurationType.CLAUSE.equals(referenceConfigurationType)) {
                     withAttributeId(referenceId + ".clause");
