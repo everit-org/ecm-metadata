@@ -22,16 +22,15 @@ public abstract class AttributeMetadata<V> {
 
     public static abstract class AttributeMetadataBuilder<V, B extends AttributeMetadataBuilder<V, B>> {
 
-        private String attributeId;
+        private String attributeId = null;
 
-        @SuppressWarnings("unchecked")
-        private V[] defaultValue = (V[]) new Object[0];
+        private V[] defaultValue = null;
 
-        private String description;
+        private String description = null;
 
         private boolean dynamic = false;
 
-        private String label;
+        private String label = null;
 
         private boolean metatype = true;
 
