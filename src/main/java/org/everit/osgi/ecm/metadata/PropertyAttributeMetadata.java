@@ -16,33 +16,64 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-import java.util.Objects;
+import java.lang.reflect.Method;
 
 public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> {
 
     public static abstract class PropertyAttributeMetadataBuilder<V, B extends PropertyAttributeMetadataBuilder<V, B>>
             extends AttributeMetadataBuilder<V, B> {
 
-        private String setter = null;
+        private Method setter = null;
 
-        public B withSetter(final String setter) {
+        public B withSetter(final Method setter) {
             this.setter = setter;
             return self();
         }
     }
 
-    private final String setter;
+    private final Method setter;
 
     protected <B extends PropertyAttributeMetadataBuilder<V, B>> PropertyAttributeMetadata(
             final PropertyAttributeMetadataBuilder<V, B> builder) {
 
         super(builder);
-        Objects.requireNonNull(getAttributeId(), "Name must be provided for the attribute");
 
+        if (builder.setter != null) {
+            Class<?>[] parameterTypes = builder.setter.getParameterTypes();
+            if (parameterTypes.length != 1) {
+                throw new MetadataValidationException("Setter '" + builder.setter.toGenericString()
+                        + "' of attribute '" + getAttributeId() + "' must have exactly one argument.");
+            }
+            Class<V> valueType = getValueType();
+            boolean paramTypeSameAsValueType = valueType.equals(parameterTypes[0]);
+            if (isOptional() && !paramTypeSameAsValueType) {
+                throw new MetadataValidationException("Argument of setter '" + builder.setter.toGenericString()
+                        + "' of optional attribute '" + getAttributeId() + "' must be '" + valueType.toString() + "'");
+            } else {
+                Class<?> primitiveType = getPrimitiveTypeInternal();
+                if (!isOptional() && !paramTypeSameAsValueType && primitiveType != null
+                        && !valueType.equals(primitiveType)) {
+                    throw new MetadataValidationException("Argument of setter '" + builder.setter.toGenericString()
+                            + "' of attribute '" + getAttributeId() + "' must be "
+                            + ((primitiveType != null) ? "either" : "")
+                            + " '" + valueType.toString() + "'"
+                            + ((primitiveType != null) ? (" or '" + getPrimitiveTypeInternal() + "'") : ""));
+                }
+            }
+        }
         this.setter = builder.setter;
     }
 
-    public String getSetter() {
+    public Class<?> getPrimitiveType() {
+        if (isOptional()) {
+            return null;
+        }
+        return getPrimitiveTypeInternal();
+    }
+
+    public abstract Class<?> getPrimitiveTypeInternal();
+
+    public Method getSetter() {
         return setter;
     }
 }

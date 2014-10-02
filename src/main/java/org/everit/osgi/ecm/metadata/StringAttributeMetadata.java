@@ -56,4 +56,9 @@ public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata
         return multiLine;
     }
 
+    @Override
+    public Class<?> getPrimitiveTypeInternal() {
+        return null;
+    }
+
 }

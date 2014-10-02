@@ -42,4 +42,8 @@ public class IntegerAttributeMetadata extends SelectablePropertyAttributeMetadat
         super(builder);
     }
 
+    @Override
+    public Class<?> getPrimitiveTypeInternal() {
+        return int.class;
+    }
 }

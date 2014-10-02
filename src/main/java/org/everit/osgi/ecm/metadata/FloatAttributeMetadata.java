@@ -42,4 +42,8 @@ public class FloatAttributeMetadata extends SelectablePropertyAttributeMetadata<
         super(builder);
     }
 
+    @Override
+    public Class<?> getPrimitiveTypeInternal() {
+        return float.class;
+    }
 }

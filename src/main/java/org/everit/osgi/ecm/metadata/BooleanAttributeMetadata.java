@@ -43,4 +43,9 @@ public class BooleanAttributeMetadata extends PropertyAttributeMetadata<Boolean>
         super(builder);
     }
 
+    @Override
+    public Class<?> getPrimitiveTypeInternal() {
+        return boolean.class;
+    }
+
 }

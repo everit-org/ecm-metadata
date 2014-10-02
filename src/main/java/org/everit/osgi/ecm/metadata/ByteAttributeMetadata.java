@@ -43,4 +43,9 @@ public class ByteAttributeMetadata extends SelectablePropertyAttributeMetadata<B
         super(builder);
     }
 
+    @Override
+    public Class<?> getPrimitiveTypeInternal() {
+        return byte.class;
+    }
+
 }

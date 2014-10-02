@@ -43,4 +43,8 @@ public class DoubleAttributeMetadata extends SelectablePropertyAttributeMetadata
         super(builder);
     }
 
+    @Override
+    public Class<?> getPrimitiveTypeInternal() {
+        return double.class;
+    }
 }

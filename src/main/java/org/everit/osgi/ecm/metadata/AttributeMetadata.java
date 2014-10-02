@@ -17,6 +17,7 @@
 package org.everit.osgi.ecm.metadata;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public abstract class AttributeMetadata<V> {
 
@@ -61,7 +62,7 @@ public abstract class AttributeMetadata<V> {
             return self();
         }
 
-        public B withDefaultValue(final V[] defaultValue) {
+        public B withDefaultValue(@SuppressWarnings("unchecked") final V... defaultValue) {
             if (defaultValue == null) {
                 this.defaultValue = null;
             } else {
@@ -127,6 +128,7 @@ public abstract class AttributeMetadata<V> {
 
     protected <B extends AttributeMetadataBuilder<V, B>> AttributeMetadata(
             final AttributeMetadataBuilder<V, B> builder) {
+        Objects.requireNonNull(builder.attributeId, "Attribute id must be specified");
 
         this.defaultValue = builder.defaultValue;
         if (defaultValue != null && defaultValue.length != 1 && !builder.multiple) {
