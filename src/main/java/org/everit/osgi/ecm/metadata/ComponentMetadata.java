@@ -19,15 +19,15 @@ package org.everit.osgi.ecm.metadata;
 import java.util.Arrays;
 import java.util.Objects;
 
-public final class ComponentMetadata<C> {
+public final class ComponentMetadata {
 
-    public static class ComponentMetadataBuilder<C> {
+    public static class ComponentMetadataBuilder {
 
         private String activateMethod = null;
 
         private AttributeMetadata<?>[] attributes = new AttributeMetadata[0];
 
-        private Class<C> clazz = null;
+        private String clazz = null;
 
         private String componentId = null;
 
@@ -49,49 +49,49 @@ public final class ComponentMetadata<C> {
 
         private String updateMethod = null;
 
-        public ComponentMetadata<C> build() {
-            ComponentMetadata<C> componentMeta = new ComponentMetadata<C>(this);
+        public ComponentMetadata build() {
+            ComponentMetadata componentMeta = new ComponentMetadata(this);
             return componentMeta;
         }
 
-        public ComponentMetadataBuilder<C> withActivateMethod(final String activateMethod) {
+        public ComponentMetadataBuilder withActivateMethod(final String activateMethod) {
             this.activateMethod = activateMethod;
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withAttributes(final AttributeMetadata<?>[] attributes) {
+        public ComponentMetadataBuilder withAttributes(final AttributeMetadata<?>[] attributes) {
             Objects.requireNonNull(attributes);
             this.attributes = Arrays.copyOf(attributes, attributes.length);
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withComponentId(final String componentId) {
+        public ComponentMetadataBuilder withComponentId(final String componentId) {
             this.componentId = componentId;
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withConfigurationPid(final String configurationPid) {
+        public ComponentMetadataBuilder withConfigurationPid(final String configurationPid) {
             this.configurationPid = configurationPid;
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withConfigurationPolicy(final ConfigurationPolicy configurationPolicy) {
+        public ComponentMetadataBuilder withConfigurationPolicy(final ConfigurationPolicy configurationPolicy) {
             Objects.requireNonNull(configurationPolicy);
             this.configurationPolicy = configurationPolicy;
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withDeactivateMethod(final String deactivateMethod) {
+        public ComponentMetadataBuilder withDeactivateMethod(final String deactivateMethod) {
             this.deactivateMethod = deactivateMethod;
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withDescription(final String description) {
+        public ComponentMetadataBuilder withDescription(final String description) {
             this.description = description;
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withIcons(Icon[] icons) {
+        public ComponentMetadataBuilder withIcons(Icon[] icons) {
             if (icons != null) {
                 this.icons = Arrays.copyOf(icons, icons.length);
             } else {
@@ -100,28 +100,28 @@ public final class ComponentMetadata<C> {
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withLabel(final String label) {
+        public ComponentMetadataBuilder withLabel(final String label) {
             this.label = label;
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withLocalizationBase(final String localizationBase) {
+        public ComponentMetadataBuilder withLocalizationBase(final String localizationBase) {
             this.localizationBase = localizationBase;
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withMetatype(boolean metatype) {
+        public ComponentMetadataBuilder withMetatype(boolean metatype) {
             this.metatype = metatype;
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withType(final Class<C> clazz) {
+        public ComponentMetadataBuilder withType(final String clazz) {
             Objects.requireNonNull(clazz);
             this.clazz = clazz;
             return this;
         }
 
-        public ComponentMetadataBuilder<C> withUpdateMethod(final String updateMethod) {
+        public ComponentMetadataBuilder withUpdateMethod(final String updateMethod) {
             this.updateMethod = updateMethod;
             return this;
         }
@@ -131,7 +131,7 @@ public final class ComponentMetadata<C> {
 
     private final AttributeMetadata<?>[] attributes;
 
-    private final Class<C> clazz;
+    private final String clazz;
 
     private final String componentId;
 
@@ -153,7 +153,7 @@ public final class ComponentMetadata<C> {
 
     private final String updateMethod;
 
-    private ComponentMetadata(final ComponentMetadataBuilder<C> builder) {
+    private ComponentMetadata(final ComponentMetadataBuilder builder) {
 
         if (builder.clazz == null) {
             throw new MetadataValidationException("Class type for ComponentMeta must be provided: "
@@ -164,7 +164,7 @@ public final class ComponentMetadata<C> {
         if (builder.componentId != null) {
             this.componentId = builder.componentId;
         } else {
-            this.componentId = clazz.getName();
+            this.componentId = clazz;
         }
 
         this.attributes = builder.attributes;
@@ -241,7 +241,7 @@ public final class ComponentMetadata<C> {
         return localizationBase;
     }
 
-    public Class<C> getType() {
+    public String getType() {
         return clazz;
     }
 
