@@ -87,7 +87,8 @@
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Export-Package>
-              ${project.artifactId}
+              ${project.artifactId},
+              ${project.artifactId}.util
             </Export-Package>
           </instructions>
         </configuration>
@@ -96,5 +97,11 @@
   </build>
 
   <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 </project>
