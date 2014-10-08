@@ -87,8 +87,7 @@
           <instructions>
             <Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
             <Export-Package>
-              ${project.artifactId},
-              ${project.artifactId}.util
+              ${project.artifactId}
             </Export-Package>
           </instructions>
         </configuration>
