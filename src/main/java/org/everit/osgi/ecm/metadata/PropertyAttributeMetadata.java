@@ -16,21 +16,22 @@
  */
 package org.everit.osgi.ecm.metadata;
 
+import org.everit.osgi.ecm.util.method.MethodDescriptor;
 
 public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> {
 
     public static abstract class PropertyAttributeMetadataBuilder<V, B extends PropertyAttributeMetadataBuilder<V, B>>
             extends AttributeMetadataBuilder<V, B> {
 
-        private String setter = null;
+        private MethodDescriptor setter = null;
 
-        public B withSetter(final String setter) {
+        public B withSetter(final MethodDescriptor setter) {
             this.setter = setter;
             return self();
         }
     }
 
-    private final String setter;
+    private final MethodDescriptor setter;
 
     protected <B extends PropertyAttributeMetadataBuilder<V, B>> PropertyAttributeMetadata(
             final PropertyAttributeMetadataBuilder<V, B> builder) {
@@ -49,7 +50,7 @@ public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> 
 
     public abstract Class<?> getPrimitiveTypeInternal();
 
-    public String getSetter() {
+    public MethodDescriptor getSetter() {
         return setter;
     }
 }

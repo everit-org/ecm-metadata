@@ -19,11 +19,13 @@ package org.everit.osgi.ecm.metadata;
 import java.util.Arrays;
 import java.util.Objects;
 
+import org.everit.osgi.ecm.util.method.MethodDescriptor;
+
 public final class ComponentMetadata {
 
     public static class ComponentMetadataBuilder {
 
-        private String activateMethod = null;
+        private MethodDescriptor activate = null;
 
         private AttributeMetadata<?>[] attributes = new AttributeMetadata[0];
 
@@ -35,7 +37,7 @@ public final class ComponentMetadata {
 
         private ConfigurationPolicy configurationPolicy = ConfigurationPolicy.OPTIONAL;
 
-        private String deactivateMethod = null;
+        private MethodDescriptor deactivate = null;
 
         private String description = null;
 
@@ -47,15 +49,15 @@ public final class ComponentMetadata {
 
         private boolean metatype = true;
 
-        private String updateMethod = null;
+        private MethodDescriptor update = null;
 
         public ComponentMetadata build() {
             ComponentMetadata componentMeta = new ComponentMetadata(this);
             return componentMeta;
         }
 
-        public ComponentMetadataBuilder withActivateMethod(final String activateMethod) {
-            this.activateMethod = activateMethod;
+        public ComponentMetadataBuilder withActivate(final MethodDescriptor activate) {
+            this.activate = activate;
             return this;
         }
 
@@ -81,8 +83,8 @@ public final class ComponentMetadata {
             return this;
         }
 
-        public ComponentMetadataBuilder withDeactivateMethod(final String deactivateMethod) {
-            this.deactivateMethod = deactivateMethod;
+        public ComponentMetadataBuilder withDeactivate(final MethodDescriptor deactivate) {
+            this.deactivate = deactivate;
             return this;
         }
 
@@ -121,13 +123,13 @@ public final class ComponentMetadata {
             return this;
         }
 
-        public ComponentMetadataBuilder withUpdateMethod(final String updateMethod) {
-            this.updateMethod = updateMethod;
+        public ComponentMetadataBuilder withUpdate(final MethodDescriptor update) {
+            this.update = update;
             return this;
         }
     }
 
-    private final String activateMethod;
+    private final MethodDescriptor activate;
 
     private final AttributeMetadata<?>[] attributes;
 
@@ -139,7 +141,7 @@ public final class ComponentMetadata {
 
     private final ConfigurationPolicy configurationPolicy;
 
-    private final String deactivateMethod;
+    private final MethodDescriptor deactivate;
 
     private final String description;
 
@@ -151,7 +153,7 @@ public final class ComponentMetadata {
 
     private final boolean metatype;
 
-    private final String updateMethod;
+    private final MethodDescriptor update;
 
     private ComponentMetadata(final ComponentMetadataBuilder builder) {
 
@@ -191,14 +193,14 @@ public final class ComponentMetadata {
         this.icons = builder.icons;
         this.localizationBase = builder.localizationBase;
         this.metatype = builder.metatype;
-        this.activateMethod = builder.activateMethod;
-        this.updateMethod = builder.updateMethod;
-        this.deactivateMethod = builder.deactivateMethod;
+        this.activate = builder.activate;
+        this.update = builder.update;
+        this.deactivate = builder.deactivate;
 
     }
 
-    public String getActivateMethod() {
-        return activateMethod;
+    public MethodDescriptor getActivate() {
+        return activate;
     }
 
     public AttributeMetadata<?>[] getAttributes() {
@@ -217,8 +219,8 @@ public final class ComponentMetadata {
         return configurationPolicy;
     }
 
-    public String getDeactivateMethod() {
-        return deactivateMethod;
+    public MethodDescriptor getDeactivate() {
+        return deactivate;
     }
 
     public String getDescription() {
@@ -245,8 +247,8 @@ public final class ComponentMetadata {
         return clazz;
     }
 
-    public String getUpdateMethod() {
-        return updateMethod;
+    public MethodDescriptor getUpdate() {
+        return update;
     }
 
     public boolean isMetatype() {

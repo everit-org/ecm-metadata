@@ -18,17 +18,19 @@ package org.everit.osgi.ecm.metadata;
 
 import java.util.Objects;
 
+import org.everit.osgi.ecm.util.method.MethodDescriptor;
+
 public abstract class ReferenceMetadata extends AttributeMetadata<String> {
     public abstract static class ReferenceMetadataBuilder<B extends ReferenceMetadataBuilder<B>> extends
             AttributeMetadataBuilder<String, B> {
 
-        private String bind = null;
+        private MethodDescriptor bind = null;
 
         private ReferenceConfigurationType referenceConfigurationType = ReferenceConfigurationType.FILTER;
 
         private String referenceId = null;
 
-        private String unbind = null;
+        private MethodDescriptor unbind = null;
 
         @Override
         protected void beforeBuild() {
@@ -49,7 +51,7 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
             return String.class;
         }
 
-        public B withBind(final String bind) {
+        public B withBind(final MethodDescriptor bind) {
             this.bind = bind;
             return self();
         }
@@ -66,7 +68,7 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
             return self();
         }
 
-        public B withUnbind(final String unbind) {
+        public B withUnbind(final MethodDescriptor unbind) {
             this.unbind = unbind;
             return self();
         }
@@ -80,7 +82,7 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
      * name as the field but prefixed with "bind" that method will be used as a bind method. In case there is no bind
      * method but there is a setter for the field, it will be used to set the property.
      */
-    private final String bind;
+    private final MethodDescriptor bind;
 
     private final ReferenceConfigurationType referenceConfigurationType;
 
@@ -91,7 +93,7 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
      * is a method starting with "un" and ending with the name of the bind method, that method will be used to unbind
      * the reference.
      */
-    private final String unbind;
+    private final MethodDescriptor unbind;
 
     protected <B extends ReferenceMetadataBuilder<B>> ReferenceMetadata(final ReferenceMetadataBuilder<B> builder) {
         super(builder);
@@ -101,7 +103,7 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
         referenceConfigurationType = builder.referenceConfigurationType;
     }
 
-    public String getBind() {
+    public MethodDescriptor getBind() {
         return bind;
     }
 
@@ -113,7 +115,7 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
         return referenceId;
     }
 
-    public String getUnbind() {
+    public MethodDescriptor getUnbind() {
         return unbind;
     }
 }
