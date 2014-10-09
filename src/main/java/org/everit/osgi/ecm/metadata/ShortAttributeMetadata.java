@@ -27,6 +27,11 @@ public class ShortAttributeMetadata extends SelectablePropertyAttributeMetadata<
         }
 
         @Override
+        public Class<?> getPrimitiveType() {
+            return short.class;
+        }
+
+        @Override
         public Class<Short> getValueType() {
             return Short.class;
         }
@@ -40,11 +45,6 @@ public class ShortAttributeMetadata extends SelectablePropertyAttributeMetadata<
     protected ShortAttributeMetadata(
             final ShortAttributeMetadataBuilder builder) {
         super(builder);
-    }
-
-    @Override
-    public Class<?> getPrimitiveTypeInternal() {
-        return short.class;
     }
 
 }

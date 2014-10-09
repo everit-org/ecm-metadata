@@ -25,11 +25,15 @@ public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> 
 
         private MethodDescriptor setter = null;
 
+        public abstract Class<?> getPrimitiveType();
+
         public B withSetter(final MethodDescriptor setter) {
             this.setter = setter;
             return self();
         }
     }
+
+    private final Class<?> primitiveType;
 
     private final MethodDescriptor setter;
 
@@ -39,16 +43,12 @@ public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> 
         super(builder);
 
         this.setter = builder.setter;
+        this.primitiveType = builder.getPrimitiveType();
     }
 
     public Class<?> getPrimitiveType() {
-        if (isOptional()) {
-            return null;
-        }
-        return getPrimitiveTypeInternal();
+        return primitiveType;
     }
-
-    public abstract Class<?> getPrimitiveTypeInternal();
 
     public MethodDescriptor getSetter() {
         return setter;

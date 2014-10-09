@@ -29,6 +29,11 @@ public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata
         }
 
         @Override
+        public Class<?> getPrimitiveType() {
+            return null;
+        }
+
+        @Override
         public Class<String> getValueType() {
             return String.class;
         }
@@ -54,11 +59,6 @@ public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata
 
     public boolean isMultiLine() {
         return multiLine;
-    }
-
-    @Override
-    public Class<?> getPrimitiveTypeInternal() {
-        return null;
     }
 
 }

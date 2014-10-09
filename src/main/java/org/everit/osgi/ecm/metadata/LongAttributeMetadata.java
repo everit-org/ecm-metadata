@@ -27,6 +27,11 @@ public class LongAttributeMetadata extends SelectablePropertyAttributeMetadata<L
         }
 
         @Override
+        public Class<?> getPrimitiveType() {
+            return long.class;
+        }
+
+        @Override
         public Class<Long> getValueType() {
             return Long.class;
         }
@@ -40,10 +45,5 @@ public class LongAttributeMetadata extends SelectablePropertyAttributeMetadata<L
     protected LongAttributeMetadata(
             final LongAttributeMetadataBuilder builder) {
         super(builder);
-    }
-
-    @Override
-    public Class<?> getPrimitiveTypeInternal() {
-        return long.class;
     }
 }

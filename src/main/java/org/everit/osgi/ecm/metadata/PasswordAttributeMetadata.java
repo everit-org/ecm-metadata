@@ -27,6 +27,11 @@ public class PasswordAttributeMetadata extends PropertyAttributeMetadata<String>
         }
 
         @Override
+        public Class<?> getPrimitiveType() {
+            return null;
+        }
+
+        @Override
         public Class<String> getValueType() {
             return String.class;
         }
@@ -39,10 +44,5 @@ public class PasswordAttributeMetadata extends PropertyAttributeMetadata<String>
 
     protected PasswordAttributeMetadata(final PasswordAttributeMetadataBuilder builder) {
         super(builder);
-    }
-
-    @Override
-    public Class<?> getPrimitiveTypeInternal() {
-        return null;
     }
 }

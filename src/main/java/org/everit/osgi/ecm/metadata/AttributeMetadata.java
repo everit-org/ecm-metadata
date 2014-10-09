@@ -66,8 +66,8 @@ public abstract class AttributeMetadata<V> {
             if (defaultValue == null) {
                 this.defaultValue = null;
             } else {
-                for (int i = 0; i < defaultValue.length; i++) {
-                    if (defaultValue[i] == null) {
+                for (V element : defaultValue) {
+                    if (element == null) {
                         throw new IllegalArgumentException("Null is not allowed as the element of default value array");
                     }
                 }

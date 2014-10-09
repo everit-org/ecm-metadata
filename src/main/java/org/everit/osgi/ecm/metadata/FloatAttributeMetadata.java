@@ -27,6 +27,11 @@ public class FloatAttributeMetadata extends SelectablePropertyAttributeMetadata<
         }
 
         @Override
+        public Class<?> getPrimitiveType() {
+            return float.class;
+        }
+
+        @Override
         public Class<Float> getValueType() {
             return Float.class;
         }
@@ -40,10 +45,5 @@ public class FloatAttributeMetadata extends SelectablePropertyAttributeMetadata<
     protected FloatAttributeMetadata(
             final FloatAttributeMetadataBuilder builder) {
         super(builder);
-    }
-
-    @Override
-    public Class<?> getPrimitiveTypeInternal() {
-        return float.class;
     }
 }

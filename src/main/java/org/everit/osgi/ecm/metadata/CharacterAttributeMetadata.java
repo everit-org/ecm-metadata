@@ -27,6 +27,11 @@ public class CharacterAttributeMetadata extends SelectablePropertyAttributeMetad
         }
 
         @Override
+        public Class<?> getPrimitiveType() {
+            return char.class;
+        }
+
+        @Override
         public Class<Character> getValueType() {
             return Character.class;
         }
@@ -41,11 +46,6 @@ public class CharacterAttributeMetadata extends SelectablePropertyAttributeMetad
     protected CharacterAttributeMetadata(
             final CharacterAttributeMetadataBuilder builder) {
         super(builder);
-    }
-
-    @Override
-    public Class<?> getPrimitiveTypeInternal() {
-        return char.class;
     }
 
 }

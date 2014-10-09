@@ -27,6 +27,11 @@ public class IntegerAttributeMetadata extends SelectablePropertyAttributeMetadat
         }
 
         @Override
+        public Class<?> getPrimitiveType() {
+            return int.class;
+        }
+
+        @Override
         public Class<Integer> getValueType() {
             return Integer.class;
         }
@@ -40,10 +45,5 @@ public class IntegerAttributeMetadata extends SelectablePropertyAttributeMetadat
     protected IntegerAttributeMetadata(
             final IntegerAttributeMetadataBuilder builder) {
         super(builder);
-    }
-
-    @Override
-    public Class<?> getPrimitiveTypeInternal() {
-        return int.class;
     }
 }

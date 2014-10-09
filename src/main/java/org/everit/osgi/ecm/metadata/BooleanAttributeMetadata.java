@@ -27,6 +27,11 @@ public class BooleanAttributeMetadata extends PropertyAttributeMetadata<Boolean>
         }
 
         @Override
+        public Class<?> getPrimitiveType() {
+            return boolean.class;
+        }
+
+        @Override
         public Class<Boolean> getValueType() {
             return Boolean.class;
         }
@@ -41,11 +46,6 @@ public class BooleanAttributeMetadata extends PropertyAttributeMetadata<Boolean>
     protected BooleanAttributeMetadata(
             final BooleanAttributeMetadataBuilder builder) {
         super(builder);
-    }
-
-    @Override
-    public Class<?> getPrimitiveTypeInternal() {
-        return boolean.class;
     }
 
 }
