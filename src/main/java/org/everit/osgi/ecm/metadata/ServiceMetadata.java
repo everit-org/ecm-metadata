@@ -16,27 +16,36 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-import java.util.Arrays;
 
 public class ServiceMetadata {
 
-    private final Class<?>[] clazzes;
+    public static class ServiceMetadataBuilder {
+        private Class<?>[] clazzes;
 
-    public ServiceMetadata() {
-        this(null);
+        public ServiceMetadata build() {
+            return new ServiceMetadata(clazzes);
+        }
+
+        public ServiceMetadataBuilder withClazzes(final Class<?>[] clazzes) {
+            if (clazzes == null) {
+                this.clazzes = null;
+            } else {
+                this.clazzes = clazzes.clone();
+            }
+            return this;
+        }
+
     }
 
-    public ServiceMetadata(final Class<?>[] clazzes) {
-        if (clazzes != null) {
-            this.clazzes = Arrays.copyOf(clazzes, clazzes.length);
-        } else {
-            this.clazzes = null;
-        }
+    private final Class<?>[] clazzes;
+
+    private ServiceMetadata(final Class<?>[] clazzes) {
+        this.clazzes = clazzes;
     }
 
     public Class<?>[] getClazzes() {
         if (clazzes != null) {
-            return Arrays.copyOf(clazzes, clazzes.length);
+            return clazzes.clone();
         } else {
             return null;
         }
