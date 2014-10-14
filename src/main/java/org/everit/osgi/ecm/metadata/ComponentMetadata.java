@@ -49,6 +49,8 @@ public final class ComponentMetadata {
 
         private boolean metatype = true;
 
+        private ServiceMetadata service = null;
+
         private MethodDescriptor update = null;
 
         public ComponentMetadata build() {
@@ -117,6 +119,11 @@ public final class ComponentMetadata {
             return this;
         }
 
+        public ComponentMetadataBuilder withService(final ServiceMetadata service) {
+            this.service = service;
+            return this;
+        }
+
         public ComponentMetadataBuilder withType(final String clazz) {
             Objects.requireNonNull(clazz);
             this.clazz = clazz;
@@ -152,6 +159,8 @@ public final class ComponentMetadata {
     private final String localizationBase;
 
     private final boolean metatype;
+
+    private final ServiceMetadata service;
 
     private final MethodDescriptor update;
 
@@ -196,6 +205,7 @@ public final class ComponentMetadata {
         this.activate = builder.activate;
         this.update = builder.update;
         this.deactivate = builder.deactivate;
+        this.service = builder.service;
 
     }
 
@@ -241,6 +251,10 @@ public final class ComponentMetadata {
 
     public String getLocalizationBase() {
         return localizationBase;
+    }
+
+    public ServiceMetadata getService() {
+        return service;
     }
 
     public String getType() {
