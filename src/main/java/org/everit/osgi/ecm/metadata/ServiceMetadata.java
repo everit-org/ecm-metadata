@@ -16,11 +16,10 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-
 public class ServiceMetadata {
 
     public static class ServiceMetadataBuilder {
-        private Class<?>[] clazzes;
+        private Class<?>[] clazzes = new Class<?>[0];
 
         public ServiceMetadata build() {
             return new ServiceMetadata(clazzes);
@@ -28,10 +27,11 @@ public class ServiceMetadata {
 
         public ServiceMetadataBuilder withClazzes(final Class<?>[] clazzes) {
             if (clazzes == null) {
-                this.clazzes = null;
-            } else {
-                this.clazzes = clazzes.clone();
+                throw new MetadataValidationException(
+                        "Null cannot be provided as service interface array for ServiceMetadata");
             }
+            this.clazzes = clazzes.clone();
+
             return this;
         }
 
