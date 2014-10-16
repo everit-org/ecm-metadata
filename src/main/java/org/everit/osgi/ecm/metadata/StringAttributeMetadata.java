@@ -38,6 +38,10 @@ public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata
             return String.class;
         }
 
+        public boolean isMultiLine() {
+            return multiLine;
+        }
+
         @Override
         protected StringAttributeMetadataBuilder self() {
             return this;

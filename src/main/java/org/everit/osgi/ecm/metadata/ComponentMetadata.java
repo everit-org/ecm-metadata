@@ -58,6 +58,62 @@ public final class ComponentMetadata {
             return componentMeta;
         }
 
+        public MethodDescriptor getActivate() {
+            return activate;
+        }
+
+        public AttributeMetadata<?>[] getAttributes() {
+            return attributes;
+        }
+
+        public String getClazz() {
+            return clazz;
+        }
+
+        public String getComponentId() {
+            return componentId;
+        }
+
+        public String getConfigurationPid() {
+            return configurationPid;
+        }
+
+        public ConfigurationPolicy getConfigurationPolicy() {
+            return configurationPolicy;
+        }
+
+        public MethodDescriptor getDeactivate() {
+            return deactivate;
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public Icon[] getIcons() {
+            return icons;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public String getLocalizationBase() {
+            return localizationBase;
+        }
+
+        public ServiceMetadata getService() {
+            return service;
+        }
+
+        public MethodDescriptor getUpdate() {
+            return update;
+        }
+
+        public boolean isMetatype() {
+            return metatype;
+        }
+
         public ComponentMetadataBuilder withActivate(final MethodDescriptor activate) {
             this.activate = activate;
             return this;

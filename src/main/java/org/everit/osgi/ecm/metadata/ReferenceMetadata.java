@@ -30,8 +30,6 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
 
         private String referenceId = null;
 
-        private MethodDescriptor unbind = null;
-
         @Override
         protected void beforeBuild() {
             Objects.requireNonNull(referenceId, "Reference id must be specified");
@@ -44,6 +42,18 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
                     withAttributeId(referenceId + ".target");
                 }
             }
+        }
+
+        public MethodDescriptor getBind() {
+            return bind;
+        }
+
+        public ReferenceConfigurationType getReferenceConfigurationType() {
+            return referenceConfigurationType;
+        }
+
+        public String getReferenceId() {
+            return referenceId;
         }
 
         @Override
@@ -68,11 +78,6 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
             return self();
         }
 
-        public B withUnbind(final MethodDescriptor unbind) {
-            this.unbind = unbind;
-            return self();
-        }
-
     }
 
     /**
@@ -88,17 +93,9 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
 
     private final String referenceId;
 
-    /**
-     * The bind method that should be used to bind the reference. In case the unbind method is not specified but there
-     * is a method starting with "un" and ending with the name of the bind method, that method will be used to unbind
-     * the reference.
-     */
-    private final MethodDescriptor unbind;
-
     protected <B extends ReferenceMetadataBuilder<B>> ReferenceMetadata(final ReferenceMetadataBuilder<B> builder) {
         super(builder);
         bind = builder.bind;
-        unbind = builder.unbind;
         referenceId = builder.referenceId;
         referenceConfigurationType = builder.referenceConfigurationType;
     }
@@ -113,9 +110,5 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
 
     public String getReferenceId() {
         return referenceId;
-    }
-
-    public MethodDescriptor getUnbind() {
-        return unbind;
     }
 }

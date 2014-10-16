@@ -30,6 +30,10 @@ public class BundleCapabilityReferenceMetadata extends ReferenceMetadata {
             return new BundleCapabilityReferenceMetadata(this);
         }
 
+        public String getNamespace() {
+            return namespace;
+        }
+
         @Override
         protected BundleCapabilityReferenceMetadataBuilder self() {
             return this;

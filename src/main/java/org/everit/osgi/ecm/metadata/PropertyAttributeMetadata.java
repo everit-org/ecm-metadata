@@ -27,6 +27,10 @@ public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> 
 
         public abstract Class<?> getPrimitiveType();
 
+        public MethodDescriptor getSetter() {
+            return setter;
+        }
+
         public B withSetter(final MethodDescriptor setter) {
             this.setter = setter;
             return self();

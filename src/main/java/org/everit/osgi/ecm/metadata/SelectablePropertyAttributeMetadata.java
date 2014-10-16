@@ -20,12 +20,16 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class SelectablePropertyAttributeMetadata<P> extends PropertyAttributeMetadata<P> {
+public abstract class SelectablePropertyAttributeMetadata<V> extends PropertyAttributeMetadata<V> {
 
     public static abstract class SelectablePropertyAttributeMetadataBuilder<V, B extends PropertyAttributeMetadataBuilder<V, B>>
             extends PropertyAttributeMetadataBuilder<V, B> {
 
         private Map<V, String> options = null;
+
+        public Map<V, String> getOptions() {
+            return new LinkedHashMap<V, String>(options);
+        }
 
         public B withOptions(final Map<V, String> options) {
             if (options != null) {
@@ -37,15 +41,15 @@ public abstract class SelectablePropertyAttributeMetadata<P> extends PropertyAtt
         }
     }
 
-    private final Map<P, String> options;
+    private final Map<V, String> options;
 
-    protected <B extends SelectablePropertyAttributeMetadataBuilder<P, B>> SelectablePropertyAttributeMetadata(
-            final SelectablePropertyAttributeMetadataBuilder<P, B> builder) {
+    protected <B extends SelectablePropertyAttributeMetadataBuilder<V, B>> SelectablePropertyAttributeMetadata(
+            final SelectablePropertyAttributeMetadataBuilder<V, B> builder) {
         super(builder);
         this.options = builder.options;
     }
 
-    public Map<P, String> getOptions() {
-        return options;
+    public Map<V, String> getOptions() {
+        return new LinkedHashMap<V, String>(options);
     }
 }

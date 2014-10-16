@@ -49,11 +49,39 @@ public abstract class AttributeMetadata<V> {
 
         protected abstract AttributeMetadata<V> buildInternal();
 
-        protected String getAttributeId() {
+        public String getAttributeId() {
             return attributeId;
         }
 
+        public V[] getDefaultValue() {
+            return defaultValue.clone();
+        }
+
+        public String getDescription() {
+            return description;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
         public abstract Class<V> getValueType();
+
+        public boolean isDynamic() {
+            return dynamic;
+        }
+
+        public boolean isMetatype() {
+            return metatype;
+        }
+
+        public boolean isMultiple() {
+            return multiple;
+        }
+
+        public boolean isOptional() {
+            return optional;
+        }
 
         protected abstract B self();
 

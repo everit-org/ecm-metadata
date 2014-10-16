@@ -28,6 +28,10 @@ public class ServiceReferenceMetadata extends ReferenceMetadata {
             return new ServiceReferenceMetadata(this);
         }
 
+        public Class<?> getServiceInterface() {
+            return serviceInterface;
+        }
+
         @Override
         protected ServiceReferenceMetadataBuilder self() {
             return this;
