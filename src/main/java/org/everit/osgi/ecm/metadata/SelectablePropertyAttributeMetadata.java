@@ -28,7 +28,7 @@ public abstract class SelectablePropertyAttributeMetadata<V> extends PropertyAtt
         private Map<V, String> options = null;
 
         public Map<V, String> getOptions() {
-            return new LinkedHashMap<V, String>(options);
+            return options;
         }
 
         public B withOptions(final Map<V, String> options) {
@@ -50,6 +50,6 @@ public abstract class SelectablePropertyAttributeMetadata<V> extends PropertyAtt
     }
 
     public Map<V, String> getOptions() {
-        return new LinkedHashMap<V, String>(options);
+        return options;
     }
 }
