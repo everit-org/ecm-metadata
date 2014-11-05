@@ -24,7 +24,7 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
     public abstract static class ReferenceMetadataBuilder<B extends ReferenceMetadataBuilder<B>> extends
             AttributeMetadataBuilder<String, B> {
 
-        private MethodDescriptor bind = null;
+        private MethodDescriptor setter = null;
 
         private ReferenceConfigurationType referenceConfigurationType = ReferenceConfigurationType.FILTER;
 
@@ -44,8 +44,8 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
             }
         }
 
-        public MethodDescriptor getBind() {
-            return bind;
+        public MethodDescriptor getSetter() {
+            return setter;
         }
 
         public ReferenceConfigurationType getReferenceConfigurationType() {
@@ -61,8 +61,8 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
             return String.class;
         }
 
-        public B withBind(final MethodDescriptor bind) {
-            this.bind = bind;
+        public B withSetter(final MethodDescriptor setter) {
+            this.setter = setter;
             return self();
         }
 
@@ -87,7 +87,7 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
      * name as the field but prefixed with "bind" that method will be used as a bind method. In case there is no bind
      * method but there is a setter for the field, it will be used to set the property.
      */
-    private final MethodDescriptor bind;
+    private final MethodDescriptor setter;
 
     private final ReferenceConfigurationType referenceConfigurationType;
 
@@ -95,13 +95,13 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
 
     protected <B extends ReferenceMetadataBuilder<B>> ReferenceMetadata(final ReferenceMetadataBuilder<B> builder) {
         super(builder);
-        bind = builder.bind;
+        setter = builder.setter;
         referenceId = builder.referenceId;
         referenceConfigurationType = builder.referenceConfigurationType;
     }
 
-    public MethodDescriptor getBind() {
-        return bind;
+    public MethodDescriptor getSetter() {
+        return setter;
     }
 
     public ReferenceConfigurationType getReferenceConfigurationType() {
