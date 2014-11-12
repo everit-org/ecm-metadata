@@ -157,15 +157,16 @@ public abstract class AttributeMetadata<V> {
     protected <B extends AttributeMetadataBuilder<V, B>> AttributeMetadata(
             final AttributeMetadataBuilder<V, B> builder) {
         Objects.requireNonNull(builder.attributeId, "Attribute id must be specified");
+        this.attributeId = builder.attributeId;
 
         this.defaultValue = builder.defaultValue;
         if (defaultValue != null && defaultValue.length != 1 && !builder.multiple) {
             throw new IllegalArgumentException(
-                    "Only one element array or null can be specidied as default value for non-multiple attribute");
+                    "Only one element array or null can be specidied as default value for non-multiple attribute: "
+                            + attributeId);
         }
 
         this.valueType = builder.getValueType();
-        this.attributeId = builder.attributeId;
 
         if (builder.label != null) {
             this.label = builder.label;
