@@ -16,19 +16,14 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class PasswordAttributeMetadata extends PropertyAttributeMetadata<String> {
+public class PasswordAttributeMetadata extends PropertyAttributeMetadata<String[]> {
 
     public static class PasswordAttributeMetadataBuilder
-            extends PropertyAttributeMetadataBuilder<String, PasswordAttributeMetadataBuilder> {
+            extends PropertyAttributeMetadataBuilder<String[], PasswordAttributeMetadataBuilder> {
 
         @Override
         public PasswordAttributeMetadata buildInternal() {
             return new PasswordAttributeMetadata(this);
-        }
-
-        @Override
-        public Class<?> getPrimitiveType() {
-            return null;
         }
 
         @Override
@@ -44,5 +39,10 @@ public class PasswordAttributeMetadata extends PropertyAttributeMetadata<String>
 
     protected PasswordAttributeMetadata(final PasswordAttributeMetadataBuilder builder) {
         super(builder);
+    }
+
+    @Override
+    protected String[] cloneValueArray(String[] value) {
+        return value.clone();
     }
 }

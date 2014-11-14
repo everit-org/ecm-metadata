@@ -20,15 +20,15 @@ import java.util.Objects;
 
 import org.everit.osgi.ecm.util.method.MethodDescriptor;
 
-public abstract class ReferenceMetadata extends AttributeMetadata<String> {
+public abstract class ReferenceMetadata extends AttributeMetadata<String[]> {
     public abstract static class ReferenceMetadataBuilder<B extends ReferenceMetadataBuilder<B>> extends
-            AttributeMetadataBuilder<String, B> {
-
-        private MethodDescriptor setter = null;
+            AttributeMetadataBuilder<String[], B> {
 
         private ReferenceConfigurationType referenceConfigurationType = ReferenceConfigurationType.FILTER;
 
         private String referenceId = null;
+
+        private MethodDescriptor setter = null;
 
         @Override
         protected void beforeBuild() {
@@ -44,10 +44,6 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
             }
         }
 
-        public MethodDescriptor getSetter() {
-            return setter;
-        }
-
         public ReferenceConfigurationType getReferenceConfigurationType() {
             return referenceConfigurationType;
         }
@@ -56,14 +52,13 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
             return referenceId;
         }
 
+        public MethodDescriptor getSetter() {
+            return setter;
+        }
+
         @Override
         public Class<String> getValueType() {
             return String.class;
-        }
-
-        public B withSetter(final MethodDescriptor setter) {
-            this.setter = setter;
-            return self();
         }
 
         public B withReferenceConfigurationType(
@@ -78,7 +73,16 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
             return self();
         }
 
+        public B withSetter(final MethodDescriptor setter) {
+            this.setter = setter;
+            return self();
+        }
+
     }
+
+    private final ReferenceConfigurationType referenceConfigurationType;
+
+    private final String referenceId;
 
     /**
      * The bind method that should be used to bind the reference. If the annotation is defined on a method, that method
@@ -89,10 +93,6 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
      */
     private final MethodDescriptor setter;
 
-    private final ReferenceConfigurationType referenceConfigurationType;
-
-    private final String referenceId;
-
     protected <B extends ReferenceMetadataBuilder<B>> ReferenceMetadata(final ReferenceMetadataBuilder<B> builder) {
         super(builder);
         setter = builder.setter;
@@ -100,8 +100,9 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
         referenceConfigurationType = builder.referenceConfigurationType;
     }
 
-    public MethodDescriptor getSetter() {
-        return setter;
+    @Override
+    protected String[] cloneValueArray(String[] value) {
+        return value.clone();
     }
 
     public ReferenceConfigurationType getReferenceConfigurationType() {
@@ -110,5 +111,9 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String> {
 
     public String getReferenceId() {
         return referenceId;
+    }
+
+    public MethodDescriptor getSetter() {
+        return setter;
     }
 }

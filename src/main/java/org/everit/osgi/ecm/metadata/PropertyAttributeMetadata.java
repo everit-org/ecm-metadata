@@ -18,14 +18,12 @@ package org.everit.osgi.ecm.metadata;
 
 import org.everit.osgi.ecm.util.method.MethodDescriptor;
 
-public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> {
+public abstract class PropertyAttributeMetadata<V_ARRAY> extends AttributeMetadata<V_ARRAY> {
 
-    public static abstract class PropertyAttributeMetadataBuilder<V, B extends PropertyAttributeMetadataBuilder<V, B>>
-            extends AttributeMetadataBuilder<V, B> {
+    public static abstract class PropertyAttributeMetadataBuilder<V_ARRAY, B extends PropertyAttributeMetadataBuilder<V_ARRAY, B>>
+            extends AttributeMetadataBuilder<V_ARRAY, B> {
 
         private MethodDescriptor setter = null;
-
-        public abstract Class<?> getPrimitiveType();
 
         public MethodDescriptor getSetter() {
             return setter;
@@ -37,21 +35,14 @@ public abstract class PropertyAttributeMetadata<V> extends AttributeMetadata<V> 
         }
     }
 
-    private final Class<?> primitiveType;
-
     private final MethodDescriptor setter;
 
-    protected <B extends PropertyAttributeMetadataBuilder<V, B>> PropertyAttributeMetadata(
-            final PropertyAttributeMetadataBuilder<V, B> builder) {
+    protected <B extends PropertyAttributeMetadataBuilder<V_ARRAY, B>> PropertyAttributeMetadata(
+            final PropertyAttributeMetadataBuilder<V_ARRAY, B> builder) {
 
         super(builder);
 
         this.setter = builder.setter;
-        this.primitiveType = builder.getPrimitiveType();
-    }
-
-    public Class<?> getPrimitiveType() {
-        return primitiveType;
     }
 
     public MethodDescriptor getSetter() {

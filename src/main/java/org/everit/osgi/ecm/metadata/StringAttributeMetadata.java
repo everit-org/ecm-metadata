@@ -16,21 +16,16 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata<String> {
+public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata<String[]> {
 
     public static class StringAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<String, StringAttributeMetadataBuilder> {
+            extends SelectablePropertyAttributeMetadataBuilder<String[], StringAttributeMetadataBuilder> {
 
         private boolean multiLine = false;
 
         @Override
         public StringAttributeMetadata buildInternal() {
             return new StringAttributeMetadata(this);
-        }
-
-        @Override
-        public Class<?> getPrimitiveType() {
-            return null;
         }
 
         @Override
@@ -59,6 +54,11 @@ public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata
             final StringAttributeMetadataBuilder builder) {
         super(builder);
         multiLine = builder.multiLine;
+    }
+
+    @Override
+    protected String[] cloneValueArray(String[] value) {
+        return value.clone();
     }
 
     public boolean isMultiLine() {

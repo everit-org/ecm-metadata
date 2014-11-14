@@ -16,10 +16,10 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class LongAttributeMetadata extends SelectablePropertyAttributeMetadata<Long> {
+public class LongAttributeMetadata extends SelectablePropertyAttributeMetadata<long[]> {
 
     public static class LongAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<Long, LongAttributeMetadataBuilder> {
+            extends SelectablePropertyAttributeMetadataBuilder<long[], LongAttributeMetadataBuilder> {
 
         @Override
         public LongAttributeMetadata buildInternal() {
@@ -27,13 +27,8 @@ public class LongAttributeMetadata extends SelectablePropertyAttributeMetadata<L
         }
 
         @Override
-        public Class<?> getPrimitiveType() {
+        public Class<?> getValueType() {
             return long.class;
-        }
-
-        @Override
-        public Class<Long> getValueType() {
-            return Long.class;
         }
 
         @Override
@@ -45,5 +40,10 @@ public class LongAttributeMetadata extends SelectablePropertyAttributeMetadata<L
     protected LongAttributeMetadata(
             final LongAttributeMetadataBuilder builder) {
         super(builder);
+    }
+
+    @Override
+    protected long[] cloneValueArray(long[] value) {
+        return value.clone();
     }
 }

@@ -16,10 +16,10 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class DoubleAttributeMetadata extends SelectablePropertyAttributeMetadata<Double> {
+public class DoubleAttributeMetadata extends SelectablePropertyAttributeMetadata<double[]> {
 
     public static class DoubleAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<Double, DoubleAttributeMetadataBuilder> {
+            extends SelectablePropertyAttributeMetadataBuilder<double[], DoubleAttributeMetadataBuilder> {
 
         @Override
         public DoubleAttributeMetadata buildInternal() {
@@ -27,13 +27,8 @@ public class DoubleAttributeMetadata extends SelectablePropertyAttributeMetadata
         }
 
         @Override
-        public Class<?> getPrimitiveType() {
+        public Class<?> getValueType() {
             return double.class;
-        }
-
-        @Override
-        public Class<Double> getValueType() {
-            return Double.class;
         }
 
         @Override
@@ -46,5 +41,10 @@ public class DoubleAttributeMetadata extends SelectablePropertyAttributeMetadata
     protected DoubleAttributeMetadata(
             final DoubleAttributeMetadataBuilder builder) {
         super(builder);
+    }
+
+    @Override
+    protected double[] cloneValueArray(double[] value) {
+        return value.clone();
     }
 }

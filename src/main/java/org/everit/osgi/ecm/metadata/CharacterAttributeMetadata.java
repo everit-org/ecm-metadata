@@ -16,10 +16,10 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class CharacterAttributeMetadata extends SelectablePropertyAttributeMetadata<Character> {
+public class CharacterAttributeMetadata extends SelectablePropertyAttributeMetadata<char[]> {
 
     public static class CharacterAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<Character, CharacterAttributeMetadataBuilder> {
+            extends SelectablePropertyAttributeMetadataBuilder<char[], CharacterAttributeMetadataBuilder> {
 
         @Override
         public CharacterAttributeMetadata buildInternal() {
@@ -27,13 +27,8 @@ public class CharacterAttributeMetadata extends SelectablePropertyAttributeMetad
         }
 
         @Override
-        public Class<?> getPrimitiveType() {
+        public Class<?> getValueType() {
             return char.class;
-        }
-
-        @Override
-        public Class<Character> getValueType() {
-            return Character.class;
         }
 
         @Override
@@ -46,6 +41,11 @@ public class CharacterAttributeMetadata extends SelectablePropertyAttributeMetad
     protected CharacterAttributeMetadata(
             final CharacterAttributeMetadataBuilder builder) {
         super(builder);
+    }
+
+    @Override
+    protected char[] cloneValueArray(char[] value) {
+        return value.clone();
     }
 
 }

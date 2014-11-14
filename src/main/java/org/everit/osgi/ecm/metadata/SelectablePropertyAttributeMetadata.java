@@ -16,40 +16,65 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.lang.reflect.Array;
 
-public abstract class SelectablePropertyAttributeMetadata<V> extends PropertyAttributeMetadata<V> {
+public abstract class SelectablePropertyAttributeMetadata<V_ARRAY> extends PropertyAttributeMetadata<V_ARRAY> {
 
-    public static abstract class SelectablePropertyAttributeMetadataBuilder<V, B extends PropertyAttributeMetadataBuilder<V, B>>
-            extends PropertyAttributeMetadataBuilder<V, B> {
+    public static abstract class SelectablePropertyAttributeMetadataBuilder<V_ARRAY, B extends PropertyAttributeMetadataBuilder<V_ARRAY, B>>
+            extends PropertyAttributeMetadataBuilder<V_ARRAY, B> {
 
-        private Map<V, String> options = null;
+        private String[] optionLabels;
 
-        public Map<V, String> getOptions() {
-            return options;
+        private V_ARRAY optionValues;
+
+        public String[] getOptionLabels() {
+            return optionLabels;
         }
 
-        public B withOptions(final Map<V, String> options) {
-            if (options != null) {
-                this.options = Collections.unmodifiableMap(new LinkedHashMap<V, String>(options));
-            } else {
-                this.options = null;
-            }
+        public V_ARRAY getOptionValues() {
+            return optionValues;
+        }
+
+        public B withOptions(final String[] optionLabels, final V_ARRAY optionValues) {
+            this.optionLabels = optionLabels;
+            this.optionValues = optionValues;
             return self();
         }
     }
 
-    private final Map<V, String> options;
+    private final String[] optionLabels;
 
-    protected <B extends SelectablePropertyAttributeMetadataBuilder<V, B>> SelectablePropertyAttributeMetadata(
-            final SelectablePropertyAttributeMetadataBuilder<V, B> builder) {
+    private final V_ARRAY optionValues;
+
+    protected <B extends SelectablePropertyAttributeMetadataBuilder<V_ARRAY, B>> SelectablePropertyAttributeMetadata(
+            final SelectablePropertyAttributeMetadataBuilder<V_ARRAY, B> builder) {
         super(builder);
-        this.options = builder.options;
+        if (builder.optionLabels != null && builder.optionValues == null) {
+            throw new MetadataValidationException("Option labels have a value while option value array is null");
+        }
+        if (builder.optionLabels != null && builder.optionValues != null
+                && builder.optionLabels.length != Array.getLength(builder.optionValues)) {
+            throw new MetadataValidationException("Option values and labels must have the same length");
+        }
+
+        if (builder.optionValues == null) {
+            this.optionLabels = null;
+            this.optionValues = null;
+        } else {
+            this.optionValues = cloneValueArray(builder.optionValues);
+            if (builder.optionLabels == null) {
+                this.optionLabels = null;
+            } else {
+                this.optionLabels = builder.optionLabels.clone();
+            }
+        }
     }
 
-    public Map<V, String> getOptions() {
-        return options;
+    public String[] getOptionLabels() {
+        return optionLabels;
+    }
+
+    public V_ARRAY getOptionValues() {
+        return optionValues;
     }
 }

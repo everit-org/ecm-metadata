@@ -16,10 +16,11 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class ByteAttributeMetadata extends SelectablePropertyAttributeMetadata<Byte> {
+
+public class ByteAttributeMetadata extends SelectablePropertyAttributeMetadata<byte[]> {
 
     public static class ByteAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<Byte, ByteAttributeMetadataBuilder> {
+            extends SelectablePropertyAttributeMetadataBuilder<byte[], ByteAttributeMetadataBuilder> {
 
         @Override
         public ByteAttributeMetadata buildInternal() {
@@ -27,13 +28,8 @@ public class ByteAttributeMetadata extends SelectablePropertyAttributeMetadata<B
         }
 
         @Override
-        public Class<?> getPrimitiveType() {
+        public Class<?> getValueType() {
             return byte.class;
-        }
-
-        @Override
-        public Class<Byte> getValueType() {
-            return Byte.class;
         }
 
         @Override
@@ -46,6 +42,11 @@ public class ByteAttributeMetadata extends SelectablePropertyAttributeMetadata<B
     protected ByteAttributeMetadata(
             final ByteAttributeMetadataBuilder builder) {
         super(builder);
+    }
+
+    @Override
+    protected byte[] cloneValueArray(byte[] value) {
+        return value.clone();
     }
 
 }

@@ -16,16 +16,16 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-import java.util.Arrays;
+import java.lang.reflect.Array;
 import java.util.Objects;
 
-public abstract class AttributeMetadata<V> {
+public abstract class AttributeMetadata<V_ARRAY> {
 
-    public static abstract class AttributeMetadataBuilder<V, B extends AttributeMetadataBuilder<V, B>> {
+    public static abstract class AttributeMetadataBuilder<V_ARRAY, B extends AttributeMetadataBuilder<V_ARRAY, B>> {
 
         private String attributeId = null;
 
-        private V[] defaultValue = null;
+        private V_ARRAY defaultValue;
 
         private String description = null;
 
@@ -42,19 +42,19 @@ public abstract class AttributeMetadata<V> {
         protected void beforeBuild() {
         }
 
-        public final AttributeMetadata<V> build() {
+        public final AttributeMetadata<V_ARRAY> build() {
             beforeBuild();
             return buildInternal();
         }
 
-        protected abstract AttributeMetadata<V> buildInternal();
+        protected abstract AttributeMetadata<V_ARRAY> buildInternal();
 
         public String getAttributeId() {
             return attributeId;
         }
 
-        public V[] getDefaultValue() {
-            return defaultValue.clone();
+        public V_ARRAY getDefaultValue() {
+            return defaultValue;
         }
 
         public String getDescription() {
@@ -65,7 +65,7 @@ public abstract class AttributeMetadata<V> {
             return label;
         }
 
-        public abstract Class<V> getValueType();
+        public abstract Class<?> getValueType();
 
         public boolean isDynamic() {
             return dynamic;
@@ -90,17 +90,8 @@ public abstract class AttributeMetadata<V> {
             return self();
         }
 
-        public B withDefaultValue(@SuppressWarnings("unchecked") final V... defaultValue) {
-            if (defaultValue == null) {
-                this.defaultValue = null;
-            } else {
-                for (V element : defaultValue) {
-                    if (element == null) {
-                        throw new IllegalArgumentException("Null is not allowed as the element of default value array");
-                    }
-                }
-                this.defaultValue = Arrays.copyOf(defaultValue, defaultValue.length);
-            }
+        public B withDefaultValue(V_ARRAY defaultValue) {
+            this.defaultValue = defaultValue;
             return self();
         }
 
@@ -138,7 +129,7 @@ public abstract class AttributeMetadata<V> {
 
     private final String attributeId;
 
-    private final V[] defaultValue;
+    private final V_ARRAY defaultValue;
 
     private final String description;
 
@@ -152,15 +143,20 @@ public abstract class AttributeMetadata<V> {
 
     private final boolean optional;
 
-    private final Class<V> valueType;
+    private final Class<?> valueType;
 
-    protected <B extends AttributeMetadataBuilder<V, B>> AttributeMetadata(
-            final AttributeMetadataBuilder<V, B> builder) {
+    protected <B extends AttributeMetadataBuilder<V_ARRAY, B>> AttributeMetadata(
+            final AttributeMetadataBuilder<V_ARRAY, B> builder) {
         Objects.requireNonNull(builder.attributeId, "Attribute id must be specified");
         this.attributeId = builder.attributeId;
 
-        this.defaultValue = builder.defaultValue;
-        if (defaultValue != null && defaultValue.length != 1 && !builder.multiple) {
+        V_ARRAY defaultValue = builder.defaultValue;
+        if (defaultValue == null) {
+            this.defaultValue = null;
+        } else {
+            this.defaultValue = cloneValueArray(defaultValue);
+        }
+        if (defaultValue != null && Array.getLength(defaultValue) != 1 && !builder.multiple) {
             throw new IllegalArgumentException(
                     "Only one element array or null can be specidied as default value for non-multiple attribute: "
                             + attributeId);
@@ -190,16 +186,17 @@ public abstract class AttributeMetadata<V> {
         this.dynamic = builder.dynamic;
     }
 
+    protected abstract V_ARRAY cloneValueArray(V_ARRAY value);
+
     public String getAttributeId() {
         return attributeId;
     }
 
-    public V[] getDefaultValue() {
-        if (defaultValue == null) {
+    public V_ARRAY getDefaultValue() {
+        if (this.defaultValue == null) {
             return null;
-        } else {
-            return Arrays.copyOf(defaultValue, defaultValue.length);
         }
+        return cloneValueArray(this.defaultValue);
     }
 
     public String getDescription() {
@@ -210,7 +207,7 @@ public abstract class AttributeMetadata<V> {
         return label;
     }
 
-    public Class<V> getValueType() {
+    public Class<?> getValueType() {
         return valueType;
     }
 

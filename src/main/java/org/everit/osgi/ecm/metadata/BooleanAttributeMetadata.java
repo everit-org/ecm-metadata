@@ -16,10 +16,10 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class BooleanAttributeMetadata extends PropertyAttributeMetadata<Boolean> {
+public class BooleanAttributeMetadata extends PropertyAttributeMetadata<boolean[]> {
 
     public static class BooleanAttributeMetadataBuilder
-            extends PropertyAttributeMetadataBuilder<Boolean, BooleanAttributeMetadataBuilder> {
+            extends PropertyAttributeMetadataBuilder<boolean[], BooleanAttributeMetadataBuilder> {
 
         @Override
         public BooleanAttributeMetadata buildInternal() {
@@ -27,20 +27,14 @@ public class BooleanAttributeMetadata extends PropertyAttributeMetadata<Boolean>
         }
 
         @Override
-        public Class<?> getPrimitiveType() {
+        public Class<?> getValueType() {
             return boolean.class;
-        }
-
-        @Override
-        public Class<Boolean> getValueType() {
-            return Boolean.class;
         }
 
         @Override
         protected BooleanAttributeMetadataBuilder self() {
             return this;
         }
-
     }
 
     protected BooleanAttributeMetadata(
@@ -48,4 +42,8 @@ public class BooleanAttributeMetadata extends PropertyAttributeMetadata<Boolean>
         super(builder);
     }
 
+    @Override
+    protected boolean[] cloneValueArray(boolean[] value) {
+        return value.clone();
+    }
 }

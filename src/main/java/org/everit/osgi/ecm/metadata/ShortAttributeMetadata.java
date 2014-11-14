@@ -16,10 +16,10 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class ShortAttributeMetadata extends SelectablePropertyAttributeMetadata<Short> {
+public class ShortAttributeMetadata extends SelectablePropertyAttributeMetadata<short[]> {
 
     public static class ShortAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<Short, ShortAttributeMetadataBuilder> {
+            extends SelectablePropertyAttributeMetadataBuilder<short[], ShortAttributeMetadataBuilder> {
 
         @Override
         public ShortAttributeMetadata buildInternal() {
@@ -27,13 +27,8 @@ public class ShortAttributeMetadata extends SelectablePropertyAttributeMetadata<
         }
 
         @Override
-        public Class<?> getPrimitiveType() {
+        public Class<?> getValueType() {
             return short.class;
-        }
-
-        @Override
-        public Class<Short> getValueType() {
-            return Short.class;
         }
 
         @Override
@@ -47,4 +42,8 @@ public class ShortAttributeMetadata extends SelectablePropertyAttributeMetadata<
         super(builder);
     }
 
+    @Override
+    protected short[] cloneValueArray(short[] value) {
+        return value.clone();
+    }
 }

@@ -16,10 +16,10 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-public class FloatAttributeMetadata extends SelectablePropertyAttributeMetadata<Float> {
+public class FloatAttributeMetadata extends SelectablePropertyAttributeMetadata<float[]> {
 
     public static class FloatAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<Float, FloatAttributeMetadataBuilder> {
+            extends SelectablePropertyAttributeMetadataBuilder<float[], FloatAttributeMetadataBuilder> {
 
         @Override
         public FloatAttributeMetadata buildInternal() {
@@ -27,13 +27,8 @@ public class FloatAttributeMetadata extends SelectablePropertyAttributeMetadata<
         }
 
         @Override
-        public Class<?> getPrimitiveType() {
+        public Class<?> getValueType() {
             return float.class;
-        }
-
-        @Override
-        public Class<Float> getValueType() {
-            return Float.class;
         }
 
         @Override
@@ -45,5 +40,10 @@ public class FloatAttributeMetadata extends SelectablePropertyAttributeMetadata<
     protected FloatAttributeMetadata(
             final FloatAttributeMetadataBuilder builder) {
         super(builder);
+    }
+
+    @Override
+    protected float[] cloneValueArray(float[] value) {
+        return value.clone();
     }
 }
