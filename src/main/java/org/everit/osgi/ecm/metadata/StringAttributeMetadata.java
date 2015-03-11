@@ -18,51 +18,34 @@ package org.everit.osgi.ecm.metadata;
 
 public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata<String[]> {
 
-    public static class StringAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<String[], StringAttributeMetadataBuilder> {
+  public static class StringAttributeMetadataBuilder
+      extends SelectablePropertyAttributeMetadataBuilder<String[], StringAttributeMetadataBuilder> {
 
-        private boolean multiLine = false;
-
-        @Override
-        public StringAttributeMetadata buildInternal() {
-            return new StringAttributeMetadata(this);
-        }
-
-        @Override
-        public Class<String> getValueType() {
-            return String.class;
-        }
-
-        public boolean isMultiLine() {
-            return multiLine;
-        }
-
-        @Override
-        protected StringAttributeMetadataBuilder self() {
-            return this;
-        }
-
-        public StringAttributeMetadataBuilder withMultiLine(final boolean multiline) {
-            multiLine = multiline;
-            return self();
-        }
-    }
-
-    private final boolean multiLine;
-
-    protected StringAttributeMetadata(
-            final StringAttributeMetadataBuilder builder) {
-        super(builder);
-        multiLine = builder.multiLine;
+    @Override
+    public StringAttributeMetadata buildInternal() {
+      return new StringAttributeMetadata(this);
     }
 
     @Override
-    protected String[] cloneValueArray(String[] value) {
-        return value.clone();
+    public Class<String> getValueType() {
+      return String.class;
     }
 
-    public boolean isMultiLine() {
-        return multiLine;
+    @Override
+    protected StringAttributeMetadataBuilder self() {
+      return this;
     }
+
+  }
+
+  protected StringAttributeMetadata(
+      final StringAttributeMetadataBuilder builder) {
+    super(builder);
+  }
+
+  @Override
+  protected String[] cloneValueArray(final String[] value) {
+    return value.clone();
+  }
 
 }
