@@ -18,63 +18,65 @@ package org.everit.osgi.ecm.metadata;
 
 import java.lang.reflect.Array;
 
-public abstract class SelectablePropertyAttributeMetadata<V_ARRAY> extends PropertyAttributeMetadata<V_ARRAY> {
+public abstract class SelectablePropertyAttributeMetadata<V_ARRAY> extends
+    PropertyAttributeMetadata<V_ARRAY> {
 
-    public static abstract class SelectablePropertyAttributeMetadataBuilder<V_ARRAY, B extends PropertyAttributeMetadataBuilder<V_ARRAY, B>>
-            extends PropertyAttributeMetadataBuilder<V_ARRAY, B> {
+  public static abstract class SelectablePropertyAttributeMetadataBuilder<V_ARRAY, B extends PropertyAttributeMetadataBuilder<V_ARRAY, B>>
+      extends PropertyAttributeMetadataBuilder<V_ARRAY, B> {
 
-        private String[] optionLabels;
+    private String[] optionLabels;
 
-        private V_ARRAY optionValues;
-
-        public String[] getOptionLabels() {
-            return optionLabels;
-        }
-
-        public V_ARRAY getOptionValues() {
-            return optionValues;
-        }
-
-        public B withOptions(final String[] optionLabels, final V_ARRAY optionValues) {
-            this.optionLabels = optionLabels;
-            this.optionValues = optionValues;
-            return self();
-        }
-    }
-
-    private final String[] optionLabels;
-
-    private final V_ARRAY optionValues;
-
-    protected <B extends SelectablePropertyAttributeMetadataBuilder<V_ARRAY, B>> SelectablePropertyAttributeMetadata(
-            final SelectablePropertyAttributeMetadataBuilder<V_ARRAY, B> builder) {
-        super(builder);
-        if (builder.optionLabels != null && builder.optionValues == null) {
-            throw new MetadataValidationException("Option labels have a value while option value array is null");
-        }
-        if (builder.optionLabels != null && builder.optionValues != null
-                && builder.optionLabels.length != Array.getLength(builder.optionValues)) {
-            throw new MetadataValidationException("Option values and labels must have the same length");
-        }
-
-        if (builder.optionValues == null) {
-            this.optionLabels = null;
-            this.optionValues = null;
-        } else {
-            this.optionValues = cloneValueArray(builder.optionValues);
-            if (builder.optionLabels == null) {
-                this.optionLabels = null;
-            } else {
-                this.optionLabels = builder.optionLabels.clone();
-            }
-        }
-    }
+    private V_ARRAY optionValues;
 
     public String[] getOptionLabels() {
-        return optionLabels;
+      return optionLabels;
     }
 
     public V_ARRAY getOptionValues() {
-        return optionValues;
+      return optionValues;
     }
+
+    public B withOptions(final String[] optionLabels, final V_ARRAY optionValues) {
+      this.optionLabels = optionLabels;
+      this.optionValues = optionValues;
+      return self();
+    }
+  }
+
+  private final String[] optionLabels;
+
+  private final V_ARRAY optionValues;
+
+  protected <B extends SelectablePropertyAttributeMetadataBuilder<V_ARRAY, B>> SelectablePropertyAttributeMetadata(
+      final SelectablePropertyAttributeMetadataBuilder<V_ARRAY, B> builder) {
+    super(builder);
+    if (builder.optionLabels != null && builder.optionValues == null) {
+      throw new MetadataValidationException(
+          "Option labels have a value while option value array is null");
+    }
+    if (builder.optionLabels != null && builder.optionValues != null
+        && builder.optionLabels.length != Array.getLength(builder.optionValues)) {
+      throw new MetadataValidationException("Option values and labels must have the same length");
+    }
+
+    if (builder.optionValues == null) {
+      this.optionLabels = null;
+      this.optionValues = null;
+    } else {
+      this.optionValues = cloneValueArray(builder.optionValues);
+      if (builder.optionLabels == null) {
+        this.optionLabels = null;
+      } else {
+        this.optionLabels = builder.optionLabels.clone();
+      }
+    }
+  }
+
+  public String[] getOptionLabels() {
+    return optionLabels;
+  }
+
+  public V_ARRAY getOptionValues() {
+    return optionValues;
+  }
 }

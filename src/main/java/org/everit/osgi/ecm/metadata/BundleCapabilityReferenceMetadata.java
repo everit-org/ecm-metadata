@@ -22,66 +22,67 @@ import org.osgi.framework.Bundle;
 
 public class BundleCapabilityReferenceMetadata extends ReferenceMetadata {
 
-    public static class BundleCapabilityReferenceMetadataBuilder extends
-            ReferenceMetadataBuilder<BundleCapabilityReferenceMetadataBuilder> {
+  public static class BundleCapabilityReferenceMetadataBuilder extends
+      ReferenceMetadataBuilder<BundleCapabilityReferenceMetadataBuilder> {
 
-        private String namespace = null;
+    private String namespace = null;
 
-        private int stateMask = Bundle.ACTIVE;
-
-        @Override
-        protected ReferenceMetadata buildInternal() {
-            return new BundleCapabilityReferenceMetadata(this);
-        }
-
-        public String getNamespace() {
-            return namespace;
-        }
-
-        public int getStateMask() {
-            return stateMask;
-        }
-
-        @Override
-        protected BundleCapabilityReferenceMetadataBuilder self() {
-            return this;
-        }
-
-        public BundleCapabilityReferenceMetadataBuilder withNamespace(final String namespace) {
-            this.namespace = namespace;
-            return self();
-        }
-
-        public BundleCapabilityReferenceMetadataBuilder withStateMask(final int stateMask) {
-            this.stateMask = stateMask;
-            return self();
-        }
-    }
-
-    private final String namespace;
-
-    private final int stateMask;
-
-    private BundleCapabilityReferenceMetadata(final BundleCapabilityReferenceMetadataBuilder builder) {
-        super(builder);
-
-        Objects.requireNonNull(builder.namespace, "Namespace must be defined for BundleCapabilityReference");
-
-        namespace = builder.namespace;
-        stateMask = builder.stateMask;
-    }
+    private int stateMask = Bundle.ACTIVE;
 
     @Override
-    protected String[] cloneValueArray(String[] value) {
-        return value.clone();
+    protected ReferenceMetadata buildInternal() {
+      return new BundleCapabilityReferenceMetadata(this);
     }
 
     public String getNamespace() {
-        return namespace;
+      return namespace;
     }
 
     public int getStateMask() {
-        return stateMask;
+      return stateMask;
     }
+
+    @Override
+    protected BundleCapabilityReferenceMetadataBuilder self() {
+      return this;
+    }
+
+    public BundleCapabilityReferenceMetadataBuilder withNamespace(final String namespace) {
+      this.namespace = namespace;
+      return self();
+    }
+
+    public BundleCapabilityReferenceMetadataBuilder withStateMask(final int stateMask) {
+      this.stateMask = stateMask;
+      return self();
+    }
+  }
+
+  private final String namespace;
+
+  private final int stateMask;
+
+  private BundleCapabilityReferenceMetadata(final BundleCapabilityReferenceMetadataBuilder builder) {
+    super(builder);
+
+    Objects.requireNonNull(builder.namespace,
+        "Namespace must be defined for BundleCapabilityReference");
+
+    namespace = builder.namespace;
+    stateMask = builder.stateMask;
+  }
+
+  @Override
+  protected String[] cloneValueArray(String[] value) {
+    return value.clone();
+  }
+
+  public String getNamespace() {
+    return namespace;
+  }
+
+  public int getStateMask() {
+    return stateMask;
+  }
 
 }

@@ -18,21 +18,21 @@ package org.everit.osgi.ecm.metadata;
 
 public class Icon {
 
-    private final String path;
+  private final String path;
 
-    private final int size;
+  private final int size;
 
-    public Icon(String path, int size) {
-        this.path = path;
-        this.size = size;
-    }
+  public Icon(String path, int size) {
+    this.path = path;
+    this.size = size;
+  }
 
-    public String getPath() {
-        return path;
-    }
+  public String getPath() {
+    return path;
+  }
 
-    public int getSize() {
-        return size;
-    }
+  public int getSize() {
+    return size;
+  }
 
 }

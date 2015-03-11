@@ -18,36 +18,36 @@ package org.everit.osgi.ecm.metadata;
 
 public class ServiceMetadata {
 
-    public static class ServiceMetadataBuilder {
-        private Class<?>[] clazzes = new Class<?>[0];
+  public static class ServiceMetadataBuilder {
+    private Class<?>[] clazzes = new Class<?>[0];
 
-        public ServiceMetadata build() {
-            return new ServiceMetadata(clazzes);
-        }
-
-        public ServiceMetadataBuilder withClazzes(final Class<?>[] clazzes) {
-            if (clazzes == null) {
-                throw new MetadataValidationException(
-                        "Null cannot be provided as service interface array for ServiceMetadata");
-            }
-            this.clazzes = clazzes.clone();
-
-            return this;
-        }
-
+    public ServiceMetadata build() {
+      return new ServiceMetadata(clazzes);
     }
 
-    private final Class<?>[] clazzes;
+    public ServiceMetadataBuilder withClazzes(final Class<?>[] clazzes) {
+      if (clazzes == null) {
+        throw new MetadataValidationException(
+            "Null cannot be provided as service interface array for ServiceMetadata");
+      }
+      this.clazzes = clazzes.clone();
 
-    private ServiceMetadata(final Class<?>[] clazzes) {
-        this.clazzes = clazzes;
+      return this;
     }
 
-    public Class<?>[] getClazzes() {
-        if (clazzes != null) {
-            return clazzes.clone();
-        } else {
-            return null;
-        }
+  }
+
+  private final Class<?>[] clazzes;
+
+  private ServiceMetadata(final Class<?>[] clazzes) {
+    this.clazzes = clazzes;
+  }
+
+  public Class<?>[] getClazzes() {
+    if (clazzes != null) {
+      return clazzes.clone();
+    } else {
+      return null;
     }
+  }
 }

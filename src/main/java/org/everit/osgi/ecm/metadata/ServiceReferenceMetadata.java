@@ -18,41 +18,41 @@ package org.everit.osgi.ecm.metadata;
 
 public class ServiceReferenceMetadata extends ReferenceMetadata {
 
-    public static class ServiceReferenceMetadataBuilder extends
-            ReferenceMetadataBuilder<ServiceReferenceMetadataBuilder> {
+  public static class ServiceReferenceMetadataBuilder extends
+      ReferenceMetadataBuilder<ServiceReferenceMetadataBuilder> {
 
-        private Class<?> serviceInterface = null;
+    private Class<?> serviceInterface = null;
 
-        @Override
-        protected ReferenceMetadata buildInternal() {
-            return new ServiceReferenceMetadata(this);
-        }
-
-        public Class<?> getServiceInterface() {
-            return serviceInterface;
-        }
-
-        @Override
-        protected ServiceReferenceMetadataBuilder self() {
-            return this;
-        }
-
-        public ServiceReferenceMetadataBuilder withServiceInterface(final Class<?> referenceInterface) {
-            this.serviceInterface = referenceInterface;
-            return self();
-        }
-
-    }
-
-    private final Class<?> serviceInterface;
-
-    private ServiceReferenceMetadata(final ServiceReferenceMetadataBuilder builder) {
-        super(builder);
-        serviceInterface = builder.serviceInterface;
+    @Override
+    protected ReferenceMetadata buildInternal() {
+      return new ServiceReferenceMetadata(this);
     }
 
     public Class<?> getServiceInterface() {
-        return serviceInterface;
+      return serviceInterface;
     }
+
+    @Override
+    protected ServiceReferenceMetadataBuilder self() {
+      return this;
+    }
+
+    public ServiceReferenceMetadataBuilder withServiceInterface(final Class<?> referenceInterface) {
+      this.serviceInterface = referenceInterface;
+      return self();
+    }
+
+  }
+
+  private final Class<?> serviceInterface;
+
+  private ServiceReferenceMetadata(final ServiceReferenceMetadataBuilder builder) {
+    super(builder);
+    serviceInterface = builder.serviceInterface;
+  }
+
+  public Class<?> getServiceInterface() {
+    return serviceInterface;
+  }
 
 }

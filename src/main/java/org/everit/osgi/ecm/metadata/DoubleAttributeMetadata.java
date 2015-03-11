@@ -18,33 +18,33 @@ package org.everit.osgi.ecm.metadata;
 
 public class DoubleAttributeMetadata extends SelectablePropertyAttributeMetadata<double[]> {
 
-    public static class DoubleAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<double[], DoubleAttributeMetadataBuilder> {
+  public static class DoubleAttributeMetadataBuilder
+      extends SelectablePropertyAttributeMetadataBuilder<double[], DoubleAttributeMetadataBuilder> {
 
-        @Override
-        public DoubleAttributeMetadata buildInternal() {
-            return new DoubleAttributeMetadata(this);
-        }
-
-        @Override
-        public Class<?> getValueType() {
-            return double.class;
-        }
-
-        @Override
-        protected DoubleAttributeMetadataBuilder self() {
-            return this;
-        }
-
-    }
-
-    protected DoubleAttributeMetadata(
-            final DoubleAttributeMetadataBuilder builder) {
-        super(builder);
+    @Override
+    public DoubleAttributeMetadata buildInternal() {
+      return new DoubleAttributeMetadata(this);
     }
 
     @Override
-    protected double[] cloneValueArray(double[] value) {
-        return value.clone();
+    public Class<?> getValueType() {
+      return double.class;
     }
+
+    @Override
+    protected DoubleAttributeMetadataBuilder self() {
+      return this;
+    }
+
+  }
+
+  protected DoubleAttributeMetadata(
+      final DoubleAttributeMetadataBuilder builder) {
+    super(builder);
+  }
+
+  @Override
+  protected double[] cloneValueArray(double[] value) {
+    return value.clone();
+  }
 }

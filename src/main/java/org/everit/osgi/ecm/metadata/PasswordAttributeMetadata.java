@@ -18,31 +18,31 @@ package org.everit.osgi.ecm.metadata;
 
 public class PasswordAttributeMetadata extends PropertyAttributeMetadata<String[]> {
 
-    public static class PasswordAttributeMetadataBuilder
-            extends PropertyAttributeMetadataBuilder<String[], PasswordAttributeMetadataBuilder> {
+  public static class PasswordAttributeMetadataBuilder
+      extends PropertyAttributeMetadataBuilder<String[], PasswordAttributeMetadataBuilder> {
 
-        @Override
-        public PasswordAttributeMetadata buildInternal() {
-            return new PasswordAttributeMetadata(this);
-        }
-
-        @Override
-        public Class<String> getValueType() {
-            return String.class;
-        }
-
-        @Override
-        protected PasswordAttributeMetadataBuilder self() {
-            return this;
-        }
-    }
-
-    protected PasswordAttributeMetadata(final PasswordAttributeMetadataBuilder builder) {
-        super(builder);
+    @Override
+    public PasswordAttributeMetadata buildInternal() {
+      return new PasswordAttributeMetadata(this);
     }
 
     @Override
-    protected String[] cloneValueArray(String[] value) {
-        return value.clone();
+    public Class<String> getValueType() {
+      return String.class;
     }
+
+    @Override
+    protected PasswordAttributeMetadataBuilder self() {
+      return this;
+    }
+  }
+
+  protected PasswordAttributeMetadata(final PasswordAttributeMetadataBuilder builder) {
+    super(builder);
+  }
+
+  @Override
+  protected String[] cloneValueArray(String[] value) {
+    return value.clone();
+  }
 }

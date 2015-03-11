@@ -23,21 +23,21 @@ import java.awt.Component;
  */
 public enum ConfigurationPolicy {
 
-    FACTORY,
+  FACTORY,
 
-    /**
-     * The configuration admin is not consulted for a configuration for this component.
-     */
-    IGNORE,
+  /**
+   * The configuration admin is not consulted for a configuration for this component.
+   */
+  IGNORE,
 
-    /**
-     * If a configuration is available it will be used, if not the component will be activated anyway (this is the
-     * default).
-     */
-    OPTIONAL,
+  /**
+   * If a configuration is available it will be used, if not the component will be activated anyway
+   * (this is the default).
+   */
+  OPTIONAL,
 
-    /**
-     * In order to activate this component a configuration is required.
-     */
-    REQUIRE;
+  /**
+   * In order to activate this component a configuration is required.
+   */
+  REQUIRE;
 }

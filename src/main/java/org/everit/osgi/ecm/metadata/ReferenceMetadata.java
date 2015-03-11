@@ -21,99 +21,102 @@ import java.util.Objects;
 import org.everit.osgi.ecm.util.method.MethodDescriptor;
 
 public abstract class ReferenceMetadata extends AttributeMetadata<String[]> {
-    public abstract static class ReferenceMetadataBuilder<B extends ReferenceMetadataBuilder<B>> extends
-            AttributeMetadataBuilder<String[], B> {
+  public abstract static class ReferenceMetadataBuilder<B extends ReferenceMetadataBuilder<B>>
+      extends
+      AttributeMetadataBuilder<String[], B> {
 
-        private ReferenceConfigurationType referenceConfigurationType = ReferenceConfigurationType.FILTER;
+    private ReferenceConfigurationType referenceConfigurationType = ReferenceConfigurationType.FILTER;
 
-        private String referenceId = null;
+    private String referenceId = null;
 
-        private MethodDescriptor setter = null;
-
-        @Override
-        protected void beforeBuild() {
-            Objects.requireNonNull(referenceId, "Reference id must be specified");
-            String attributeId = getAttributeId();
-
-            if (attributeId == null) {
-                if (ReferenceConfigurationType.CLAUSE.equals(referenceConfigurationType)) {
-                    withAttributeId(referenceId + ".clause");
-                } else {
-                    withAttributeId(referenceId + ".target");
-                }
-            }
-        }
-
-        public ReferenceConfigurationType getReferenceConfigurationType() {
-            return referenceConfigurationType;
-        }
-
-        public String getReferenceId() {
-            return referenceId;
-        }
-
-        public MethodDescriptor getSetter() {
-            return setter;
-        }
-
-        @Override
-        public Class<String> getValueType() {
-            return String.class;
-        }
-
-        public B withReferenceConfigurationType(
-                final ReferenceConfigurationType referenceConfigurationType) {
-
-            this.referenceConfigurationType = referenceConfigurationType;
-            return self();
-        }
-
-        public B withReferenceId(final String referenceId) {
-            this.referenceId = referenceId;
-            return self();
-        }
-
-        public B withSetter(final MethodDescriptor setter) {
-            this.setter = setter;
-            return self();
-        }
-
-    }
-
-    private final ReferenceConfigurationType referenceConfigurationType;
-
-    private final String referenceId;
-
-    /**
-     * The bind method that should be used to bind the reference. If the annotation is defined on a method, that method
-     * and it is not specified otherwise in the annotation, the method will be used as a bind method. If the annotation
-     * is attached to a field and the bind method is not defined in the annotation and there is method that has the same
-     * name as the field but prefixed with "bind" that method will be used as a bind method. In case there is no bind
-     * method but there is a setter for the field, it will be used to set the property.
-     */
-    private final MethodDescriptor setter;
-
-    protected <B extends ReferenceMetadataBuilder<B>> ReferenceMetadata(final ReferenceMetadataBuilder<B> builder) {
-        super(builder);
-        setter = builder.setter;
-        referenceId = builder.referenceId;
-        referenceConfigurationType = builder.referenceConfigurationType;
-    }
+    private MethodDescriptor setter = null;
 
     @Override
-    protected String[] cloneValueArray(String[] value) {
-        return value.clone();
+    protected void beforeBuild() {
+      Objects.requireNonNull(referenceId, "Reference id must be specified");
+      String attributeId = getAttributeId();
+
+      if (attributeId == null) {
+        if (ReferenceConfigurationType.CLAUSE.equals(referenceConfigurationType)) {
+          withAttributeId(referenceId + ".clause");
+        } else {
+          withAttributeId(referenceId + ".target");
+        }
+      }
     }
 
     public ReferenceConfigurationType getReferenceConfigurationType() {
-        return referenceConfigurationType;
+      return referenceConfigurationType;
     }
 
     public String getReferenceId() {
-        return referenceId;
+      return referenceId;
     }
 
     public MethodDescriptor getSetter() {
-        return setter;
+      return setter;
     }
+
+    @Override
+    public Class<String> getValueType() {
+      return String.class;
+    }
+
+    public B withReferenceConfigurationType(
+        final ReferenceConfigurationType referenceConfigurationType) {
+
+      this.referenceConfigurationType = referenceConfigurationType;
+      return self();
+    }
+
+    public B withReferenceId(final String referenceId) {
+      this.referenceId = referenceId;
+      return self();
+    }
+
+    public B withSetter(final MethodDescriptor setter) {
+      this.setter = setter;
+      return self();
+    }
+
+  }
+
+  private final ReferenceConfigurationType referenceConfigurationType;
+
+  private final String referenceId;
+
+  /**
+   * The bind method that should be used to bind the reference. If the annotation is defined on a
+   * method, that method and it is not specified otherwise in the annotation, the method will be
+   * used as a bind method. If the annotation is attached to a field and the bind method is not
+   * defined in the annotation and there is method that has the same name as the field but prefixed
+   * with "bind" that method will be used as a bind method. In case there is no bind method but
+   * there is a setter for the field, it will be used to set the property.
+   */
+  private final MethodDescriptor setter;
+
+  protected <B extends ReferenceMetadataBuilder<B>> ReferenceMetadata(
+      final ReferenceMetadataBuilder<B> builder) {
+    super(builder);
+    setter = builder.setter;
+    referenceId = builder.referenceId;
+    referenceConfigurationType = builder.referenceConfigurationType;
+  }
+
+  @Override
+  protected String[] cloneValueArray(String[] value) {
+    return value.clone();
+  }
+
+  public ReferenceConfigurationType getReferenceConfigurationType() {
+    return referenceConfigurationType;
+  }
+
+  public String getReferenceId() {
+    return referenceId;
+  }
+
+  public MethodDescriptor getSetter() {
+    return setter;
+  }
 }

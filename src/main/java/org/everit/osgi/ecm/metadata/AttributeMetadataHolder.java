@@ -17,18 +17,19 @@
 package org.everit.osgi.ecm.metadata;
 
 /**
- * Helper interface to extend original functionlity (like an instantiation of {@code AttributeDefinition}) with
- * {@link AttributeMetadata} information.
+ * Helper interface to extend original functionlity (like an instantiation of
+ * {@code AttributeDefinition}) with {@link AttributeMetadata} information.
  *
  * @param <V_ARRAY>
- *            Array type of the value type of the metadata.
+ *          Array type of the value type of the metadata.
  */
 public interface AttributeMetadataHolder<V_ARRAY> {
 
-    /**
-     * Retrieve the {@link AttributeMetadata} that belongs to the object that implements this interface.
-     *
-     * @return The {@link AttributeMetadata} instance.
-     */
-    public AttributeMetadata<V_ARRAY> getMetadata();
+  /**
+   * Retrieve the {@link AttributeMetadata} that belongs to the object that implements this
+   * interface.
+   *
+   * @return The {@link AttributeMetadata} instance.
+   */
+  public AttributeMetadata<V_ARRAY> getMetadata();
 }

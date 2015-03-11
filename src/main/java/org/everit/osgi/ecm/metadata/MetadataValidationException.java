@@ -18,13 +18,13 @@ package org.everit.osgi.ecm.metadata;
 
 public class MetadataValidationException extends RuntimeException {
 
-    /**
+  /**
      *
      */
-    private static final long serialVersionUID = -637304200458683320L;
+  private static final long serialVersionUID = -637304200458683320L;
 
-    public MetadataValidationException(String message) {
-        super(message);
-    }
+  public MetadataValidationException(String message) {
+    super(message);
+  }
 
 }

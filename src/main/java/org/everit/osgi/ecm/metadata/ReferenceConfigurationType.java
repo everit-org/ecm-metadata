@@ -18,8 +18,8 @@ package org.everit.osgi.ecm.metadata;
 
 public enum ReferenceConfigurationType {
 
-    CLAUSE,
+  CLAUSE,
 
-    FILTER
+  FILTER
 
 }

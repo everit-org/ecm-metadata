@@ -18,32 +18,32 @@ package org.everit.osgi.ecm.metadata;
 
 public class LongAttributeMetadata extends SelectablePropertyAttributeMetadata<long[]> {
 
-    public static class LongAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<long[], LongAttributeMetadataBuilder> {
+  public static class LongAttributeMetadataBuilder
+      extends SelectablePropertyAttributeMetadataBuilder<long[], LongAttributeMetadataBuilder> {
 
-        @Override
-        public LongAttributeMetadata buildInternal() {
-            return new LongAttributeMetadata(this);
-        }
-
-        @Override
-        public Class<?> getValueType() {
-            return long.class;
-        }
-
-        @Override
-        protected LongAttributeMetadataBuilder self() {
-            return this;
-        }
-    }
-
-    protected LongAttributeMetadata(
-            final LongAttributeMetadataBuilder builder) {
-        super(builder);
+    @Override
+    public LongAttributeMetadata buildInternal() {
+      return new LongAttributeMetadata(this);
     }
 
     @Override
-    protected long[] cloneValueArray(long[] value) {
-        return value.clone();
+    public Class<?> getValueType() {
+      return long.class;
     }
+
+    @Override
+    protected LongAttributeMetadataBuilder self() {
+      return this;
+    }
+  }
+
+  protected LongAttributeMetadata(
+      final LongAttributeMetadataBuilder builder) {
+    super(builder);
+  }
+
+  @Override
+  protected long[] cloneValueArray(long[] value) {
+    return value.clone();
+  }
 }

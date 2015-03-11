@@ -18,32 +18,32 @@ package org.everit.osgi.ecm.metadata;
 
 public class IntegerAttributeMetadata extends SelectablePropertyAttributeMetadata<int[]> {
 
-    public static class IntegerAttributeMetadataBuilder
-            extends SelectablePropertyAttributeMetadataBuilder<int[], IntegerAttributeMetadataBuilder> {
+  public static class IntegerAttributeMetadataBuilder
+      extends SelectablePropertyAttributeMetadataBuilder<int[], IntegerAttributeMetadataBuilder> {
 
-        @Override
-        public IntegerAttributeMetadata buildInternal() {
-            return new IntegerAttributeMetadata(this);
-        }
-
-        @Override
-        public Class<?> getValueType() {
-            return int.class;
-        }
-
-        @Override
-        protected IntegerAttributeMetadataBuilder self() {
-            return this;
-        }
-    }
-
-    protected IntegerAttributeMetadata(
-            final IntegerAttributeMetadataBuilder builder) {
-        super(builder);
+    @Override
+    public IntegerAttributeMetadata buildInternal() {
+      return new IntegerAttributeMetadata(this);
     }
 
     @Override
-    protected int[] cloneValueArray(int[] value) {
-        return value.clone();
+    public Class<?> getValueType() {
+      return int.class;
     }
+
+    @Override
+    protected IntegerAttributeMetadataBuilder self() {
+      return this;
+    }
+  }
+
+  protected IntegerAttributeMetadata(
+      final IntegerAttributeMetadataBuilder builder) {
+    super(builder);
+  }
+
+  @Override
+  protected int[] cloneValueArray(int[] value) {
+    return value.clone();
+  }
 }
