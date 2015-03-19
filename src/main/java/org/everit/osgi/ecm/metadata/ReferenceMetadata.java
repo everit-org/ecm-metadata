@@ -1,18 +1,17 @@
-/**
- * This file is part of Everit - ECM Metadata.
+/*
+ * Copyright (C) 2011 Everit Kft. (http://www.everit.org)
  *
- * Everit - ECM Metadata is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Everit - ECM Metadata is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ *         http://www.apache.org/licenses/LICENSE-2.0
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Everit - ECM Metadata.  If not, see <http://www.gnu.org/licenses/>.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.everit.osgi.ecm.metadata;
 
@@ -20,12 +19,19 @@ import java.util.Objects;
 
 import org.everit.osgi.ecm.util.method.MethodDescriptor;
 
+/**
+ * Common class for metadata classes that describe a reference of the component.
+ */
 public abstract class ReferenceMetadata extends AttributeMetadata<String[]> {
-  public abstract static class ReferenceMetadataBuilder<B extends ReferenceMetadataBuilder<B>>
-      extends
-      AttributeMetadataBuilder<String[], B> {
 
-    private ReferenceConfigurationType referenceConfigurationType = ReferenceConfigurationType.FILTER;
+  /**
+   * Builder class of {@link ReferenceMetadata}.
+   */
+  public abstract static class ReferenceMetadataBuilder<B extends ReferenceMetadataBuilder<B>>
+      extends AttributeMetadataBuilder<String[], B> {
+
+    private ReferenceConfigurationType referenceConfigurationType =
+        ReferenceConfigurationType.FILTER;
 
     private String referenceId = null;
 
@@ -64,7 +70,6 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String[]> {
 
     public B withReferenceConfigurationType(
         final ReferenceConfigurationType referenceConfigurationType) {
-
       this.referenceConfigurationType = referenceConfigurationType;
       return self();
     }
@@ -85,16 +90,11 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String[]> {
 
   private final String referenceId;
 
-  /**
-   * The bind method that should be used to bind the reference. If the annotation is defined on a
-   * method, that method and it is not specified otherwise in the annotation, the method will be
-   * used as a bind method. If the annotation is attached to a field and the bind method is not
-   * defined in the annotation and there is method that has the same name as the field but prefixed
-   * with "bind" that method will be used as a bind method. In case there is no bind method but
-   * there is a setter for the field, it will be used to set the property.
-   */
   private final MethodDescriptor setter;
 
+  /**
+   * Constructor of the reference class that should be called by the builder.
+   */
   protected <B extends ReferenceMetadataBuilder<B>> ReferenceMetadata(
       final ReferenceMetadataBuilder<B> builder) {
     super(builder);
@@ -104,7 +104,7 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String[]> {
   }
 
   @Override
-  protected String[] cloneValueArray(String[] value) {
+  protected String[] cloneValueArray(final String[] value) {
     return value.clone();
   }
 
@@ -116,6 +116,14 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String[]> {
     return referenceId;
   }
 
+  /**
+   * The bind method that should be used to bind the reference. If the annotation is defined on a
+   * method, that method and it is not specified otherwise in the annotation, the method will be
+   * used as a bind method. If the annotation is attached to a field and the bind method is not
+   * defined in the annotation and there is method that has the same name as the field but prefixed
+   * with "bind" that method will be used as a bind method. In case there is no bind method but
+   * there is a setter for the field, it will be used to set the property.
+   */
   public MethodDescriptor getSetter() {
     return setter;
   }

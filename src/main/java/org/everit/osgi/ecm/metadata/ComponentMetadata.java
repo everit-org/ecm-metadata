@@ -1,18 +1,17 @@
-/**
- * This file is part of Everit - ECM Metadata.
+/*
+ * Copyright (C) 2011 Everit Kft. (http://www.everit.org)
  *
- * Everit - ECM Metadata is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Everit - ECM Metadata is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ *         http://www.apache.org/licenses/LICENSE-2.0
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Everit - ECM Metadata.  If not, see <http://www.gnu.org/licenses/>.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.everit.osgi.ecm.metadata;
 
@@ -21,8 +20,14 @@ import java.util.Objects;
 
 import org.everit.osgi.ecm.util.method.MethodDescriptor;
 
+/**
+ * Metadata class that holds configuration for generating ECM based components.
+ */
 public final class ComponentMetadata {
 
+  /**
+   * Builder for {@link ComponentMetadata}.
+   */
   public static class ComponentMetadataBuilder {
 
     private MethodDescriptor activate = null;
@@ -63,7 +68,7 @@ public final class ComponentMetadata {
     }
 
     public AttributeMetadata<?>[] getAttributes() {
-      return attributes;
+      return MetadataUtil.returnClonedOrNull(attributes);
     }
 
     public String getClazz() {
@@ -91,7 +96,7 @@ public final class ComponentMetadata {
     }
 
     public Icon[] getIcons() {
-      return icons;
+      return MetadataUtil.returnClonedOrNull(icons);
     }
 
     public String getLabel() {
@@ -119,6 +124,12 @@ public final class ComponentMetadata {
       return this;
     }
 
+    /**
+     * Set the attributes of the component.
+     *
+     * @throws NullPointerException
+     *           if the attributes parameter is <code>null</code>.
+     */
     public ComponentMetadataBuilder withAttributes(final AttributeMetadata<?>[] attributes) {
       Objects.requireNonNull(attributes);
       this.attributes = Arrays.copyOf(attributes, attributes.length);
@@ -135,6 +146,12 @@ public final class ComponentMetadata {
       return this;
     }
 
+    /**
+     * Sets the {@link ConfigurationPolicy} for the component.
+     *
+     * @throws NullPointerException
+     *           if the configurationPolicy parameter is <code>null</code>.
+     */
     public ComponentMetadataBuilder withConfigurationPolicy(
         final ConfigurationPolicy configurationPolicy) {
       Objects.requireNonNull(configurationPolicy);
@@ -152,7 +169,13 @@ public final class ComponentMetadata {
       return this;
     }
 
-    public ComponentMetadataBuilder withIcons(Icon[] icons) {
+    /**
+     * Sets {@link Icon}s for the component that can be displayed on configuration screens.
+     *
+     * @throws NullPointerException
+     *           if the icons parameter is <code>null</code>.
+     */
+    public ComponentMetadataBuilder withIcons(final Icon[] icons) {
       if (icons != null) {
         this.icons = Arrays.copyOf(icons, icons.length);
       } else {
@@ -171,7 +194,7 @@ public final class ComponentMetadata {
       return this;
     }
 
-    public ComponentMetadataBuilder withMetatype(boolean metatype) {
+    public ComponentMetadataBuilder withMetatype(final boolean metatype) {
       this.metatype = metatype;
       return this;
     }
@@ -181,6 +204,13 @@ public final class ComponentMetadata {
       return this;
     }
 
+    /**
+     * Sets the type that should be instantiated by the component (the component implementation
+     * class).
+     *
+     * @throws NullPointerException
+     *           if the clazz parameter is null.
+     */
     public ComponentMetadataBuilder withType(final String clazz) {
       Objects.requireNonNull(clazz);
       this.clazz = clazz;
@@ -271,7 +301,7 @@ public final class ComponentMetadata {
   }
 
   public AttributeMetadata<?>[] getAttributes() {
-    return Arrays.copyOf(attributes, attributes.length);
+    return MetadataUtil.returnClonedOrNull(attributes);
   }
 
   public String getComponentId() {
@@ -294,12 +324,14 @@ public final class ComponentMetadata {
     return description;
   }
 
+  /**
+   * Provides information about the {@link Icon}s that can be displayed on configuration screens for
+   * the component.
+   *
+   * @return An array of icons or null if the icons were not set.
+   */
   public Icon[] getIcons() {
-    if (icons != null) {
-      return Arrays.copyOf(icons, icons.length);
-    } else {
-      return null;
-    }
+    return MetadataUtil.returnClonedOrNull(icons);
   }
 
   public String getLabel() {

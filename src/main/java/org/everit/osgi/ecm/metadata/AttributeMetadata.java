@@ -1,29 +1,41 @@
-/**
- * This file is part of Everit - ECM Metadata.
+/*
+ * Copyright (C) 2011 Everit Kft. (http://www.everit.org)
  *
- * Everit - ECM Metadata is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- * Everit - ECM Metadata is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Lesser General Public License for more details.
+ *         http://www.apache.org/licenses/LICENSE-2.0
  *
- * You should have received a copy of the GNU Lesser General Public License
- * along with Everit - ECM Metadata.  If not, see <http://www.gnu.org/licenses/>.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package org.everit.osgi.ecm.metadata;
 
 import java.lang.reflect.Array;
 import java.util.Objects;
 
+/**
+ * Abstract class of Metadata classes. This class contains all the variables that are available for
+ * all Metadata classes that represent a component attribute.
+ *
+ * @param <V_ARRAY>
+ *          The type of the default value that is an array..
+ */
 public abstract class AttributeMetadata<V_ARRAY> {
 
-  public static abstract class AttributeMetadataBuilder<V_ARRAY, B extends AttributeMetadataBuilder<V_ARRAY, B>> {
-
-    private String attributeId = null;
+  /**
+   * Builder class of {@link AttributeMetadata}.
+   *
+   * @param <V_ARRAY>
+   *          Type of default value array.
+   * @param <B>
+   *          Type of the builder.
+   */
+  public abstract static class AttributeMetadataBuilder<V_ARRAY, B extends AttributeMetadataBuilder<V_ARRAY, B>> { // CS_DISABLE_LINE_LENGTH
 
     private V_ARRAY defaultValue;
 
@@ -32,6 +44,8 @@ public abstract class AttributeMetadata<V_ARRAY> {
     private boolean dynamic = false;
 
     private String label = null;
+
+    private String mAttributeId = null;
 
     private boolean metatype = true;
 
@@ -50,7 +64,7 @@ public abstract class AttributeMetadata<V_ARRAY> {
     protected abstract AttributeMetadata<V_ARRAY> buildInternal();
 
     public String getAttributeId() {
-      return attributeId;
+      return mAttributeId;
     }
 
     public V_ARRAY getDefaultValue() {
@@ -86,11 +100,11 @@ public abstract class AttributeMetadata<V_ARRAY> {
     protected abstract B self();
 
     public B withAttributeId(final String attributeId) {
-      this.attributeId = attributeId;
+      this.mAttributeId = attributeId;
       return self();
     }
 
-    public B withDefaultValue(V_ARRAY defaultValue) {
+    public B withDefaultValue(final V_ARRAY defaultValue) {
       this.defaultValue = defaultValue;
       return self();
     }
@@ -115,17 +129,19 @@ public abstract class AttributeMetadata<V_ARRAY> {
       return self();
     }
 
-    public B withMultiple(boolean multiple) {
+    public B withMultiple(final boolean multiple) {
       this.multiple = multiple;
       return self();
     }
 
-    public B withOptional(boolean optional) {
+    public B withOptional(final boolean optional) {
       this.optional = optional;
       return self();
     }
 
   }
+
+  private static final String LOCALIZED_STRING_PREFIX = "%";
 
   private final String attributeId;
 
@@ -145,21 +161,24 @@ public abstract class AttributeMetadata<V_ARRAY> {
 
   private final Class<?> valueType;
 
+  /**
+   * Constructor of the Metadata class.
+   */
   protected <B extends AttributeMetadataBuilder<V_ARRAY, B>> AttributeMetadata(
       final AttributeMetadataBuilder<V_ARRAY, B> builder) {
-    Objects.requireNonNull(builder.attributeId, "Attribute id must be specified");
-    this.attributeId = builder.attributeId;
+    Objects.requireNonNull(builder.mAttributeId, "Attribute id must be specified");
+    this.attributeId = builder.mAttributeId;
 
-    V_ARRAY defaultValue = builder.defaultValue;
-    if (defaultValue == null) {
+    V_ARRAY lDefaultValue = builder.defaultValue;
+    if (lDefaultValue == null) {
       this.defaultValue = null;
     } else {
-      this.defaultValue = cloneValueArray(defaultValue);
+      this.defaultValue = cloneValueArray(lDefaultValue);
     }
-    if (defaultValue != null && Array.getLength(defaultValue) != 1 && !builder.multiple) {
+    if (lDefaultValue != null && Array.getLength(lDefaultValue) != 1 && !builder.multiple) {
       throw new IllegalArgumentException(
-          "Only one element array or null can be specidied as default value for non-multiple attribute: "
-              + attributeId);
+          "Only one element array or null can be specidied as default value"
+              + " for non-multiple attribute: " + attributeId);
     }
 
     this.valueType = builder.getValueType();
@@ -167,7 +186,7 @@ public abstract class AttributeMetadata<V_ARRAY> {
     if (builder.label != null) {
       this.label = builder.label;
     } else if (attributeId != null) {
-      this.label = "%" + this.attributeId + ".name";
+      this.label = LOCALIZED_STRING_PREFIX + this.attributeId + ".name";
     } else {
       this.label = null;
     }
@@ -175,7 +194,7 @@ public abstract class AttributeMetadata<V_ARRAY> {
     if (builder.description != null) {
       this.description = builder.description;
     } else if (attributeId != null) {
-      this.description = "%" + this.attributeId + ".description";
+      this.description = LOCALIZED_STRING_PREFIX + this.attributeId + ".description";
     } else {
       this.description = null;
     }
@@ -192,6 +211,11 @@ public abstract class AttributeMetadata<V_ARRAY> {
     return attributeId;
   }
 
+  /**
+   * Get a copy of the default value array.
+   * 
+   * @return A copy of the default value array or <code>null</code> if there is no default value.
+   */
   public V_ARRAY getDefaultValue() {
     if (this.defaultValue == null) {
       return null;

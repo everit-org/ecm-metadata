@@ -16,26 +16,21 @@
 package org.everit.osgi.ecm.metadata;
 
 /**
- * Metadata of the Icons that can be shown on configuration and information screens next to the
- * component.
+ * Util methods for Metadata classes.
  */
-public class Icon {
+final class MetadataUtil {
 
-  private final String path;
-
-  private final int size;
-
-  public Icon(final String path, final int size) {
-    this.path = path;
-    this.size = size;
+  /**
+   * Returns a clone of the passed array or null if the value of the parameter is null.
+   */
+  public static <T> T[] returnClonedOrNull(final T[] array) {
+    if (array != null) {
+      return array.clone();
+    }
+    final T[] noValueDefined = null;
+    return noValueDefined;
   }
 
-  public String getPath() {
-    return path;
+  private MetadataUtil() {
   }
-
-  public int getSize() {
-    return size;
-  }
-
 }
