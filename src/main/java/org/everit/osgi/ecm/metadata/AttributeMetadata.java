@@ -53,6 +53,8 @@ public abstract class AttributeMetadata<V_ARRAY> {
 
     private boolean optional = false;
 
+    private float priority = DEFAULT_ATTRIBUTE_PRIORITY;
+
     protected void beforeBuild() {
     }
 
@@ -77,6 +79,10 @@ public abstract class AttributeMetadata<V_ARRAY> {
 
     public String getLabel() {
       return label;
+    }
+
+    public float getPriority() {
+      return priority;
     }
 
     public abstract Class<?> getValueType();
@@ -139,7 +145,17 @@ public abstract class AttributeMetadata<V_ARRAY> {
       return self();
     }
 
+    public B withPriority(final float priority) {
+      this.priority = priority;
+      return self();
+    }
+
   }
+
+  /**
+   * Default priority for attributes where it is not defined otherwise.
+   */
+  private static final float DEFAULT_ATTRIBUTE_PRIORITY = 1000;
 
   private static final String LOCALIZED_STRING_PREFIX = "%";
 
@@ -159,6 +175,8 @@ public abstract class AttributeMetadata<V_ARRAY> {
 
   private final boolean optional;
 
+  private float priority;
+
   private final Class<?> valueType;
 
   /**
@@ -175,7 +193,7 @@ public abstract class AttributeMetadata<V_ARRAY> {
     } else {
       this.defaultValue = cloneValueArray(lDefaultValue);
     }
-    if (lDefaultValue != null && Array.getLength(lDefaultValue) != 1 && !builder.multiple) {
+    if ((lDefaultValue != null) && (Array.getLength(lDefaultValue) != 1) && !builder.multiple) {
       throw new IllegalArgumentException(
           "Only one element array or null can be specidied as default value"
               + " for non-multiple attribute: " + attributeId);
@@ -203,6 +221,7 @@ public abstract class AttributeMetadata<V_ARRAY> {
     this.multiple = builder.multiple;
     this.optional = builder.optional;
     this.dynamic = builder.dynamic;
+    this.priority = builder.priority;
   }
 
   protected abstract V_ARRAY cloneValueArray(V_ARRAY value);
@@ -213,7 +232,7 @@ public abstract class AttributeMetadata<V_ARRAY> {
 
   /**
    * Get a copy of the default value array.
-   * 
+   *
    * @return A copy of the default value array or <code>null</code> if there is no default value.
    */
   public V_ARRAY getDefaultValue() {
@@ -229,6 +248,10 @@ public abstract class AttributeMetadata<V_ARRAY> {
 
   public String getLabel() {
     return label;
+  }
+
+  public float getPriority() {
+    return priority;
   }
 
   public Class<?> getValueType() {
