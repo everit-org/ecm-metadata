@@ -132,6 +132,16 @@ public final class ComponentMetadata {
      */
     public ComponentMetadataBuilder withAttributes(final AttributeMetadata<?>[] attributes) {
       Objects.requireNonNull(attributes);
+
+      int attributeLength = attributes.length;
+      for (int i = 0; i < (attributeLength - 1); i++) {
+        float attr1Priority = attributes[i].getPriority();
+        float attr2Priority = attributes[i + 1].getPriority();
+        if (attr1Priority > attr2Priority) {
+          throw new IllegalStateException("Attributes not ordered by priority.");
+        }
+      }
+
       this.attributes = Arrays.copyOf(attributes, attributes.length);
       return this;
     }
@@ -257,42 +267,42 @@ public final class ComponentMetadata {
       throw new MetadataValidationException("Class type for ComponentMeta must be provided: "
           + builder.componentId);
     }
-    this.clazz = builder.clazz;
+    clazz = builder.clazz;
 
     if (builder.componentId != null) {
-      this.componentId = builder.componentId;
+      componentId = builder.componentId;
     } else {
-      this.componentId = clazz;
+      componentId = clazz;
     }
 
-    this.attributes = builder.attributes;
+    attributes = builder.attributes;
 
     if (builder.configurationPid != null) {
-      this.configurationPid = builder.configurationPid;
+      configurationPid = builder.configurationPid;
     } else {
-      this.configurationPid = this.componentId;
+      configurationPid = componentId;
     }
 
     if (builder.label != null) {
-      this.label = builder.label;
+      label = builder.label;
     } else {
-      this.label = "%" + this.componentId + ".name";
+      label = "%" + componentId + ".name";
     }
 
     if (builder.description != null) {
-      this.description = builder.description;
+      description = builder.description;
     } else {
-      this.description = "%" + this.componentId + ".description";
+      description = "%" + componentId + ".description";
     }
 
-    this.configurationPolicy = builder.configurationPolicy;
-    this.icons = builder.icons;
-    this.localizationBase = builder.localizationBase;
-    this.metatype = builder.metatype;
-    this.activate = builder.activate;
-    this.update = builder.update;
-    this.deactivate = builder.deactivate;
-    this.service = builder.service;
+    configurationPolicy = builder.configurationPolicy;
+    icons = builder.icons;
+    localizationBase = builder.localizationBase;
+    metatype = builder.metatype;
+    activate = builder.activate;
+    update = builder.update;
+    deactivate = builder.deactivate;
+    service = builder.service;
 
   }
 
