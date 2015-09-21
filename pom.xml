@@ -35,7 +35,7 @@
   <description>Metadata classes of Everit Component Model</description>
 
   <properties>
-    <projectpath>ecm-api</projectpath>
+    <projectpath>ecm-metadata</projectpath>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
   </properties>
