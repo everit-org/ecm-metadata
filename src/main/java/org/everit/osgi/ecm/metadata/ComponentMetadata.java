@@ -15,7 +15,6 @@
  */
 package org.everit.osgi.ecm.metadata;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 import org.everit.osgi.ecm.util.method.MethodDescriptor;
@@ -51,6 +50,8 @@ public final class ComponentMetadata {
     private String label = null;
 
     private String localizationBase = null;
+
+    private ServiceMetadata[] manualServices = null;
 
     private boolean metatype = true;
 
@@ -107,6 +108,10 @@ public final class ComponentMetadata {
       return localizationBase;
     }
 
+    public ServiceMetadata[] getManualServices() {
+      return MetadataUtil.returnClonedOrNull(manualServices);
+    }
+
     public ServiceMetadata getService() {
       return service;
     }
@@ -142,7 +147,7 @@ public final class ComponentMetadata {
         }
       }
 
-      this.attributes = Arrays.copyOf(attributes, attributes.length);
+      this.attributes = attributes.clone();
       return this;
     }
 
@@ -186,11 +191,7 @@ public final class ComponentMetadata {
      *           if the icons parameter is <code>null</code>.
      */
     public ComponentMetadataBuilder withIcons(final Icon[] icons) {
-      if (icons != null) {
-        this.icons = Arrays.copyOf(icons, icons.length);
-      } else {
-        this.icons = null;
-      }
+      this.icons = MetadataUtil.returnClonedOrNull(icons);
       return this;
     }
 
@@ -201,6 +202,11 @@ public final class ComponentMetadata {
 
     public ComponentMetadataBuilder withLocalizationBase(final String localizationBase) {
       this.localizationBase = localizationBase;
+      return this;
+    }
+
+    public ComponentMetadataBuilder withManualServices(final ServiceMetadata[] manualServices) {
+      this.manualServices = MetadataUtil.returnClonedOrNull(manualServices);
       return this;
     }
 
@@ -255,6 +261,8 @@ public final class ComponentMetadata {
 
   private final String localizationBase;
 
+  private final ServiceMetadata[] manualServices;
+
   private final boolean metatype;
 
   private final ServiceMetadata service;
@@ -303,6 +311,7 @@ public final class ComponentMetadata {
     update = builder.update;
     deactivate = builder.deactivate;
     service = builder.service;
+    manualServices = builder.manualServices;
 
   }
 
@@ -350,6 +359,10 @@ public final class ComponentMetadata {
 
   public String getLocalizationBase() {
     return localizationBase;
+  }
+
+  public ServiceMetadata[] getManualServices() {
+    return MetadataUtil.returnClonedOrNull(manualServices);
   }
 
   public ServiceMetadata getService() {
