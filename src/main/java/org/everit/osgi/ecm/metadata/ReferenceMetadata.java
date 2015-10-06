@@ -26,6 +26,9 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String[]> {
 
   /**
    * Builder class of {@link ReferenceMetadata}.
+   *
+   * @param <B>
+   *          Type of builder.
    */
   public abstract static class ReferenceMetadataBuilder<B extends ReferenceMetadataBuilder<B>>
       extends AttributeMetadataBuilder<String[], B> {

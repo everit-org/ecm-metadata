@@ -51,7 +51,7 @@ public final class ComponentMetadata {
 
     private String localizationBase = null;
 
-    private ServiceMetadata[] manualServices = null;
+    private ServiceMetadata manualService = null;
 
     private boolean metatype = true;
 
@@ -108,8 +108,8 @@ public final class ComponentMetadata {
       return localizationBase;
     }
 
-    public ServiceMetadata[] getManualServices() {
-      return MetadataUtil.returnClonedOrNull(manualServices);
+    public ServiceMetadata getManualService() {
+      return manualService;
     }
 
     public ServiceMetadata getService() {
@@ -205,8 +205,8 @@ public final class ComponentMetadata {
       return this;
     }
 
-    public ComponentMetadataBuilder withManualServices(final ServiceMetadata[] manualServices) {
-      this.manualServices = MetadataUtil.returnClonedOrNull(manualServices);
+    public ComponentMetadataBuilder withManualService(final ServiceMetadata manualService) {
+      this.manualService = manualService;
       return this;
     }
 
@@ -261,7 +261,7 @@ public final class ComponentMetadata {
 
   private final String localizationBase;
 
-  private final ServiceMetadata[] manualServices;
+  private final ServiceMetadata manualService;
 
   private final boolean metatype;
 
@@ -311,7 +311,7 @@ public final class ComponentMetadata {
     update = builder.update;
     deactivate = builder.deactivate;
     service = builder.service;
-    manualServices = builder.manualServices;
+    manualService = builder.manualService;
 
   }
 
@@ -361,8 +361,8 @@ public final class ComponentMetadata {
     return localizationBase;
   }
 
-  public ServiceMetadata[] getManualServices() {
-    return MetadataUtil.returnClonedOrNull(manualServices);
+  public ServiceMetadata getManualService() {
+    return manualService;
   }
 
   public ServiceMetadata getService() {

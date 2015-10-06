@@ -28,6 +28,11 @@ public abstract class PropertyAttributeMetadata<V_ARRAY> extends AttributeMetada
 
   /**
    * Builder class for {@link PropertyAttributeMetadata}.
+   *
+   * @param <V_ARRAY>
+   *          The type of the default value array.
+   * @param <B>
+   *          The type of the builder.
    */
   public abstract static class PropertyAttributeMetadataBuilder<V_ARRAY, B extends PropertyAttributeMetadataBuilder<V_ARRAY, B>> // CS_DISABLE_LINE_LENGTH
       extends AttributeMetadataBuilder<V_ARRAY, B> {

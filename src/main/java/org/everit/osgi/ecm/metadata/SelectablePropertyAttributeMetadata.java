@@ -29,6 +29,11 @@ public abstract class SelectablePropertyAttributeMetadata<V_ARRAY> extends
 
   /**
    * Builder for {@link SelectablePropertyAttributeMetadata}.
+   *
+   * @param <V_ARRAY>
+   *          The type of the default value array.
+   * @param <B>
+   *          The type of the builder.
    */
   public abstract static class SelectablePropertyAttributeMetadataBuilder<V_ARRAY, B extends PropertyAttributeMetadataBuilder<V_ARRAY, B>> // CS_DISABLE_LINE_LENGTH
       extends PropertyAttributeMetadataBuilder<V_ARRAY, B> {
