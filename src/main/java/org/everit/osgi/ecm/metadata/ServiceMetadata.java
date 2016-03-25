@@ -24,7 +24,7 @@ public class ServiceMetadata {
    * Builder for {@link ServiceMetadata}.
    */
   public static class ServiceMetadataBuilder {
-    private Class<?>[] clazzes = new Class<?>[0];
+    private String[] clazzes = new String[0];
 
     public ServiceMetadata build() {
       return new ServiceMetadata(clazzes);
@@ -36,7 +36,7 @@ public class ServiceMetadata {
      * @throws NullPointerException
      *           if the clazzes parameter is <code>null</code>.
      */
-    public ServiceMetadataBuilder withClazzes(final Class<?>[] clazzes) {
+    public ServiceMetadataBuilder withClazzes(final String[] clazzes) {
       if (clazzes == null) {
         throw new MetadataValidationException(
             "Null cannot be provided as service interface array for ServiceMetadata");
@@ -48,13 +48,13 @@ public class ServiceMetadata {
 
   }
 
-  private final Class<?>[] clazzes;
+  private final String[] clazzes;
 
-  protected ServiceMetadata(final Class<?>[] clazzes) {
+  protected ServiceMetadata(final String[] clazzes) {
     this.clazzes = clazzes;
   }
 
-  public Class<?>[] getClazzes() {
+  public String[] getClazzes() {
     return MetadataUtil.returnClonedOrNull(clazzes);
   }
 }

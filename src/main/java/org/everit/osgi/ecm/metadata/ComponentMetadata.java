@@ -51,7 +51,7 @@ public final class ComponentMetadata {
 
     private String localizationBase = null;
 
-    private ServiceMetadata manualService = null;
+    private ServiceMetadata[] manualServices = null;
 
     private boolean metatype = true;
 
@@ -108,8 +108,8 @@ public final class ComponentMetadata {
       return localizationBase;
     }
 
-    public ServiceMetadata getManualService() {
-      return manualService;
+    public ServiceMetadata[] getManualServices() {
+      return MetadataUtil.returnClonedOrNull(manualServices);
     }
 
     public ServiceMetadata getService() {
@@ -205,8 +205,17 @@ public final class ComponentMetadata {
       return this;
     }
 
-    public ComponentMetadataBuilder withManualService(final ServiceMetadata manualService) {
-      this.manualService = manualService;
+    /**
+     * Services that are offered programmatically, using one of the registerService functions of
+     * ComponentContext.
+     *
+     * @param manualServices
+     *          An array of programmatically offered service descriptions. Must not be null.
+     * @return The builder instance.
+     */
+    public ComponentMetadataBuilder withManualServices(final ServiceMetadata[] manualServices) {
+      Objects.requireNonNull(manualServices);
+      this.manualServices = manualServices.clone();
       return this;
     }
 
@@ -261,7 +270,7 @@ public final class ComponentMetadata {
 
   private final String localizationBase;
 
-  private final ServiceMetadata manualService;
+  private final ServiceMetadata[] manualServices;
 
   private final boolean metatype;
 
@@ -311,7 +320,7 @@ public final class ComponentMetadata {
     update = builder.update;
     deactivate = builder.deactivate;
     service = builder.service;
-    manualService = builder.manualService;
+    manualServices = builder.manualServices;
 
   }
 
@@ -361,8 +370,8 @@ public final class ComponentMetadata {
     return localizationBase;
   }
 
-  public ServiceMetadata getManualService() {
-    return manualService;
+  public ServiceMetadata[] getManualServices() {
+    return manualServices.clone();
   }
 
   public ServiceMetadata getService() {
