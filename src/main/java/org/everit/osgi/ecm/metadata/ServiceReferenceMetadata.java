@@ -26,14 +26,14 @@ public class ServiceReferenceMetadata extends ReferenceMetadata {
   public static class ServiceReferenceMetadataBuilder extends
       ReferenceMetadataBuilder<ServiceReferenceMetadataBuilder> {
 
-    private Class<?> serviceInterface = null;
+    private String serviceInterface = null;
 
     @Override
     protected ReferenceMetadata buildInternal() {
       return new ServiceReferenceMetadata(this);
     }
 
-    public Class<?> getServiceInterface() {
+    public String getServiceInterface() {
       return serviceInterface;
     }
 
@@ -42,21 +42,21 @@ public class ServiceReferenceMetadata extends ReferenceMetadata {
       return this;
     }
 
-    public ServiceReferenceMetadataBuilder withServiceInterface(final Class<?> referenceInterface) {
+    public ServiceReferenceMetadataBuilder withServiceInterface(final String referenceInterface) {
       this.serviceInterface = referenceInterface;
       return self();
     }
 
   }
 
-  private final Class<?> serviceInterface;
+  private final String serviceInterface;
 
   protected ServiceReferenceMetadata(final ServiceReferenceMetadataBuilder builder) {
     super(builder);
     serviceInterface = builder.serviceInterface;
   }
 
-  public Class<?> getServiceInterface() {
+  public String getServiceInterface() {
     return serviceInterface;
   }
 
