@@ -101,6 +101,11 @@ public abstract class SelectablePropertyAttributeMetadata<V_ARRAY> extends
     return MetadataUtil.returnClonedOrNull(optionLabels);
   }
 
+  /**
+   * Getting the values of options.
+   * 
+   * @return The values of options or null if no options are available.
+   */
   public V_ARRAY getOptionValues() {
     if (optionValues != null) {
       return cloneValueArray(optionValues);

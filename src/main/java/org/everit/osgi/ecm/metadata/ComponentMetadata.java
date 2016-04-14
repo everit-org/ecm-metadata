@@ -205,6 +205,13 @@ public final class ComponentMetadata {
       return this;
     }
 
+    /**
+     * Setting the manual services.
+     * 
+     * @param manualServices
+     *          The manual services.
+     * @return The builder.
+     */
     public ComponentMetadataBuilder withManualServices(final ServiceMetadata[] manualServices) {
       this.manualServices =
           Objects.requireNonNull(manualServices, "Manual service array must not be null");
