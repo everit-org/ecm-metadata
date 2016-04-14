@@ -33,6 +33,11 @@ public class BooleanAttributeMetadata extends PropertyAttributeMetadata<boolean[
     }
 
     @Override
+    protected boolean[] cloneValueArray(final boolean[] value) {
+      return value.clone();
+    }
+
+    @Override
     public Class<?> getValueType() {
       return boolean.class;
     }

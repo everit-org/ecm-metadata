@@ -25,11 +25,17 @@ public class CharacterAttributeMetadata extends SelectablePropertyAttributeMetad
    * Builder class for {@link CharacterAttributeMetadata}.
    */
   public static class CharacterAttributeMetadataBuilder
-      extends SelectablePropertyAttributeMetadataBuilder<char[], CharacterAttributeMetadataBuilder> { // CS_DISABLE_LINE_LENGTH
+      extends
+      SelectablePropertyAttributeMetadataBuilder<char[], CharacterAttributeMetadataBuilder> { // CS_DISABLE_LINE_LENGTH
 
     @Override
     public CharacterAttributeMetadata buildInternal() {
       return new CharacterAttributeMetadata(this);
+    }
+
+    @Override
+    protected char[] cloneValueArray(final char[] value) {
+      return value.clone();
     }
 
     @Override
@@ -41,7 +47,6 @@ public class CharacterAttributeMetadata extends SelectablePropertyAttributeMetad
     protected CharacterAttributeMetadataBuilder self() {
       return this;
     }
-
   }
 
   protected CharacterAttributeMetadata(

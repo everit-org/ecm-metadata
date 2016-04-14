@@ -33,6 +33,11 @@ public class ShortAttributeMetadata extends SelectablePropertyAttributeMetadata<
     }
 
     @Override
+    protected short[] cloneValueArray(final short[] value) {
+      return value.clone();
+    }
+
+    @Override
     public Class<?> getValueType() {
       return short.class;
     }

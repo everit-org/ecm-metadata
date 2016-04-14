@@ -32,6 +32,11 @@ public class PasswordAttributeMetadata extends PropertyAttributeMetadata<String[
     }
 
     @Override
+    protected String[] cloneValueArray(final String[] value) {
+      return value.clone();
+    }
+
+    @Override
     public Class<String> getValueType() {
       return String.class;
     }

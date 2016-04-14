@@ -65,6 +65,8 @@ public abstract class AttributeMetadata<V_ARRAY> {
 
     protected abstract AttributeMetadata<V_ARRAY> buildInternal();
 
+    protected abstract V_ARRAY cloneValueArray(V_ARRAY value);
+
     public String getAttributeId() {
       return mAttributeId;
     }
@@ -155,9 +157,9 @@ public abstract class AttributeMetadata<V_ARRAY> {
   /**
    * Default priority for attributes where it is not defined otherwise.
    */
-  private static final float DEFAULT_ATTRIBUTE_PRIORITY = 1000;
+  public static final float DEFAULT_ATTRIBUTE_PRIORITY = 1000;
 
-  private static final String LOCALIZED_STRING_PREFIX = "%";
+  public static final String LOCALIZED_STRING_PREFIX = "%";
 
   private final String attributeId;
 

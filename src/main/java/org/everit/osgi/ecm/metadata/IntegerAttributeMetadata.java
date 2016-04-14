@@ -33,6 +33,11 @@ public class IntegerAttributeMetadata extends SelectablePropertyAttributeMetadat
     }
 
     @Override
+    protected int[] cloneValueArray(final int[] value) {
+      return value.clone();
+    }
+
+    @Override
     public Class<?> getValueType() {
       return int.class;
     }

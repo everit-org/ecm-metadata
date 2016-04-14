@@ -33,6 +33,11 @@ public class LongAttributeMetadata extends SelectablePropertyAttributeMetadata<l
     }
 
     @Override
+    protected long[] cloneValueArray(final long[] value) {
+      return value.clone();
+    }
+
+    @Override
     public Class<?> getValueType() {
       return long.class;
     }

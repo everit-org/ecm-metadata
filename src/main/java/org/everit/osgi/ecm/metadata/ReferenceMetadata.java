@@ -54,6 +54,11 @@ public abstract class ReferenceMetadata extends AttributeMetadata<String[]> {
       }
     }
 
+    @Override
+    protected String[] cloneValueArray(final String[] value) {
+      return value.clone();
+    }
+
     public ReferenceConfigurationType getReferenceConfigurationType() {
       return referenceConfigurationType;
     }

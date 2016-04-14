@@ -32,6 +32,11 @@ public class StringAttributeMetadata extends SelectablePropertyAttributeMetadata
     }
 
     @Override
+    protected String[] cloneValueArray(final String[] value) {
+      return value.clone();
+    }
+
+    @Override
     public Class<String> getValueType() {
       return String.class;
     }

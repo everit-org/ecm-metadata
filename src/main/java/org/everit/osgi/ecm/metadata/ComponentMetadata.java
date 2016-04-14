@@ -51,7 +51,7 @@ public final class ComponentMetadata {
 
     private String localizationBase = null;
 
-    private ServiceMetadata[] manualServices = null;
+    private ServiceMetadata[] manualServices = new ServiceMetadata[0];
 
     private boolean metatype = true;
 
@@ -69,7 +69,7 @@ public final class ComponentMetadata {
     }
 
     public AttributeMetadata<?>[] getAttributes() {
-      return MetadataUtil.returnClonedOrNull(attributes);
+      return attributes.clone();
     }
 
     public String getClazz() {
@@ -97,7 +97,7 @@ public final class ComponentMetadata {
     }
 
     public Icon[] getIcons() {
-      return MetadataUtil.returnClonedOrNull(icons);
+      return icons.clone();
     }
 
     public String getLabel() {
@@ -109,7 +109,7 @@ public final class ComponentMetadata {
     }
 
     public ServiceMetadata[] getManualServices() {
-      return MetadataUtil.returnClonedOrNull(manualServices);
+      return manualServices.clone();
     }
 
     public ServiceMetadata getService() {
@@ -136,7 +136,7 @@ public final class ComponentMetadata {
      *           if the attributes parameter is <code>null</code>.
      */
     public ComponentMetadataBuilder withAttributes(final AttributeMetadata<?>[] attributes) {
-      Objects.requireNonNull(attributes);
+      Objects.requireNonNull(attributes, "Attributes array must not be null");
 
       int attributeLength = attributes.length;
       for (int i = 0; i < (attributeLength - 1); i++) {
@@ -169,8 +169,8 @@ public final class ComponentMetadata {
      */
     public ComponentMetadataBuilder withConfigurationPolicy(
         final ConfigurationPolicy configurationPolicy) {
-      Objects.requireNonNull(configurationPolicy);
-      this.configurationPolicy = configurationPolicy;
+      this.configurationPolicy =
+          Objects.requireNonNull(configurationPolicy, "Configuration policy must not be null");
       return this;
     }
 
@@ -191,7 +191,7 @@ public final class ComponentMetadata {
      *           if the icons parameter is <code>null</code>.
      */
     public ComponentMetadataBuilder withIcons(final Icon[] icons) {
-      this.icons = MetadataUtil.returnClonedOrNull(icons);
+      this.icons = Objects.requireNonNull(icons, "Icons array must not be null");
       return this;
     }
 
@@ -205,17 +205,9 @@ public final class ComponentMetadata {
       return this;
     }
 
-    /**
-     * Services that are offered programmatically, using one of the registerService functions of
-     * ComponentContext.
-     *
-     * @param manualServices
-     *          An array of programmatically offered service descriptions. Must not be null.
-     * @return The builder instance.
-     */
     public ComponentMetadataBuilder withManualServices(final ServiceMetadata[] manualServices) {
-      Objects.requireNonNull(manualServices);
-      this.manualServices = manualServices.clone();
+      this.manualServices =
+          Objects.requireNonNull(manualServices, "Manual service array must not be null");
       return this;
     }
 
@@ -229,16 +221,8 @@ public final class ComponentMetadata {
       return this;
     }
 
-    /**
-     * Sets the type that should be instantiated by the component (the component implementation
-     * class).
-     *
-     * @throws NullPointerException
-     *           if the clazz parameter is null.
-     */
     public ComponentMetadataBuilder withType(final String clazz) {
-      Objects.requireNonNull(clazz);
-      this.clazz = clazz;
+      this.clazz = Objects.requireNonNull(clazz, "Component type must not be null");
       return this;
     }
 
@@ -329,7 +313,7 @@ public final class ComponentMetadata {
   }
 
   public AttributeMetadata<?>[] getAttributes() {
-    return MetadataUtil.returnClonedOrNull(attributes);
+    return attributes.clone();
   }
 
   public String getComponentId() {
@@ -359,7 +343,7 @@ public final class ComponentMetadata {
    * @return An array of icons or null if the icons were not set.
    */
   public Icon[] getIcons() {
-    return MetadataUtil.returnClonedOrNull(icons);
+    return icons.clone();
   }
 
   public String getLabel() {

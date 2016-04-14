@@ -33,6 +33,11 @@ public class ByteAttributeMetadata extends SelectablePropertyAttributeMetadata<b
     }
 
     @Override
+    protected byte[] cloneValueArray(final byte[] value) {
+      return value.clone();
+    }
+
+    @Override
     public Class<?> getValueType() {
       return byte.class;
     }

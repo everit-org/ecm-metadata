@@ -33,6 +33,11 @@ public class FloatAttributeMetadata extends SelectablePropertyAttributeMetadata<
     }
 
     @Override
+    protected float[] cloneValueArray(final float[] value) {
+      return value.clone();
+    }
+
+    @Override
     public Class<?> getValueType() {
       return float.class;
     }

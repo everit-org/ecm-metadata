@@ -82,11 +82,6 @@ public class BundleCapabilityReferenceMetadata extends ReferenceMetadata {
     stateMask = builder.stateMask;
   }
 
-  @Override
-  protected String[] cloneValueArray(final String[] value) {
-    return value.clone();
-  }
-
   public String getNamespace() {
     return namespace;
   }

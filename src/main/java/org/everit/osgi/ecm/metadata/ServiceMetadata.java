@@ -55,6 +55,6 @@ public class ServiceMetadata {
   }
 
   public String[] getClazzes() {
-    return MetadataUtil.returnClonedOrNull(clazzes);
+    return clazzes.clone();
   }
 }

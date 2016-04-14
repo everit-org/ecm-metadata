@@ -33,6 +33,11 @@ public class DoubleAttributeMetadata extends SelectablePropertyAttributeMetadata
     }
 
     @Override
+    protected double[] cloneValueArray(final double[] value) {
+      return value.clone();
+    }
+
+    @Override
     public Class<?> getValueType() {
       return double.class;
     }

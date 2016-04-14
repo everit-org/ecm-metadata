@@ -61,7 +61,7 @@ public abstract class SelectablePropertyAttributeMetadata<V_ARRAY> extends
      */
     public B withOptions(final String[] optionLabels, final V_ARRAY optionValues) {
       this.optionLabels = MetadataUtil.returnClonedOrNull(optionLabels);
-      this.optionValues = optionValues;
+      this.optionValues = cloneValueArray(optionValues);
       return self();
     }
   }
@@ -85,11 +85,10 @@ public abstract class SelectablePropertyAttributeMetadata<V_ARRAY> extends
       throw new MetadataValidationException("Option values and labels must have the same length");
     }
 
-    if (builder.optionValues == null) {
+    this.optionValues = builder.optionValues;
+    if (this.optionValues == null) {
       this.optionLabels = null;
-      this.optionValues = null;
     } else {
-      this.optionValues = cloneValueArray(builder.optionValues);
       if (builder.optionLabels == null) {
         this.optionLabels = null;
       } else {
@@ -103,6 +102,10 @@ public abstract class SelectablePropertyAttributeMetadata<V_ARRAY> extends
   }
 
   public V_ARRAY getOptionValues() {
-    return optionValues;
+    if (optionValues != null) {
+      return cloneValueArray(optionValues);
+    } else {
+      return null;
+    }
   }
 }
