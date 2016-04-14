@@ -61,7 +61,11 @@ public abstract class SelectablePropertyAttributeMetadata<V_ARRAY> extends
      */
     public B withOptions(final String[] optionLabels, final V_ARRAY optionValues) {
       this.optionLabels = MetadataUtil.returnClonedOrNull(optionLabels);
-      this.optionValues = cloneValueArray(optionValues);
+      if (optionValues == null) {
+        this.optionValues = null;
+      } else {
+        this.optionValues = cloneValueArray(optionValues);
+      }
       return self();
     }
   }
