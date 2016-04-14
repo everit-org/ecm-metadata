@@ -207,7 +207,7 @@ public final class ComponentMetadata {
 
     /**
      * Setting the manual services.
-     * 
+     *
      * @param manualServices
      *          The manual services.
      * @return The builder.
