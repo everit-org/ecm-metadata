@@ -18,6 +18,7 @@ package org.everit.osgi.ecm.metadata;
 import java.util.Objects;
 
 import org.everit.osgi.ecm.util.method.MethodDescriptor;
+import org.osgi.framework.Version;
 
 /**
  * Metadata class that holds configuration for generating ECM based components.
@@ -58,6 +59,8 @@ public final class ComponentMetadata {
     private ServiceMetadata service = null;
 
     private MethodDescriptor update = null;
+
+    private Version version = null;
 
     public ComponentMetadata build() {
       ComponentMetadata componentMeta = new ComponentMetadata(this);
@@ -118,6 +121,10 @@ public final class ComponentMetadata {
 
     public MethodDescriptor getUpdate() {
       return update;
+    }
+
+    public Version getVersion() {
+      return version;
     }
 
     public boolean isMetatype() {
@@ -237,6 +244,11 @@ public final class ComponentMetadata {
       this.update = update;
       return this;
     }
+
+    public ComponentMetadataBuilder withVersion(final Version version) {
+      this.version = version;
+      return this;
+    }
   }
 
   private final MethodDescriptor activate;
@@ -268,6 +280,8 @@ public final class ComponentMetadata {
   private final ServiceMetadata service;
 
   private final MethodDescriptor update;
+
+  private final Version version;
 
   private ComponentMetadata(final ComponentMetadataBuilder builder) {
 
@@ -312,7 +326,7 @@ public final class ComponentMetadata {
     deactivate = builder.deactivate;
     service = builder.service;
     manualServices = builder.manualServices;
-
+    version = builder.version;
   }
 
   public MethodDescriptor getActivate() {
@@ -375,6 +389,10 @@ public final class ComponentMetadata {
 
   public MethodDescriptor getUpdate() {
     return update;
+  }
+
+  public Version getVersion() {
+    return version;
   }
 
   public boolean isMetatype() {
